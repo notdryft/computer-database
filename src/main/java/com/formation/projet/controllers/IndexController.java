@@ -17,6 +17,8 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("pages/index.jsp").include(request, response);
+        request.setAttribute("message", "Salutations maximales");
+
+        request.getRequestDispatcher("WEB-INF/pages/index.jsp").include(request, response);
     }
 }
