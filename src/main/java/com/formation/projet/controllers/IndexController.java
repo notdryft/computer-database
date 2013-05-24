@@ -15,8 +15,8 @@ import java.io.IOException;
 public class IndexController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        req.getRequestDispatcher("pages/index.jsp").include(req, resp);
+        request.getRequestDispatcher("pages/index.jsp").include(request, response);
     }
 }
