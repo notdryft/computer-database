@@ -18,7 +18,7 @@ public class Computer {
 
     private Date discontinuedDate;
 
-    private int company;
+    private int companyId;
 
     public Computer() {
         // Do nothing.
@@ -56,11 +56,11 @@ public class Computer {
         this.discontinuedDate = discontinuedDate;
     }
 
-    public int getCompany() {
-        return company;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(int company) {
-        this.company = company;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 }
