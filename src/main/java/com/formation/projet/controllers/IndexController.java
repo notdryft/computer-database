@@ -3,6 +3,7 @@ package com.formation.projet.controllers;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
 import com.formation.projet.helpers.IntHelper;
+import com.formation.projet.helpers.StringHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,18 +35,22 @@ public class IndexController extends HttpServlet {
             throws ServletException, IOException {
         int page = IntHelper.parsePage(request.getParameter("p"));
         int sortColumn = IntHelper.parseSortColumn(request.getParameter("s"));
+        String filter = StringHelper.parseFilter(request.getParameter("f"));
+        System.out.println("filter = " + filter);
 
         request.setAttribute("page", page);
         request.setAttribute("sortColumn", sortColumn);
+        request.setAttribute("filter", filter);
 
         int offset = page * MAX_ITEMS_PER_PAGE;
         request.setAttribute("offset", offset);
 
-        int total = dao.count();
+        int total = dao.count(filter);
+        System.out.println("total = " + total);
         request.setAttribute("total", total);
         request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
 
-        request.setAttribute("computers", dao.findAll(offset, MAX_ITEMS_PER_PAGE, sortColumn));
+        request.setAttribute("computers", dao.findAll(filter, sortColumn, offset, MAX_ITEMS_PER_PAGE));
 
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }

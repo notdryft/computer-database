@@ -3,7 +3,10 @@ package com.formation.projet.business.dao;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,11 @@ public enum ComputerDaoImpl implements ComputerDao {
                     "LEFT OUTER JOIN company r " +
                     "ON l.company_id = r.id";
 
+    private static String COUNT_QUERY =
+            "SELECT COUNT(l.name) AS value FROM computer l";
+
+    private static String FILTER_CLAUSE = " WHERE l.name LIKE ?";
+
     private static String ORDER_BY_CLAUSE = " ORDER BY ";
 
     private static Map<Integer, String> COMPUTER_COLUMNS = new HashMap<Integer, String>();
@@ -37,9 +45,6 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     private static String LIMIT_CLAUSE = " LIMIT ?, ?";
-
-    private static String COUNT_QUERY =
-            "SELECT COUNT(*) AS value FROM computer";
 
     private ConnectionFactory factory;
 
@@ -68,13 +73,25 @@ public enum ComputerDaoImpl implements ComputerDao {
         return computer;
     }
 
-    private PreparedStatement makeFindAllStatement(Connection connection, int sortColumn, int offset, int limit) throws SQLException {
+    private PreparedStatement makeFindAllStatement(Connection connection, String filter, int sortColumn, int offset, int limit) throws SQLException {
         String column = COMPUTER_COLUMNS.get(Math.abs(sortColumn));
 
-        String query = FIND_ALL_QUERY + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
+        String query = FIND_ALL_QUERY + FILTER_CLAUSE + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, offset);
-        statement.setInt(2, limit);
+        statement.setString(1, "%" + filter + "%");
+        statement.setInt(2, offset);
+        statement.setInt(3, limit);
+
+        return statement;
+    }
+
+    private PreparedStatement makeCountStatement(Connection connection, String filter) throws SQLException {
+        String query = COUNT_QUERY + FILTER_CLAUSE;
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, "%" + filter + "%");
+
+        System.out.println("statement = " + statement);
 
         return statement;
     }
@@ -85,7 +102,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public List<Computer> findAll(int offset, int limit, int sortColumn) {
+    public List<Computer> findAll(String filter, int sortColumn, int offset, int limit) {
         Connection connection = factory.getConnection();
 
         List<Computer> computers = new ArrayList<Computer>();
@@ -93,7 +110,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = makeFindAllStatement(connection, sortColumn, offset, limit);
+            statement = makeFindAllStatement(connection, filter, sortColumn, offset, limit);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -136,17 +153,17 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public int count() {
+    public int count(String filter) {
         Connection connection = factory.getConnection();
 
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         int count = -1;
         try {
-            statement = connection.createStatement();
+            statement = makeCountStatement(connection, filter);
 
-            resultSet = statement.executeQuery(COUNT_QUERY);
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 count = resultSet.getInt("value");
             }

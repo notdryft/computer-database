@@ -14,7 +14,7 @@ public interface ComputerDao {
 
     Computer find(int id);
 
-    List<Computer> findAll(int offset, int limit, int orderedColumn);
+    List<Computer> findAll(String filter, int sortColumn, int offset, int limit);
 
     Computer findByName(String name);
 
@@ -26,5 +26,5 @@ public interface ComputerDao {
 
     void delete(Computer computer);
 
-    int count();
+    int count(String filter);
 }

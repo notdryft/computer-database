@@ -39,7 +39,7 @@ public class JspHelper {
      * @param title
      * @return
      */
-    public static String header(int currentOrderBy, int orderBy, String title) {
+    public static String header(String filter, int currentOrderBy, int orderBy, String title) {
         StringBuilder sb = new StringBuilder();
         sb.append("<th class=\"col").append(orderBy).append(" header");
         if (Math.abs(currentOrderBy) == orderBy) {
@@ -52,7 +52,7 @@ public class JspHelper {
         sb.append("\">");
 
         int sort = (Math.abs(currentOrderBy) == orderBy) ? -currentOrderBy : orderBy;
-        sb.append("<a href=\"").append("computers?s=").append(sort).append("\">");
+        sb.append("<a href=\"").append("computers?s=").append(sort).append("&f=").append(filter).append("\">");
         sb.append(title);
         sb.append("</a>");
 

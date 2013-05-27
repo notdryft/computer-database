@@ -42,10 +42,10 @@
 
     <%--<div id="actions">--%>
 
-    <%--@helper.form(action=routes.Application.list()) {--%>
-    <%--<input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by computer name...">--%>
-    <%--<input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">--%>
-    <%--}--%>
+    <form target="<c:url value="/computers"/>">
+        <input type="search" id="searchbox" name="f" value="${filter}" placeholder="Filter by computer name...">
+        <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
+    </form>
 
     <%--<a class="btn success" id="add" href="@routes.Application.create()">Add a new computer</a>--%>
     <%--</div>--%>
@@ -56,10 +56,10 @@
             <table class="computers zebra-striped">
                 <thead>
                 <tr>
-                        ${helper:header(sortColumn, 2, "Computer name")}
-                        ${helper:header(sortColumn, 3, "Introduced")}
-                        ${helper:header(sortColumn, 4, "Discontinued")}
-                        ${helper:header(sortColumn, 5, "Company") }
+                        ${helper:header(filter, sortColumn, 2, "Computer name")}
+                        ${helper:header(filter, sortColumn, 3, "Introduced")}
+                        ${helper:header(filter, sortColumn, 4, "Discontinued")}
+                        ${helper:header(filter, sortColumn, 5, "Company") }
                 </tr>
                 </thead>
                 <tbody>
@@ -85,7 +85,8 @@
                     </c:when>
                     <c:otherwise>
                     <li class="prev">
-                        <a href="<c:url value="/computers?p=${page - 1}&s=${sortColumn}"/>">&larr; Previous</a>
+                        <a href="<c:url value="/computers?p=${page - 1}&s=${sortColumn}&f=${filter}"/>">&larr;
+                            Previous</a>
                     </li>
                     </c:otherwise>
                     </c:choose>
@@ -100,7 +101,7 @@
                     </c:when>
                     <c:otherwise>
                     <li class="next">
-                        <a href="<c:url value="/computers?p=${page + 1}&s=${sortColumn}"/>">Next &rarr;</a>
+                        <a href="<c:url value="/computers?p=${page + 1}&s=${sortColumn}&f=${filter}"/>">Next &rarr;</a>
                     </li>
                     </c:otherwise>
                     </c:choose>
