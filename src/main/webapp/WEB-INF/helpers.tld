@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib
+        version="2.1"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+
+    <display-name>Jsp Helpers</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>helper</short-name>
+    <uri>http://projet.formation.com/jsp/helpers</uri>
+
+    <function>
+        <name>header</name>
+        <function-class>com.formation.projet.helpers.JspHelper</function-class>
+        <function-signature>java.lang.String header(int,int,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>format</name>
+        <function-class>com.formation.projet.helpers.JspHelper</function-class>
+        <function-signature>java.lang.String format(java.sql.Date)</function-signature>
+    </function>
+</taglib>

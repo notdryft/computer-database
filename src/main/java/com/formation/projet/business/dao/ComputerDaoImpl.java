@@ -44,8 +44,8 @@ public enum ComputerDaoImpl implements ComputerDao {
                 Computer computer = new Computer();
                 computer.setId(resultSet.getInt(1));
                 computer.setName(resultSet.getString(2));
-                computer.setIntroducedDate(resultSet.getDate(3));
-                computer.setDiscontinuedDate(resultSet.getDate(4));
+                computer.setIntroduced(resultSet.getDate(3));
+                computer.setDiscontinued(resultSet.getDate(4));
                 computer.setCompanyId(resultSet.getInt(5));
 
                 computers.add(computer);

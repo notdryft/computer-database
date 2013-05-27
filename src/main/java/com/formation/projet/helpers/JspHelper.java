@@ -1,5 +1,8 @@
 package com.formation.projet.helpers;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 /**
  * Created with IntelliJ IDEA.
  * User: gcorre
@@ -7,6 +10,8 @@ package com.formation.projet.helpers;
  * Time: 11:00
  */
 public class JspHelper {
+
+    private static SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
     /**
      * Helper generating table headers.
@@ -33,6 +38,17 @@ public class JspHelper {
         sb.append("</a>");
 
         sb.append("</th>");
+
+        return sb.toString();
+    }
+
+    public static String format(Date date) {
+        StringBuilder sb = new StringBuilder();
+        if (date == null) {
+            sb.append("<em>-</em>");
+        } else {
+            sb.append(format.format(date));
+        }
 
         return sb.toString();
     }

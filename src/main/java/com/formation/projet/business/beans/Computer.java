@@ -14,9 +14,9 @@ public class Computer {
 
     private String name;
 
-    private Date introducedDate;
+    private Date introduced;
 
-    private Date discontinuedDate;
+    private Date discontinued;
 
     private int companyId;
 
@@ -40,20 +40,20 @@ public class Computer {
         this.name = name;
     }
 
-    public Date getIntroducedDate() {
-        return introducedDate;
+    public Date getIntroduced() {
+        return introduced;
     }
 
-    public void setIntroducedDate(Date introducedDate) {
-        this.introducedDate = introducedDate;
+    public void setIntroduced(Date introduced) {
+        this.introduced = introduced;
     }
 
-    public Date getDiscontinuedDate() {
-        return discontinuedDate;
+    public Date getDiscontinued() {
+        return discontinued;
     }
 
-    public void setDiscontinuedDate(Date discontinuedDate) {
-        this.discontinuedDate = discontinuedDate;
+    public void setDiscontinued(Date discontinued) {
+        this.discontinued = discontinued;
     }
 
     public int getCompanyId() {

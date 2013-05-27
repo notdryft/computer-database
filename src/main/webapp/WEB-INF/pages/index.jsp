@@ -1,6 +1,6 @@
-<%@ page import="com.formation.projet.helpers.JspHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="helper" uri="http://projet.formation.com/jsp/helpers" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,29 +58,28 @@
             <table class="computers zebra-striped">
                 <thead>
                 <tr>
-                    <%= JspHelper.header(2, 2, "Computer name") %>
-                    <%= JspHelper.header(2, 3, "Introduced") %>
-                    <%= JspHelper.header(2, 4, "Discontinued") %>
-                    <%= JspHelper.header(2, 5, "Company") %>
+                        ${helper:header(2, 2, "Computer name")}
+                        ${helper:header(2, 3, "Introduced")}
+                        ${helper:header(2, 4, "Discontinued")}
+                        ${helper:header(2, 5, "Company") }
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="computer" items="${computers}">
-                    <%--@computers.map {--%>
+                    <tr>
+                        <td><a href="#">${computer.name}</a></td>
+                        <td>${helper:format(computer.introduced)}</td>
+                        <td>${helper:format(computer.discontinued)}</td>
+                        <td>${computer.companyId}</td>
+                    </tr>
                     <%--case (computer, company) => {--%>
-                    <%--<tr>--%>
                     <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
-                    <%--<td>--%>
-                    <%--@computer.introduced.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }--%>
-                    <%--</td>--%>
                     <%--<td>--%>
                     <%--@computer.discontinued.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }--%>
                     <%--</td>--%>
                     <%--<td>--%>
                     <%--@company.map(_.name).getOrElse { <em>-</em> }--%>
                     <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--}--%>
                     <%--}--%>
                 </c:forEach>
                 </tbody>
