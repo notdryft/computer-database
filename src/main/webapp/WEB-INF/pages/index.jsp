@@ -32,8 +32,7 @@
 
     <%--}--%>
 
-
-    <%--<h1>@Messages("computers.list.title", currentPage.total)</h1>--%>
+    <h1>${helper:title(total)}</h1>
 
     <%--@flash.get("success").map { message =>--%>
     <%--<div class="alert-message warning">--%>
@@ -76,31 +75,36 @@
                 </tbody>
             </table>
 
-            <%--<div id="pagination" class="pagination">--%>
-            <%--<ul>--%>
-            <%--@currentPage.prev.map { page =>--%>
-            <%--<li class="prev">--%>
-            <%--<a href="@link(page)">&larr; Previous</a>--%>
-            <%--</li>--%>
-            <%--}.getOrElse {--%>
-            <%--<li class="prev disabled">--%>
-            <%--<a>&larr; Previous</a>--%>
-            <%--</li>--%>
-            <%--}--%>
-            <%--<li class="current">--%>
-            <%--<a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + computers.size) of @currentPage.total</a>--%>
-            <%--</li>--%>
-            <%--@currentPage.next.map { page =>--%>
-            <%--<li class="next">--%>
-            <%--<a href="@link(page)">Next &rarr;</a>--%>
-            <%--</li>--%>
-            <%--}.getOrElse {--%>
-            <%--<li class="next disabled">--%>
-            <%--<a>Next &rarr;</a>--%>
-            <%--</li>--%>
-            <%--}--%>
-            <%--</ul>--%>
-            <%--</div>--%>
+            <div id="pagination" class="pagination">
+                <ul>
+                    <c:choose>
+                    <c:when test="${page <= 0}">
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                    </c:when>
+                    <c:otherwise>
+                    <li class="prev">
+                        <a href="<c:url value="/computers?p=${page - 1}"/>">&larr; Previous</a>
+                    </li>
+                    </c:otherwise>
+                    </c:choose>
+                    <li class="current">
+                        <a>Displaying ${offset + 1} to ${offset + computers.size()} of ${total}</a>
+                    </li>
+                    <c:choose>
+                    <c:when test="${page >= maxPages}">
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                    </c:when>
+                    <c:otherwise>
+                    <li class="next">
+                        <a href="<c:url value="/computers?p=${page + 1}"/>">Next &rarr;</a>
+                    </li>
+                    </c:otherwise>
+                    </c:choose>
+            </div>
         </c:when>
         <c:otherwise>
             <div class="well">

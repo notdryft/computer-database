@@ -15,6 +15,22 @@ public class JspHelper {
 
     private static SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
+    public static String title(int count) {
+        StringBuilder sb = new StringBuilder();
+
+        if (count == 0) {
+            sb.append("No computers");
+        } else if (count == 1) {
+            sb.append("One computer");
+        } else {
+            sb.append(count).append(" computers");
+        }
+
+        sb.append(" found");
+
+        return sb.toString();
+    }
+
     /**
      * Helper generating table headers.
      *
@@ -25,7 +41,7 @@ public class JspHelper {
      */
     public static String header(int currentOrderBy, int orderBy, String title) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<th class=\"col").append(" header");
+        sb.append("<th class=\"col").append(orderBy).append(" header");
         if (Math.abs(currentOrderBy) == orderBy) {
             if (currentOrderBy < 0) {
                 sb.append(" headerSortDown");

@@ -3,10 +3,7 @@ package com.formation.projet.business.dao;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     private static String FIND_ALL_QUERY =
             "SELECT l.id, l.name, l.introduced, l.discontinued, r.id, r.name " +
-                    "FROM computer l LEFT OUTER JOIN company r ON l.company_id = r.id";
+                    "FROM computer l " +
+                    "LEFT OUTER JOIN company r " +
+                    "ON l.company_id = r.id " +
+                    "ORDER BY l.name LIMIT ?, ?";
+
+    private static String COUNT_QUERY =
+            "SELECT COUNT(*) AS value FROM computer";
 
     private ConnectionFactory factory;
 
@@ -35,16 +38,19 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public List<Computer> findAll() {
+    public List<Computer> findAll(int offset, int limit) {
         Connection connection = factory.getConnection();
 
         List<Computer> computers = new ArrayList<Computer>();
 
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(FIND_ALL_QUERY);
+            statement = connection.prepareStatement(FIND_ALL_QUERY);
+            statement.setInt(1, offset * limit);
+            statement.setInt(2, limit);
+
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Computer computer = new Computer();
                 computer.setId(resultSet.getInt("l.id"));
@@ -52,11 +58,12 @@ public enum ComputerDaoImpl implements ComputerDao {
                 computer.setIntroduced(resultSet.getDate("l.introduced"));
                 computer.setDiscontinued(resultSet.getDate("l.discontinued"));
 
-                if (resultSet.getObject("r.id") == null) {
+                Object companyId = resultSet.getObject("r.id");
+                if (companyId == null) {
                     computer.setCompany(null);
                 } else {
                     Company company = new Company();
-                    company.setId(resultSet.getInt("r.id"));
+                    company.setId((Long) companyId);
                     company.setName(resultSet.getString("r.name"));
 
                     computer.setCompany(company);
@@ -96,5 +103,29 @@ public enum ComputerDaoImpl implements ComputerDao {
     @Override
     public void delete(Computer computer) {
 
+    }
+
+    @Override
+    public int count() {
+        Connection connection = factory.getConnection();
+
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        int count = -1;
+        try {
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(COUNT_QUERY);
+            if (resultSet.next()) {
+                count = resultSet.getInt("value");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DaoUtils.silentClosing(connection, statement, resultSet);
+        }
+
+        return count;
     }
 }

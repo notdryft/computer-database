@@ -14,7 +14,7 @@ public interface ComputerDao {
 
     Computer find(int id);
 
-    List<Computer> findAll();
+    List<Computer> findAll(int page, int limit);
 
     Computer findByName(String name);
 
@@ -25,4 +25,6 @@ public interface ComputerDao {
     Computer update(Computer computer);
 
     void delete(Computer computer);
+
+    int count();
 }

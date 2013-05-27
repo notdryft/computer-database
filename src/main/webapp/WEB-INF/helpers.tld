@@ -11,6 +11,12 @@
     <uri>http://projet.formation.com/jsp/helpers</uri>
 
     <function>
+        <name>title</name>
+        <function-class>com.formation.projet.helpers.JspHelper</function-class>
+        <function-signature>java.lang.String title(int)</function-signature>
+    </function>
+
+    <function>
         <name>header</name>
         <function-class>com.formation.projet.helpers.JspHelper</function-class>
         <function-signature>java.lang.String header(int,int,java.lang.String)</function-signature>

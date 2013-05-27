@@ -2,6 +2,7 @@ package com.formation.projet.controllers;
 
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.helpers.IntHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,8 @@ import java.io.IOException;
 @WebServlet("/computers")
 public class IndexController extends HttpServlet {
 
+    private static int MAX_ITEMS_PER_PAGE = 10;
+
     private ComputerDao dao;
 
     @Override
@@ -29,8 +32,16 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("computers", dao.findAll());
+        int page = IntHelper.parsePage(request.getParameter("p"));
+//        request.getParameter("s");
 
+        request.setAttribute("page", page);
+
+        int total = dao.count();
+        request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
+
+        request.setAttribute("total", total);
+        request.setAttribute("computers", dao.findAll(page, MAX_ITEMS_PER_PAGE));
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
 }
