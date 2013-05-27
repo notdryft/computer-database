@@ -19,7 +19,7 @@
             <th>Company Id</th>
         </tr>
         </thead>
-        <c:forEach var="computer" items="computers">
+        <c:forEach var="computer" items="${computers}">
             <tr>
                 <td>${computer.id}</td>
                 <td>${computer.name}</td>

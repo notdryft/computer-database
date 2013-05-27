@@ -37,7 +37,7 @@ public enum ConnectionFactory {
             connection = DriverManager.getConnection(
                     properties.getUrl() + properties.getSchema(),
                     properties.getUser(),
-                    properties.getSchema()
+                    properties.getPassword()
             );
         } catch (SQLException e) {
             e.printStackTrace();

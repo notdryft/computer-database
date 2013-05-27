@@ -18,10 +18,10 @@ import java.util.List;
 public enum ComputerDaoImpl implements ComputerDao {
     instance;
 
-    private ConnectionFactory connectionFactory;
+    private ConnectionFactory factory;
 
     private ComputerDaoImpl() {
-        this.connectionFactory = ConnectionFactory.instance;
+        this.factory = ConnectionFactory.instance;
     }
 
     @Override
@@ -31,7 +31,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Computer> findAll() {
-        Connection connection = connectionFactory.getConnection();
+        Connection connection = factory.getConnection();
 
         List<Computer> computers = new ArrayList<Computer>();
 
