@@ -1,3 +1,4 @@
+<%@ page import="com.formation.projet.helpers.JspHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -19,26 +20,78 @@
 </header>
 
 <section id="main">
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Introduced Date</th>
-            <th>Discontinued Date</th>
-            <th>Company Id</th>
-        </tr>
-        </thead>
-        <c:forEach var="computer" items="${computers}">
-            <tr>
-                <td>${computer.id}</td>
-                <td>${computer.name}</td>
-                <td>${computer.introducedDate}</td>
-                <td>${computer.discontinuedDate}</td>
-                <td>${computer.companyId}</td>
-            </tr>
-        </c:forEach>
-    </table>
+    <%--@(currentPage: Page[(Computer, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash:--%>
+    <%--play.api.mvc.Flash)--%>
+
+    <%--@****************************************--%>
+    <%--* Helper generating navigation links *--%>
+    <%--****************************************@--%>
+    <%--@link(newPage: Int, newOrderBy: Option[Int] = None) = @{--%>
+    <%--routes.Application.list(newPage, newOrderBy.map { orderBy =>--%>
+    <%--if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy--%>
+    <%--}.getOrElse(currentOrderBy), currentFilter)--%>
+
+    <%--}--%>
+
+
+    <%--<h1>@Messages("computers.list.title", currentPage.total)</h1>--%>
+
+    <%--@flash.get("success").map { message =>--%>
+    <%--<div class="alert-message warning">--%>
+    <%--<strong>Done!</strong> @message--%>
+    <%--</div>--%>
+    <%--}--%>
+
+    <%--<div id="actions">--%>
+
+    <%--@helper.form(action=routes.Application.list()) {--%>
+    <%--<input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by computer name...">--%>
+    <%--<input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">--%>
+    <%--}--%>
+
+    <%--<a class="btn success" id="add" href="@routes.Application.create()">Add a new computer</a>--%>
+    <%--</div>--%>
+
+    <c:choose>
+        <c:when test="${not empty computers}">
+
+            <table class="computers zebra-striped">
+                <thead>
+                <tr>
+                    <%= JspHelper.header(2, 2, "Computer name") %>
+                    <%= JspHelper.header(2, 3, "Introduced") %>
+                    <%= JspHelper.header(2, 4, "Discontinued") %>
+                    <%= JspHelper.header(2, 5, "Company") %>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="computer" items="${computers}">
+                    <%--@computers.map {--%>
+                    <%--case (computer, company) => {--%>
+                    <%--<tr>--%>
+                    <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
+                    <%--<td>--%>
+                    <%--@computer.introduced.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }--%>
+                    <%--</td>--%>
+                    <%--<td>--%>
+                    <%--@computer.discontinued.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }--%>
+                    <%--</td>--%>
+                    <%--<td>--%>
+                    <%--@company.map(_.name).getOrElse { <em>-</em> }--%>
+                    <%--</td>--%>
+                    <%--</tr>--%>
+                    <%--}--%>
+                    <%--}--%>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <div class="well">
+                <em>Nothing to display</em>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </section>
 
 </body>
