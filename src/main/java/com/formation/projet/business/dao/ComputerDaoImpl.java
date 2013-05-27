@@ -32,6 +32,27 @@ public enum ComputerDaoImpl implements ComputerDao {
         this.factory = ConnectionFactory.instance;
     }
 
+    private Computer mapComputerWithCompany(ResultSet resultSet) throws SQLException {
+        Computer computer = new Computer();
+        computer.setId(resultSet.getInt("l.id"));
+        computer.setName(resultSet.getString("l.name"));
+        computer.setIntroduced(resultSet.getDate("l.introduced"));
+        computer.setDiscontinued(resultSet.getDate("l.discontinued"));
+
+        Object companyId = resultSet.getObject("r.id");
+        if (companyId == null) {
+            computer.setCompany(null);
+        } else {
+            Company company = new Company();
+            company.setId((Long) companyId);
+            company.setName(resultSet.getString("r.name"));
+
+            computer.setCompany(company);
+        }
+
+        return computer;
+    }
+
     @Override
     public Computer find(int id) {
         return null;
@@ -52,22 +73,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Computer computer = new Computer();
-                computer.setId(resultSet.getInt("l.id"));
-                computer.setName(resultSet.getString("l.name"));
-                computer.setIntroduced(resultSet.getDate("l.introduced"));
-                computer.setDiscontinued(resultSet.getDate("l.discontinued"));
-
-                Object companyId = resultSet.getObject("r.id");
-                if (companyId == null) {
-                    computer.setCompany(null);
-                } else {
-                    Company company = new Company();
-                    company.setId((Long) companyId);
-                    company.setName(resultSet.getString("r.name"));
-
-                    computer.setCompany(company);
-                }
+                Computer computer = mapComputerWithCompany(resultSet);
 
                 computers.add(computer);
             }
