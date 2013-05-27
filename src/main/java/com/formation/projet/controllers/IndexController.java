@@ -16,7 +16,7 @@ import java.io.IOException;
  * Date: 24/05/13
  * Time: 12:27
  */
-@WebServlet("/")
+@WebServlet("/computers")
 public class IndexController extends HttpServlet {
 
     private ComputerDao dao;

@@ -4,11 +4,21 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Computer database</title>
+    <title>Computers database</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/bootstrap.min.css"/>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/main.css"/>">
 </head>
 <body>
-<div class="container">
 
+<header class="topbar">
+    <h1 class="fill">
+        <a href="<c:url value="/computers"/>">
+            Jdk sample application &mdash; Computer database
+        </a>
+    </h1>
+</header>
+
+<section id="main">
     <table>
         <thead>
         <tr>
@@ -29,6 +39,7 @@
             </tr>
         </c:forEach>
     </table>
-</div>
+</section>
+
 </body>
 </html>
