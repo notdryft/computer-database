@@ -51,7 +51,8 @@ public class JspHelper {
         }
         sb.append("\">");
 
-        sb.append("<a href=\"").append("#").append("\">"); // "@link(0, Some(orderBy))"
+        int sort = (Math.abs(currentOrderBy) == orderBy) ? -currentOrderBy : orderBy;
+        sb.append("<a href=\"").append("computers?s=").append(sort).append("\">");
         sb.append(title);
         sb.append("</a>");
 

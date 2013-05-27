@@ -8,21 +8,33 @@ package com.formation.projet.helpers;
  */
 public class IntHelper {
 
-    public static int parsePage(String pageString) {
-        int page;
-        if (pageString == null) {
-            page = 0;
+    private static int parse(String string, int minValue) {
+        int value;
+        if (string == null) {
+            value = minValue;
         } else {
             try {
-                page = Integer.parseInt(pageString);
-                if (page < 0) {
-                    page = 0;
-                }
+                value = Integer.parseInt(string);
             } catch (NumberFormatException e) {
-                page = 0;
+                value = minValue;
             }
         }
 
+        return value;
+    }
+
+    public static int parsePage(String pageString) {
+        int page = parse(pageString, 0);
+        if (page < 0) {
+            page = 0;
+        }
+
         return page;
+    }
+
+    public static int parseSortColumn(String sortColumnString) {
+        int sortColumn = parse(sortColumnString, 2);
+
+        return sortColumn;
     }
 }

@@ -14,7 +14,7 @@ public interface ComputerDao {
 
     Computer find(int id);
 
-    List<Computer> findAll(int page, int limit);
+    List<Computer> findAll(int page, int limit, int orderedColumn);
 
     Computer findByName(String name);
 

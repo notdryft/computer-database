@@ -33,15 +33,16 @@ public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int page = IntHelper.parsePage(request.getParameter("p"));
-//        request.getParameter("s");
+        int sortColumn = IntHelper.parseSortColumn(request.getParameter("s"));
 
         request.setAttribute("page", page);
+        request.setAttribute("sortColumn", sortColumn);
 
         int total = dao.count();
         request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
 
         request.setAttribute("total", total);
-        request.setAttribute("computers", dao.findAll(page, MAX_ITEMS_PER_PAGE));
+        request.setAttribute("computers", dao.findAll(page, MAX_ITEMS_PER_PAGE, sortColumn));
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
 }
