@@ -38,11 +38,15 @@ public class IndexController extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("sortColumn", sortColumn);
 
+        int offset = page * MAX_ITEMS_PER_PAGE;
+        request.setAttribute("offset", offset);
+
         int total = dao.count();
+        request.setAttribute("total", total);
         request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
 
-        request.setAttribute("total", total);
-        request.setAttribute("computers", dao.findAll(page, MAX_ITEMS_PER_PAGE, sortColumn));
+        request.setAttribute("computers", dao.findAll(offset, MAX_ITEMS_PER_PAGE, sortColumn));
+
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
 }

@@ -73,7 +73,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
         String query = FIND_ALL_QUERY + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, offset * limit);
+        statement.setInt(1, offset);
         statement.setInt(2, limit);
 
         return statement;
