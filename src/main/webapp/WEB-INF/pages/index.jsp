@@ -19,18 +19,6 @@
 </header>
 
 <section id="main">
-    <%--@(currentPage: Page[(Computer, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash:--%>
-    <%--play.api.mvc.Flash)--%>
-
-    <%--@****************************************--%>
-    <%--* Helper generating navigation links *--%>
-    <%--****************************************@--%>
-    <%--@link(newPage: Int, newOrderBy: Option[Int] = None) = @{--%>
-    <%--routes.Application.list(newPage, newOrderBy.map { orderBy =>--%>
-    <%--if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy--%>
-    <%--}.getOrElse(currentOrderBy), currentFilter)--%>
-
-    <%--}--%>
 
     <h1>${helper:title(total)}</h1>
 
