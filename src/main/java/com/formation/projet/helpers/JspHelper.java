@@ -1,5 +1,7 @@
 package com.formation.projet.helpers;
 
+import com.formation.projet.business.beans.Company;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
@@ -48,6 +50,17 @@ public class JspHelper {
             sb.append("<em>-</em>");
         } else {
             sb.append(format.format(date));
+        }
+
+        return sb.toString();
+    }
+
+    public static String formatCompany(Company company) {
+        StringBuilder sb = new StringBuilder();
+        if (company == null) {
+            sb.append("<em>-</em>");
+        } else {
+            sb.append(company.getName());
         }
 
         return sb.toString();

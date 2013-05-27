@@ -21,4 +21,11 @@
         <function-class>com.formation.projet.helpers.JspHelper</function-class>
         <function-signature>java.lang.String format(java.sql.Date)</function-signature>
     </function>
+
+    <function>
+        <name>formatCompany</name>
+        <function-class>com.formation.projet.helpers.JspHelper</function-class>
+        <function-signature>java.lang.String formatCompany(com.formation.projet.business.beans.Company)
+        </function-signature>
+    </function>
 </taglib>

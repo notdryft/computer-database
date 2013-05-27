@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Computers database</title>
     <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/bootstrap.min.css"/>">
     <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/main.css"/>">
@@ -68,22 +67,40 @@
                 <c:forEach var="computer" items="${computers}">
                     <tr>
                         <td><a href="#">${computer.name}</a></td>
+                            <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
                         <td>${helper:format(computer.introduced)}</td>
                         <td>${helper:format(computer.discontinued)}</td>
-                        <td>${computer.companyId}</td>
+                        <td>${helper:formatCompany(computer.company)}</td>
                     </tr>
-                    <%--case (computer, company) => {--%>
-                    <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
-                    <%--<td>--%>
-                    <%--@computer.discontinued.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }--%>
-                    <%--</td>--%>
-                    <%--<td>--%>
-                    <%--@company.map(_.name).getOrElse { <em>-</em> }--%>
-                    <%--</td>--%>
-                    <%--}--%>
                 </c:forEach>
                 </tbody>
             </table>
+
+            <%--<div id="pagination" class="pagination">--%>
+            <%--<ul>--%>
+            <%--@currentPage.prev.map { page =>--%>
+            <%--<li class="prev">--%>
+            <%--<a href="@link(page)">&larr; Previous</a>--%>
+            <%--</li>--%>
+            <%--}.getOrElse {--%>
+            <%--<li class="prev disabled">--%>
+            <%--<a>&larr; Previous</a>--%>
+            <%--</li>--%>
+            <%--}--%>
+            <%--<li class="current">--%>
+            <%--<a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + computers.size) of @currentPage.total</a>--%>
+            <%--</li>--%>
+            <%--@currentPage.next.map { page =>--%>
+            <%--<li class="next">--%>
+            <%--<a href="@link(page)">Next &rarr;</a>--%>
+            <%--</li>--%>
+            <%--}.getOrElse {--%>
+            <%--<li class="next disabled">--%>
+            <%--<a>Next &rarr;</a>--%>
+            <%--</li>--%>
+            <%--}--%>
+            <%--</ul>--%>
+            <%--</div>--%>
         </c:when>
         <c:otherwise>
             <div class="well">
