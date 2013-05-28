@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="helper" uri="http://projet.formation.com/jsp/helpers" %>
+<%@ taglib prefix="helpers" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,11 +25,12 @@
     <form target="<c:url value="/computers/save"/>" method="POST">
 
         <fieldset>
-            ${helper:inputText("name", "Computer name", false, null)}
-            ${helper:inputText("introduced", "Introduced date", false, null)}
-            ${helper:inputText("discontinued", "Discontinued date", false, null)}
+            <helpers:inputText name="name" label="Computer name" hasErrors="${false}" help="${null}"/>
+            <helpers:inputText name="introduced" label="Introduced date" hasErrors="${false}" help="${null}"/>
+            <helpers:inputText name="discontinued" label="Discontinued date" hasErrors="${false}" help="${null}"/>
 
-            ${helper:select("company","Company","-- Choose a company --", companies,false,null)}
+            <helpers:select name="company" label="Company" defaultValue="-- Choose a company --"
+                            companies="${companies}" hasErrors="${false}" help="${null}"/>
         </fieldset>
 
         <div class="actions">

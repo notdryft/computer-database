@@ -17,16 +17,15 @@
     </function>
 
     <function>
-        <name>title</name>
-        <function-class>com.formation.projet.helpers.JspHelper</function-class>
-        <function-signature>java.lang.String title(int)</function-signature>
+        <name>join</name>
+        <function-class>com.formation.projet.helpers.StringHelper</function-class>
+        <function-signature>java.lang.String join(java.util.List,java.lang.String)</function-signature>
     </function>
 
     <function>
-        <name>inputText</name>
+        <name>title</name>
         <function-class>com.formation.projet.helpers.JspHelper</function-class>
-        <function-signature>java.lang.String inputText(java.lang.String,java.lang.String,boolean,java.util.List)
-        </function-signature>
+        <function-signature>java.lang.String title(int)</function-signature>
     </function>
 
     <function>

@@ -91,8 +91,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, "%" + filter + "%");
 
-        System.out.println("statement = " + statement);
-
         return statement;
     }
 

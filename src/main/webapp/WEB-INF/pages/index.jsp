@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="functions" uri="http://projet.formation.com/jsp/functions" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="helpers" %>
+<%@ taglib prefix="helpers" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>

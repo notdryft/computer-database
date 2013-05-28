@@ -36,7 +36,6 @@ public class IndexController extends HttpServlet {
         int page = IntHelper.parsePage(request.getParameter("p"));
         int sortColumn = IntHelper.parseSortColumn(request.getParameter("s"));
         String filter = StringHelper.parseFilter(request.getParameter("f"));
-        System.out.println("filter = " + filter);
 
         request.setAttribute("page", page);
         request.setAttribute("sortColumn", sortColumn);
@@ -46,7 +45,6 @@ public class IndexController extends HttpServlet {
         request.setAttribute("offset", offset);
 
         int total = dao.count(filter);
-        System.out.println("total = " + total);
         request.setAttribute("total", total);
         request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
 
