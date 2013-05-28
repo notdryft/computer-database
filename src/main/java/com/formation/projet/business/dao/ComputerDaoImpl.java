@@ -195,6 +195,8 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer computer) {
+        // TODO update
+
         return null;
     }
 
