@@ -36,6 +36,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     private static String ORDER_BY_CLAUSE = " ORDER BY ";
 
+    private static String INSERT_WITHOUT_COMPANY = "INSERT INTO computer (`name`, `introduced`, `discontinued`) VALUES (?, ?, ?)";
+
+    private static String INSERT_FULL = "INSERT INTO computer (`name`, `introduced`, `discontinued`, `company_id`) VALUES (?, ?, ?, ?)";
+
     private static Map<Integer, String> COMPUTER_COLUMNS = new HashMap<Integer, String>();
 
     static {
@@ -54,7 +58,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         this.factory = ConnectionFactory.instance;
     }
 
-    private Computer mapComputerWithCompany(ResultSet resultSet) throws SQLException {
+    private Computer mapComputer(ResultSet resultSet) throws SQLException {
         Computer computer = new Computer();
         computer.setId(resultSet.getLong("l.id"));
         computer.setName(resultSet.getString("l.name"));
@@ -117,7 +121,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                computer = mapComputerWithCompany(resultSet);
+                computer = mapComputer(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,7 +145,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Computer computer = mapComputerWithCompany(resultSet);
+                Computer computer = mapComputer(resultSet);
 
                 computers.add(computer);
             }
@@ -155,16 +159,6 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public Computer findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<Computer> searchByName(String name) {
-        return null;
-    }
-
-    @Override
     public Computer create(Computer computer) {
         Connection connection = factory.getConnection();
 
@@ -172,10 +166,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
         try {
             if (computer.getCompany() == null) {
-                statement = connection.prepareStatement("INSERT INTO computer (`name`, `introduced`, `discontinued`) VALUES (?, ?, ?)");
+                statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY);
             } else {
-                statement = connection.prepareStatement("INSERT INTO computer (`name`, `introduced`, `discontinued`, `company_id`) VALUES (?, ?, ?, ?)");
-
+                statement = connection.prepareStatement(INSERT_FULL);
                 statement.setLong(4, computer.getCompany().getId());
             }
 

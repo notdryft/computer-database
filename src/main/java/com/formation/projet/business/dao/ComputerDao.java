@@ -16,10 +16,6 @@ public interface ComputerDao {
 
     List<Computer> findAll(String filter, int sortColumn, int offset, int limit);
 
-    Computer findByName(String name);
-
-    List<Computer> searchByName(String name);
-
     Computer create(Computer computer);
 
     Computer update(Computer computer);
