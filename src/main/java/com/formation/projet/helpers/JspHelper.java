@@ -32,28 +32,6 @@ public class JspHelper {
         return sb.toString();
     }
 
-    public static String header(String title, int currentOrderBy, int orderBy, String filter) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<th class=\"col").append(orderBy).append(" header");
-        if (Math.abs(currentOrderBy) == orderBy) {
-            if (currentOrderBy < 0) {
-                sb.append(" headerSortDown");
-            } else {
-                sb.append(" headerSortUp");
-            }
-        }
-        sb.append("\">");
-
-        int sort = (Math.abs(currentOrderBy) == orderBy) ? -currentOrderBy : orderBy;
-        sb.append("<a href=\"").append("computers?s=").append(sort).append("&f=").append(filter).append("\">");
-        sb.append(title);
-        sb.append("</a>");
-
-        sb.append("</th>");
-
-        return sb.toString();
-    }
-
     public static String format(Date date) {
         StringBuilder sb = new StringBuilder();
         if (date == null) {
