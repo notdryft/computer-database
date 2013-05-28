@@ -33,8 +33,6 @@ public class IntHelper {
     }
 
     public static int parseSortColumn(String sortColumnString) {
-        int sortColumn = parse(sortColumnString, 2);
-
-        return sortColumn;
+        return parse(sortColumnString, 2);
     }
 }
