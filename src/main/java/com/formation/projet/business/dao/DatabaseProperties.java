@@ -20,13 +20,6 @@ public class DatabaseProperties {
         // Do nothing
     }
 
-    public DatabaseProperties(String url, String schema, String user, String password) {
-        this.url = url;
-        this.schema = schema;
-        this.user = user;
-        this.password = password;
-    }
-
     public String getUrl() {
         return url;
     }

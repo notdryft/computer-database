@@ -27,12 +27,4 @@
         <function-class>com.formation.projet.helpers.JspHelper</function-class>
         <function-signature>java.lang.String title(int)</function-signature>
     </function>
-
-    <function>
-        <name>select</name>
-        <function-class>com.formation.projet.helpers.JspHelper</function-class>
-        <function-signature>java.lang.String
-            select(java.lang.String,java.lang.String,java.lang.String,java.util.List,boolean,java.util.List)
-        </function-signature>
-    </function>
 </taglib>

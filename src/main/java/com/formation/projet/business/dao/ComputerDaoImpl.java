@@ -183,6 +183,7 @@ public enum ComputerDaoImpl implements ComputerDao {
             DaoUtils.silentClosing(connection, statement);
         }
 
+        // TODO return newly created object
         return null;
     }
 
@@ -195,7 +196,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public void delete(Computer computer) {
-
+        // TODO delete
     }
 
     @Override
