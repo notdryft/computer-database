@@ -28,15 +28,15 @@
     <%--</div>--%>
     <%--}--%>
 
-    <%--<div id="actions">--%>
+    <div id="actions">
 
-    <form target="<c:url value="/computers"/>">
-        <input type="search" id="searchbox" name="f" value="${filter}" placeholder="Filter by computer name...">
-        <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
-    </form>
+        <form target="<c:url value="/computers"/>">
+            <input type="search" id="searchbox" name="f" value="${filter}" placeholder="Filter by computer name...">
+            <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
+        </form>
 
-    <%--<a class="btn success" id="add" href="@routes.Application.create()">Add a new computer</a>--%>
-    <%--</div>--%>
+        <a class="btn success" id="add" href="<c:url value="/computers/new"/>">Add a new computer</a>
+    </div>
 
     <c:choose>
         <c:when test="${not empty computers}">
