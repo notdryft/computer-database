@@ -57,9 +57,9 @@
                     <tr>
                         <td><a href="#">${computer.name}</a></td>
                             <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
-                        <td>${functions:format(computer.introduced)}</td>
-                        <td>${functions:format(computer.discontinued)}</td>
-                        <td>${functions:formatCompany(computer.company)}</td>
+                        <td><helpers:format date="${computer.introduced}"/></td>
+                        <td><helpers:format date="${computer.discontinued}"/></td>
+                        <td><helpers:formatCompany company="${computer.company}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>

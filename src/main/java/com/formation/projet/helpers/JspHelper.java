@@ -2,8 +2,6 @@ package com.formation.projet.helpers;
 
 import com.formation.projet.business.beans.Company;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -13,8 +11,6 @@ import java.util.List;
  * Time: 11:00
  */
 public class JspHelper {
-
-    private static SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
     public static String title(int count) {
         StringBuilder sb = new StringBuilder();
@@ -28,28 +24,6 @@ public class JspHelper {
         }
 
         sb.append(" found");
-
-        return sb.toString();
-    }
-
-    public static String format(Date date) {
-        StringBuilder sb = new StringBuilder();
-        if (date == null) {
-            sb.append("<em>-</em>");
-        } else {
-            sb.append(format.format(date));
-        }
-
-        return sb.toString();
-    }
-
-    public static String formatCompany(Company company) {
-        StringBuilder sb = new StringBuilder();
-        if (company == null) {
-            sb.append("<em>-</em>");
-        } else {
-            sb.append(company.getName());
-        }
 
         return sb.toString();
     }
