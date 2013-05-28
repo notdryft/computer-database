@@ -32,15 +32,7 @@ public class JspHelper {
         return sb.toString();
     }
 
-    /**
-     * Helper generating table headers.
-     *
-     * @param currentOrderBy
-     * @param orderBy
-     * @param title
-     * @return
-     */
-    public static String header(String filter, int currentOrderBy, int orderBy, String title) {
+    public static String header(String title, int currentOrderBy, int orderBy, String filter) {
         StringBuilder sb = new StringBuilder();
         sb.append("<th class=\"col").append(orderBy).append(" header");
         if (Math.abs(currentOrderBy) == orderBy) {

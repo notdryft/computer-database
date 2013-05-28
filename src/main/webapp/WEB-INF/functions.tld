@@ -8,7 +8,13 @@
     <display-name>Jsp Helpers</display-name>
     <tlib-version>1.0</tlib-version>
     <short-name>helper</short-name>
-    <uri>http://projet.formation.com/jsp/helpers</uri>
+    <uri>http://projet.formation.com/jsp/functions</uri>
+
+    <function>
+        <name>abs</name>
+        <function-class>java.lang.Math</function-class>
+        <function-signature>int abs(int)</function-signature>
+    </function>
 
     <function>
         <name>title</name>

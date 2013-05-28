@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="helper" uri="http://projet.formation.com/jsp/helpers" %>
+<%@ taglib prefix="functions" uri="http://projet.formation.com/jsp/functions" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="helpers" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
 
 <section id="main">
 
-    <h1>${helper:title(total)}</h1>
+    <h1>${functions:title(total)}</h1>
 
     <%--@flash.get("success").map { message =>--%>
     <%--<div class="alert-message warning">--%>
@@ -44,10 +45,11 @@
             <table class="computers zebra-striped">
                 <thead>
                 <tr>
-                        ${helper:header(filter, sortColumn, 2, "Computer name")}
-                        ${helper:header(filter, sortColumn, 3, "Introduced")}
-                        ${helper:header(filter, sortColumn, 4, "Discontinued")}
-                        ${helper:header(filter, sortColumn, 5, "Company") }
+                    <helpers:header title="Computer name" currentOrderBy="${sortColumn}" orderBy="2"
+                                    filter="${filter}"/>
+                    <helpers:header title="Introduced" currentOrderBy="${sortColumn}" orderBy="3" filter="${filter}"/>
+                    <helpers:header title="Discontinued" currentOrderBy="${sortColumn}" orderBy="4" filter="${filter}"/>
+                    <helpers:header title="Company" currentOrderBy="${sortColumn}" orderBy="5" filter="${filter}"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,9 +57,9 @@
                     <tr>
                         <td><a href="#">${computer.name}</a></td>
                             <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
-                        <td>${helper:format(computer.introduced)}</td>
-                        <td>${helper:format(computer.discontinued)}</td>
-                        <td>${helper:formatCompany(computer.company)}</td>
+                        <td>${functions:format(computer.introduced)}</td>
+                        <td>${functions:format(computer.discontinued)}</td>
+                        <td>${functions:formatCompany(computer.company)}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
