@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ComputerDao {
 
-    Computer find(int id);
+    Computer find(long id);
 
     List<Computer> findAll(String filter, int sortColumn, int offset, int limit);
 

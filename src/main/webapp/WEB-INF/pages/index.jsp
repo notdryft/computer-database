@@ -29,6 +29,12 @@
         </div>
     </c:if>
 
+    <c:if test="${not empty error}">
+        <div class="alert-message error">
+            <strong>Done!</strong> ${error}
+        </div>
+    </c:if>
+
     <div id="actions">
 
         <form target="<c:url value="/computers"/>">
@@ -55,8 +61,7 @@
                 <tbody>
                 <c:forEach var="computer" items="${computers}">
                     <tr>
-                        <td><a href="#">${computer.name}</a></td>
-                            <%--<td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>--%>
+                        <td><a href="<c:url value="/computers/edit?id=${computer.id}"/>">${computer.name}</a></td>
                         <td><helpers:format date="${computer.introduced}"/></td>
                         <td><helpers:format date="${computer.discontinued}"/></td>
                         <td><helpers:formatCompany company="${computer.company}"/></td>

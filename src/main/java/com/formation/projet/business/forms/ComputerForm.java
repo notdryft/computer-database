@@ -17,6 +17,9 @@ public class ComputerForm {
 
     private static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 
+    // Ignored
+    private long id;
+
     // Non empty
     private FormElement name;
 
@@ -39,6 +42,29 @@ public class ComputerForm {
         this.company = initFormElement("company");
     }
 
+    public ComputerForm(Computer computer) {
+        this();
+
+        this.id = computer.getId();
+        this.name.setValue(computer.getName());
+
+        if (computer.getIntroduced() != null) {
+            this.introduced.setValue(fmt.format(computer.getIntroduced()));
+        }
+
+        if (computer.getDiscontinued() != null) {
+            this.discontinued.setValue(fmt.format(computer.getDiscontinued()));
+        }
+
+        if (computer.getCompany() != null) {
+            this.company.setValue(String.valueOf(computer.getCompany().getId()));
+        }
+
+        if (!isValid()) {
+            throw new IllegalArgumentException("Impossible to construct a ComputerForm from this Computer: invalid parameters");
+        }
+    }
+
     private FormElement initFormElement(String name) {
         return initFormElement(name, null);
     }
@@ -52,6 +78,14 @@ public class ComputerForm {
         }
 
         return formElement;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public FormElement getName() {

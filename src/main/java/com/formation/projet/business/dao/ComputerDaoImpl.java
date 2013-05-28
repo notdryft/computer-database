@@ -21,7 +21,7 @@ import java.util.Map;
 public enum ComputerDaoImpl implements ComputerDao {
     instance;
 
-    private static String FIND_ALL_QUERY =
+    private static String FIND_QUERY =
             "SELECT l.id, l.name, l.introduced, l.discontinued, r.id, r.name " +
                     "FROM computer l " +
                     "LEFT OUTER JOIN company r " +
@@ -30,7 +30,9 @@ public enum ComputerDaoImpl implements ComputerDao {
     private static String COUNT_QUERY =
             "SELECT COUNT(l.name) AS value FROM computer l";
 
-    private static String FILTER_CLAUSE = " WHERE l.name LIKE ?";
+    private static String FILTER_ID_CLAUSE = " WHERE l.id = ?";
+
+    private static String FILTER_NAME_CLAUSE = " WHERE l.name LIKE ?";
 
     private static String ORDER_BY_CLAUSE = " ORDER BY ";
 
@@ -73,10 +75,18 @@ public enum ComputerDaoImpl implements ComputerDao {
         return computer;
     }
 
+    private PreparedStatement makeFindStatement(Connection connection, long id) throws SQLException {
+        String query = FIND_QUERY + FILTER_ID_CLAUSE;
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setLong(1, id);
+
+        return statement;
+    }
+
     private PreparedStatement makeFindAllStatement(Connection connection, String filter, int sortColumn, int offset, int limit) throws SQLException {
         String column = COMPUTER_COLUMNS.get(Math.abs(sortColumn));
 
-        String query = FIND_ALL_QUERY + FILTER_CLAUSE + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
+        String query = FIND_QUERY + FILTER_NAME_CLAUSE + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, "%" + filter + "%");
         statement.setInt(2, offset);
@@ -86,7 +96,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     private PreparedStatement makeCountStatement(Connection connection, String filter) throws SQLException {
-        String query = COUNT_QUERY + FILTER_CLAUSE;
+        String query = COUNT_QUERY + FILTER_NAME_CLAUSE;
 
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, "%" + filter + "%");
@@ -95,8 +105,27 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public Computer find(int id) {
-        return null;
+    public Computer find(long id) {
+        Connection connection = factory.getConnection();
+
+        Computer computer = null;
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = makeFindStatement(connection, id);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                computer = mapComputerWithCompany(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DaoUtils.silentClosing(connection, statement, resultSet);
+        }
+
+        return computer;
     }
 
     @Override
@@ -154,8 +183,7 @@ public enum ComputerDaoImpl implements ComputerDao {
             statement.setDate(2, computer.getIntroduced());
             statement.setDate(3, computer.getDiscontinued());
 
-            int result = statement.executeUpdate();
-            System.out.println("result = " + result);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
