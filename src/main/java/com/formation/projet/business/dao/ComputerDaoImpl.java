@@ -54,7 +54,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     private Computer mapComputerWithCompany(ResultSet resultSet) throws SQLException {
         Computer computer = new Computer();
-        computer.setId(resultSet.getInt("l.id"));
+        computer.setId(resultSet.getLong("l.id"));
         computer.setName(resultSet.getString("l.name"));
         computer.setIntroduced(resultSet.getDate("l.introduced"));
         computer.setDiscontinued(resultSet.getDate("l.discontinued"));
@@ -137,6 +137,31 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer create(Computer computer) {
+        Connection connection = factory.getConnection();
+
+        PreparedStatement statement = null;
+
+        try {
+            if (computer.getCompany() == null) {
+                statement = connection.prepareStatement("INSERT INTO computer (`name`, `introduced`, `discontinued`) VALUES (?, ?, ?)");
+            } else {
+                statement = connection.prepareStatement("INSERT INTO computer (`name`, `introduced`, `discontinued`, `company_id`) VALUES (?, ?, ?, ?)");
+
+                statement.setLong(4, computer.getCompany().getId());
+            }
+
+            statement.setString(1, computer.getName());
+            statement.setDate(2, computer.getIntroduced());
+            statement.setDate(3, computer.getDiscontinued());
+
+            int result = statement.executeUpdate();
+            System.out.println("result = " + result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DaoUtils.silentClosing(connection, statement);
+        }
+
         return null;
     }
 

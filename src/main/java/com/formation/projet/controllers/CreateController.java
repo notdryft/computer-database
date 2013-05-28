@@ -1,6 +1,7 @@
 package com.formation.projet.controllers;
 
 import com.formation.projet.business.dao.CompanyDaoImpl;
+import com.formation.projet.business.forms.ComputerForm;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ public class CreateController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("form", new ComputerForm());
         request.setAttribute("companies", dao.findAll());
 
         request.getRequestDispatcher("/WEB-INF/pages/new.jsp").include(request, response);

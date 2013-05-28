@@ -25,12 +25,13 @@
     <form action="<c:url value="/computers"/>" method="POST">
 
         <fieldset>
-            <helpers:inputText name="name" label="Computer name" hasErrors="${false}" help="${null}"/>
-            <helpers:inputText name="introduced" label="Introduced date" hasErrors="${false}" help="${null}"/>
-            <helpers:inputText name="discontinued" label="Discontinued date" hasErrors="${false}" help="${null}"/>
+            <helpers:inputText element="${form.name}" label="Computer name"/>
+            <helpers:inputText element="${form.introduced}" label="Introduced date"/>
+            <helpers:inputText element="${form.discontinued}" label="Discontinued date"/>
 
-            <helpers:select name="company" label="Company" defaultValue="-- Choose a company --"
-                            companies="${companies}" hasErrors="${false}" help="${null}"/>
+            <helpers:select element="${form.company}" label="Company"
+                            defaultValue="-- Choose a company --"
+                            companies="${companies}"/>
         </fieldset>
 
         <div class="actions">

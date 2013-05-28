@@ -1,7 +1,11 @@
 package com.formation.projet.controllers;
 
+import com.formation.projet.business.beans.Computer;
+import com.formation.projet.business.dao.CompanyDao;
+import com.formation.projet.business.dao.CompanyDaoImpl;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.helpers.IntHelper;
 import com.formation.projet.helpers.StringHelper;
 
@@ -19,15 +23,18 @@ import java.io.IOException;
  * Time: 12:27
  */
 @WebServlet("/computers")
-public class IndexController extends HttpServlet {
+public class ListAndSaveController extends HttpServlet {
 
     private static int MAX_ITEMS_PER_PAGE = 10;
 
-    private ComputerDao dao;
+    private ComputerDao computerDao;
+
+    private CompanyDao companyDao;
 
     @Override
     public void init() throws ServletException {
-        dao = ComputerDaoImpl.instance;
+        computerDao = ComputerDaoImpl.instance;
+        companyDao = CompanyDaoImpl.instance;
     }
 
     @Override
@@ -44,31 +51,35 @@ public class IndexController extends HttpServlet {
         int offset = page * MAX_ITEMS_PER_PAGE;
         request.setAttribute("offset", offset);
 
-        int total = dao.count(filter);
+        int total = computerDao.count(filter);
         request.setAttribute("total", total);
         request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
 
-        request.setAttribute("computers", dao.findAll(filter, sortColumn, offset, MAX_ITEMS_PER_PAGE));
+        request.setAttribute("computers", computerDao.findAll(filter, sortColumn, offset, MAX_ITEMS_PER_PAGE));
 
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        System.out.println("name = " + name);
+        ComputerForm form = new ComputerForm();
+        form.setName(request.getParameter("name"));
+        form.setIntroduced(request.getParameter("introduced"));
+        form.setDiscontinued(request.getParameter("discontinued"));
+        form.setCompany(request.getParameter("company"));
 
-        String introduced = request.getParameter("introduced");
-        System.out.println("introduced = " + introduced);
+        if (form.isValid()) {
+            Computer computer = form.toComputer();
+            computerDao.create(computer);
 
-        String discontinued = request.getParameter("discontinued");
-        System.out.println("discontinued = " + discontinued);
+            request.setAttribute("success", "Computer " + form.getName().getValue() + " has been created");
 
-        String company = request.getParameter("company");
-        System.out.println("company = " + company);
+            doGet(request, response);
+        } else {
+            request.setAttribute("form", form);
+            request.setAttribute("companies", companyDao.findAll());
 
-        request.setAttribute("success", "Computer " + name + " has been created");
-
-        doGet(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/new.jsp").include(request, response);
+        }
     }
 }

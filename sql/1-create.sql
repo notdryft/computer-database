@@ -1,11 +1,11 @@
 CREATE TABLE company (
-  id   BIGINT       NOT NULL,
+  id   BIGINT       NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   CONSTRAINT pk_company PRIMARY KEY (id))
 ;
 
 CREATE TABLE computer (
-  id           BIGINT       NOT NULL,
+  id           BIGINT       NOT NULL AUTO_INCREMENT,
   name         VARCHAR(255) NOT NULL,
   introduced   DATE,
   discontinued DATE,
