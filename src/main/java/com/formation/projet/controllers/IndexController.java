@@ -52,4 +52,23 @@ public class IndexController extends HttpServlet {
 
         request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        System.out.println("name = " + name);
+
+        String introduced = request.getParameter("introduced");
+        System.out.println("introduced = " + introduced);
+
+        String discontinued = request.getParameter("discontinued");
+        System.out.println("discontinued = " + discontinued);
+
+        String company = request.getParameter("company");
+        System.out.println("company = " + company);
+
+        request.setAttribute("success", "Computer " + name + " has been created");
+
+        doGet(request, response);
+    }
 }

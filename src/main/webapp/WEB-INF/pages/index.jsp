@@ -23,11 +23,11 @@
 
     <h1>${functions:title(total)}</h1>
 
-    <%--@flash.get("success").map { message =>--%>
-    <%--<div class="alert-message warning">--%>
-    <%--<strong>Done!</strong> @message--%>
-    <%--</div>--%>
-    <%--}--%>
+    <c:if test="${not empty success}">
+        <div class="alert-message warning">
+            <strong>Done!</strong> ${success}
+        </div>
+    </c:if>
 
     <div id="actions">
 

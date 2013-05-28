@@ -22,7 +22,7 @@
 
     <h1>Add a computer</h1>
 
-    <form target="<c:url value="/computers/save"/>" method="POST">
+    <form action="<c:url value="/computers"/>" method="POST">
 
         <fieldset>
             <helpers:inputText name="name" label="Computer name" hasErrors="${false}" help="${null}"/>

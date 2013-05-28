@@ -8,7 +8,7 @@
 <%@ attribute name="help" type="java.util.List" required="true" %>
 
 <c:set var="input">
-    <input type="text" id="${name}" name="name">
+    <input type="text" id="${name}" name="${name}">
 </c:set>
 
 <helpers:twitterBootstrapInput name="${name}"
