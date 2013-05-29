@@ -1,5 +1,7 @@
 package com.formation.projet.helpers;
 
+import com.formation.projet.configuration.Configuration;
+
 /**
  * Created with IntelliJ IDEA.
  * User: gcorre
@@ -24,15 +26,15 @@ public class IntHelper {
     }
 
     public static int parsePage(String pageString) {
-        int page = parse(pageString, 0);
-        if (page < 0) {
-            page = 0;
+        int page = parse(pageString, Configuration.FIRST_PAGE);
+        if (page < Configuration.FIRST_PAGE) {
+            page = Configuration.FIRST_PAGE;
         }
 
         return page;
     }
 
     public static int parseSortColumn(String sortColumnString) {
-        return parse(sortColumnString, 2);
+        return parse(sortColumnString, Configuration.DEFAULT_SORT_COLUMN);
     }
 }

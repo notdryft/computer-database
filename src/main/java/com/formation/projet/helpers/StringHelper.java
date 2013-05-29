@@ -1,5 +1,7 @@
 package com.formation.projet.helpers;
 
+import com.formation.projet.configuration.Configuration;
+
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class StringHelper {
 
     public static String parseFilter(String filterString) {
         if (filterString == null) {
-            return "";
+            return Configuration.DEFAULT_FILTER;
         }
 
         return filterString;
