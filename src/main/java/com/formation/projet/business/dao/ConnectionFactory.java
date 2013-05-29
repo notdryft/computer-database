@@ -15,6 +15,8 @@ import java.sql.SQLException;
 public enum ConnectionFactory {
     instance;
 
+    private ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
+
     private DatabaseProperties properties;
 
     private ConnectionFactory() {
@@ -31,18 +33,31 @@ public enum ConnectionFactory {
         }
     }
 
-    public Connection getConnection() {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(
-                    properties.getUrl() + properties.getSchema(),
-                    properties.getUser(),
-                    properties.getPassword()
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void openConnection() {
+        Connection connection = threadLocal.get();
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(
+                        properties.getUrl() + properties.getSchema(),
+                        properties.getUser(),
+                        properties.getPassword()
+                );
 
-        return connection;
+                threadLocal.set(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Connection getConnection() {
+        return threadLocal.get();
+    }
+
+    public void closeConnection() {
+        Connection connection = threadLocal.get();
+        threadLocal.remove();
+
+        DaoUtils.silentClosing(connection);
     }
 }

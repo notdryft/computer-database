@@ -3,6 +3,7 @@ package com.formation.projet.business.services;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.business.dao.CompanyDaoImpl;
+import com.formation.projet.business.dao.ConnectionFactory;
 
 import java.util.List;
 
@@ -15,14 +16,23 @@ import java.util.List;
 public enum CompanyServiceImpl implements CompanyService {
     instance;
 
+    private ConnectionFactory factory;
+
     private CompanyDao companyDao;
 
     private CompanyServiceImpl() {
+        factory = ConnectionFactory.instance;
         companyDao = CompanyDaoImpl.instance;
     }
 
     @Override
     public List<Company> findAll() {
-        return companyDao.findAll();
+        factory.openConnection();
+
+        List<Company> companies = companyDao.findAll();
+
+        factory.closeConnection();
+
+        return companies;
     }
 }

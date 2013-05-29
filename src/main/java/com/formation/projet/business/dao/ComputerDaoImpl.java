@@ -135,7 +135,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement, resultSet);
+            DaoUtils.silentClosing(statement, resultSet);
         }
 
         return computer;
@@ -162,7 +162,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement, resultSet);
+            DaoUtils.silentClosing(statement, resultSet);
         }
 
         return computers;
@@ -190,7 +190,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement);
+            DaoUtils.silentClosing(statement);
         }
 
         // TODO return newly created object
@@ -221,7 +221,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement);
+            DaoUtils.silentClosing(statement);
         }
 
         // TODO return newly updated object
@@ -243,7 +243,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement);
+            DaoUtils.silentClosing(statement);
         }
     }
 
@@ -265,7 +265,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement, resultSet);
+            DaoUtils.silentClosing(statement, resultSet);
         }
 
         return count;

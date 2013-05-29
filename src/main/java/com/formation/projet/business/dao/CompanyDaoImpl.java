@@ -26,7 +26,7 @@ public enum CompanyDaoImpl implements CompanyDao {
     private ConnectionFactory factory;
 
     private CompanyDaoImpl() {
-        this.factory = ConnectionFactory.instance;
+        factory = ConnectionFactory.instance;
     }
 
     private Company mapCompany(ResultSet resultSet) throws SQLException {
@@ -58,7 +58,7 @@ public enum CompanyDaoImpl implements CompanyDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DaoUtils.silentClosing(connection, statement, resultSet);
+            DaoUtils.silentClosing(statement, resultSet);
         }
 
         return companies;

@@ -46,15 +46,7 @@ public class DaoUtils {
         return properties;
     }
 
-    public static void silentClosing(Connection connection, Statement statement) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
+    public static void silentClosing(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
@@ -64,7 +56,17 @@ public class DaoUtils {
         }
     }
 
-    public static void silentClosing(Connection connection, Statement statement, ResultSet resultSet) {
+    public static void silentClosing(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void silentClosing(Statement statement, ResultSet resultSet) {
         if (resultSet != null) {
             try {
                 resultSet.close();
@@ -73,6 +75,6 @@ public class DaoUtils {
             }
         }
 
-        silentClosing(connection, statement);
+        silentClosing(statement);
     }
 }
