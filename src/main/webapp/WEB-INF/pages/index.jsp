@@ -31,7 +31,7 @@
 
     <c:if test="${not empty error}">
         <div class="alert-message error">
-            <strong>Done!</strong> ${error}
+            <strong>Error!</strong> ${error}
         </div>
     </c:if>
 
