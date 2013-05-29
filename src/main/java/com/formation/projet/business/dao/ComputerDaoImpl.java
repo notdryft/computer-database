@@ -18,26 +18,37 @@ import java.util.Map;
 public enum ComputerDaoImpl implements ComputerDao {
     instance;
 
-    private static String FIND_QUERY =
+    private static final String FIND_QUERY =
             "SELECT l.id, l.name, l.introduced, l.discontinued, r.id, r.name " +
                     "FROM computer l " +
                     "LEFT OUTER JOIN company r " +
                     "ON l.company_id = r.id";
 
-    private static String COUNT_QUERY =
+    private static final String COUNT_QUERY =
             "SELECT COUNT(l.name) AS value FROM computer l";
 
-    private static String FILTER_ID_CLAUSE = " WHERE l.id = ?";
+    private static final String FILTER_ID_CLAUSE =
+            " WHERE l.id = ?";
 
-    private static String FILTER_NAME_CLAUSE = " WHERE l.name LIKE ?";
+    private static final String FILTER_NAME_CLAUSE =
+            " WHERE l.name LIKE ?";
 
-    private static String ORDER_BY_CLAUSE = " ORDER BY ";
+    private static final String ORDER_BY_CLAUSE =
+            " ORDER BY ";
 
-    private static String INSERT_WITHOUT_COMPANY = "INSERT INTO computer (`name`, `introduced`, `discontinued`) VALUES (?, ?, ?)";
+    private static final String INSERT_WITHOUT_COMPANY =
+            "INSERT INTO computer (`name`, `introduced`, `discontinued`) VALUES (?, ?, ?)";
 
-    private static String INSERT_FULL = "INSERT INTO computer (`name`, `introduced`, `discontinued`, `company_id`) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_FULL =
+            "INSERT INTO computer (`name`, `introduced`, `discontinued`, `company_id`) VALUES (?, ?, ?, ?)";
 
-    private static Map<Integer, String> COMPUTER_COLUMNS = new HashMap<Integer, String>();
+    private static final String UPDATE_QUERY =
+            "UPDATE computer l SET l.name = ?, l.introduced = ?, l.discontinued = ?, company_id = ?";
+
+    private static final String DELETE_QUERY =
+            "DELETE FROM computer WHERE `id` = ?";
+
+    private static final Map<Integer, String> COMPUTER_COLUMNS = new HashMap<Integer, String>();
 
     static {
         COMPUTER_COLUMNS.put(1, "l.id");
@@ -113,6 +124,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+
         try {
             statement = makeFindStatement(connection, id);
 
@@ -137,6 +149,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+
         try {
             statement = makeFindAllStatement(connection, filter, sortColumn, offset, limit);
 
@@ -191,7 +204,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("UPDATE computer l SET l.name = ?, l.introduced = ?, l.discontinued = ?, company_id = ? WHERE l.id = ?");
+            statement = connection.prepareStatement(UPDATE_QUERY + FILTER_ID_CLAUSE);
             statement.setString(1, computer.getName());
             statement.setDate(2, computer.getIntroduced());
             statement.setDate(3, computer.getDiscontinued());
@@ -222,7 +235,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("DELETE FROM computer WHERE `id` = ?");
+            statement = connection.prepareStatement(DELETE_QUERY);
             statement.setLong(1, computer.getId());
 
             statement.executeUpdate();
