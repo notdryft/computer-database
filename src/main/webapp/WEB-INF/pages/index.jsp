@@ -80,7 +80,7 @@
                     </c:when>
                     <c:otherwise>
                     <li class="prev">
-                        <a href="<c:url value="/computers?p=${page - 1}&s=${sortColumn}&f=${filter}"/>">&larr;
+                        <a href="<c:url value="/computers${functions:linkAttributes(page - 1, sortColumn, filter)}"/>">&larr;
                             Previous</a>
                     </li>
                     </c:otherwise>
@@ -96,7 +96,7 @@
                     </c:when>
                     <c:otherwise>
                     <li class="next">
-                        <a href="<c:url value="/computers?p=${page + 1}&s=${sortColumn}&f=${filter}"/>">Next &rarr;</a>
+                        <a href="<c:url value="/computers${functions:linkAttributes(page + 1, sortColumn, filter)}"/>">Next &rarr;</a>
                     </li>
                     </c:otherwise>
                     </c:choose>
