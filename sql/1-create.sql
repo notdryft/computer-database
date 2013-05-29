@@ -16,4 +16,5 @@ CREATE TABLE computer (
 ALTER TABLE computer ADD CONSTRAINT fk_computer_company_1 FOREIGN KEY (company_id) REFERENCES company (id)
   ON DELETE RESTRICT
   ON UPDATE RESTRICT;
+
 CREATE INDEX ix_computer_company_1 ON computer (company_id);
