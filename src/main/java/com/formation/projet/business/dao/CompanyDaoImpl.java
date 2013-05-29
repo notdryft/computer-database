@@ -31,7 +31,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     private Company mapCompany(ResultSet resultSet) throws SQLException {
         Company company = new Company();
-        company.setId(resultSet.getInt("l.id"));
+        company.setId(resultSet.getLong("l.id"));
         company.setName(resultSet.getString("l.name"));
 
         return company;

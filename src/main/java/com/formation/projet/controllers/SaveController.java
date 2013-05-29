@@ -6,8 +6,6 @@ import com.formation.projet.business.dao.CompanyDaoImpl;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
 import com.formation.projet.business.forms.ComputerForm;
-import com.formation.projet.helpers.IntHelper;
-import com.formation.projet.helpers.StringHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,13 +17,11 @@ import java.io.IOException;
 /**
  * Created with IntelliJ IDEA.
  * User: gcorre
- * Date: 24/05/13
- * Time: 12:27
+ * Date: 29/05/13
+ * Time: 10:09
  */
-@WebServlet("/computers")
-public class ListAndSaveController extends HttpServlet {
-
-    private static int MAX_ITEMS_PER_PAGE = 10;
+@WebServlet("/computers/save")
+public class SaveController extends HttpServlet {
 
     private ComputerDao computerDao;
 
@@ -35,29 +31,6 @@ public class ListAndSaveController extends HttpServlet {
     public void init() throws ServletException {
         computerDao = ComputerDaoImpl.instance;
         companyDao = CompanyDaoImpl.instance;
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int page = IntHelper.parsePage(request.getParameter("p"));
-        int sortColumn = IntHelper.parseSortColumn(request.getParameter("s"));
-        String filter = StringHelper.parseFilter(request.getParameter("f"));
-
-        request.setAttribute("page", page);
-        request.setAttribute("sortColumn", sortColumn);
-        request.setAttribute("filter", filter);
-
-        int offset = page * MAX_ITEMS_PER_PAGE;
-        request.setAttribute("offset", offset);
-
-        int total = computerDao.count(filter);
-        request.setAttribute("total", total);
-        request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
-
-        request.setAttribute("computers", computerDao.findAll(filter, sortColumn, offset, MAX_ITEMS_PER_PAGE));
-
-        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
     }
 
     @Override
@@ -72,9 +45,9 @@ public class ListAndSaveController extends HttpServlet {
             Computer computer = form.toComputer();
             computerDao.create(computer);
 
-            request.setAttribute("success", "Computer " + form.getName().getValue() + " has been created");
+            request.getSession().setAttribute("success", "Computer " + form.getName().getValue() + " has been created");
 
-            doGet(request, response);
+            response.sendRedirect("../computers");
         } else {
             request.setAttribute("form", form);
             request.setAttribute("companies", companyDao.findAll());

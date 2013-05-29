@@ -18,7 +18,7 @@ public class ComputerForm {
     private static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 
     // Ignored
-    private long id;
+    private Long id;
 
     // Non empty
     private FormElement name;
@@ -80,11 +80,11 @@ public class ComputerForm {
         return formElement;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -126,6 +126,11 @@ public class ComputerForm {
         }
 
         Computer computer = new Computer();
+
+        if (id != null) {
+            computer.setId(id);
+        }
+
         computer.setName((String) name.getValueObject());
         computer.setIntroduced((Date) introduced.getValueObject());
         computer.setDiscontinued((Date) discontinued.getValueObject());

@@ -3,10 +3,7 @@ package com.formation.projet.business.dao;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -189,8 +186,32 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer computer) {
-        // TODO update
+        Connection connection = factory.getConnection();
 
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement("UPDATE computer l SET l.name = ?, l.introduced = ?, l.discontinued = ?, company_id = ? WHERE l.id = ?");
+            statement.setString(1, computer.getName());
+            statement.setDate(2, computer.getIntroduced());
+            statement.setDate(3, computer.getDiscontinued());
+
+            if (computer.getCompany() == null) {
+                statement.setNull(4, Types.BIGINT);
+            } else {
+                statement.setLong(4, computer.getCompany().getId());
+            }
+
+            statement.setLong(5, computer.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DaoUtils.silentClosing(connection, statement);
+        }
+
+        // TODO return newly updated object
         return null;
     }
 

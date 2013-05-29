@@ -10,7 +10,7 @@ import java.sql.Date;
  */
 public class Computer {
 
-    private long id;
+    private Long id;
 
     private String name;
 
@@ -24,11 +24,11 @@ public class Computer {
         // Do nothing.
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

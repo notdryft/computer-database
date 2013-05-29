@@ -6,6 +6,7 @@ import com.formation.projet.business.dao.CompanyDaoImpl;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
 import com.formation.projet.business.forms.ComputerForm;
+import com.formation.projet.helpers.LongHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,7 @@ public class UpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ComputerForm form = new ComputerForm();
+        form.setId(LongHelper.parseId(request.getParameter("id")));
         form.setName(request.getParameter("name"));
         form.setIntroduced(request.getParameter("introduced"));
         form.setDiscontinued(request.getParameter("discontinued"));
@@ -45,9 +47,9 @@ public class UpdateController extends HttpServlet {
             Computer computer = form.toComputer();
             computerDao.update(computer);
 
-            request.setAttribute("success", "Computer " + form.getName().getValue() + " has been updated");
+            request.getSession().setAttribute("success", "Computer has been updated");
 
-            doGet(request, response);
+            response.sendRedirect("../computers");
         } else {
             request.setAttribute("form", form);
             request.setAttribute("companies", companyDao.findAll());

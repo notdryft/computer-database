@@ -40,9 +40,9 @@ public class EditController extends HttpServlet {
 
         Computer computer = computerDao.find(id);
         if (computer == null) {
-            request.setAttribute("error", "Computer not found");
+            request.getSession().setAttribute("error", "Computer not found");
 
-            request.getRequestDispatcher("/computers").forward(request, response);
+            response.sendRedirect("../computers");
         } else {
             request.setAttribute("form", new ComputerForm(computer));
             request.setAttribute("companies", companyDao.findAll());
