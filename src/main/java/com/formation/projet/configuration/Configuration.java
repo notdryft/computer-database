@@ -10,6 +10,8 @@ public class Configuration {
 
     public static final int FIRST_PAGE = 0;
 
+    public static final int MAX_ITEMS_PER_PAGE = 10;
+
     public static final int DEFAULT_SORT_COLUMN = 2;
 
     public static final String DEFAULT_FILTER = "";

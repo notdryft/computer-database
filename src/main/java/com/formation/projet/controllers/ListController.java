@@ -2,6 +2,7 @@ package com.formation.projet.controllers;
 
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.configuration.Configuration;
 import com.formation.projet.helpers.IntHelper;
 import com.formation.projet.helpers.StringHelper;
 
@@ -20,8 +21,6 @@ import java.io.IOException;
  */
 @WebServlet("/computers")
 public class ListController extends HttpServlet {
-
-    private static int MAX_ITEMS_PER_PAGE = 10;
 
     private ComputerDao computerDao;
 
@@ -49,14 +48,14 @@ public class ListController extends HttpServlet {
         request.setAttribute("sortColumn", sortColumn);
         request.setAttribute("filter", filter);
 
-        int offset = page * MAX_ITEMS_PER_PAGE;
+        int offset = page * Configuration.MAX_ITEMS_PER_PAGE;
         request.setAttribute("offset", offset);
 
         int total = computerDao.count(filter);
         request.setAttribute("total", total);
-        request.setAttribute("maxPages", total / MAX_ITEMS_PER_PAGE);
+        request.setAttribute("maxPages", total / Configuration.MAX_ITEMS_PER_PAGE);
 
-        request.setAttribute("computers", computerDao.findAll(filter, sortColumn, offset, MAX_ITEMS_PER_PAGE));
+        request.setAttribute("computers", computerDao.findAll(filter, sortColumn, offset, Configuration.MAX_ITEMS_PER_PAGE));
 
         // Quick and dirty
         purgeSession(request, "success");
