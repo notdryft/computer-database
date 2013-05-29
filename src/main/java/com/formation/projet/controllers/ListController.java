@@ -1,7 +1,8 @@
 package com.formation.projet.controllers;
 
-import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.business.beans.ComputersAndCount;
+import com.formation.projet.business.services.ComputerService;
+import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.configuration.Configuration;
 import com.formation.projet.helpers.IntHelper;
 import com.formation.projet.helpers.StringHelper;
@@ -22,11 +23,11 @@ import java.io.IOException;
 @WebServlet("/computers")
 public class ListController extends HttpServlet {
 
-    private ComputerDao computerDao;
+    private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
-        computerDao = ComputerDaoImpl.instance;
+        computerService = ComputerServiceImpl.instance;
     }
 
     private void purgeSession(HttpServletRequest request, String name) {
@@ -49,13 +50,16 @@ public class ListController extends HttpServlet {
         request.setAttribute("filter", filter);
 
         int offset = page * Configuration.MAX_ITEMS_PER_PAGE;
+        ComputersAndCount computersAndCount =
+                computerService.findAllAndCount(filter, sortColumn, offset, Configuration.MAX_ITEMS_PER_PAGE);
+
         request.setAttribute("offset", offset);
 
-        int total = computerDao.count(filter);
+        int total = computersAndCount.getTotal();
         request.setAttribute("total", total);
         request.setAttribute("maxPages", total / Configuration.MAX_ITEMS_PER_PAGE);
 
-        request.setAttribute("computers", computerDao.findAll(filter, sortColumn, offset, Configuration.MAX_ITEMS_PER_PAGE));
+        request.setAttribute("computers", computersAndCount.getComputers());
 
         // Quick and dirty
         purgeSession(request, "success");

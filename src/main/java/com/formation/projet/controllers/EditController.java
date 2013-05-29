@@ -1,11 +1,9 @@
 package com.formation.projet.controllers;
 
-import com.formation.projet.business.beans.Computer;
-import com.formation.projet.business.dao.CompanyDao;
-import com.formation.projet.business.dao.CompanyDaoImpl;
-import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.forms.ComputerForm;
+import com.formation.projet.business.services.ComputerService;
+import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.helpers.LongHelper;
 
 import javax.servlet.ServletException;
@@ -24,14 +22,11 @@ import java.io.IOException;
 @WebServlet("/computers/edit")
 public class EditController extends HttpServlet {
 
-    private ComputerDao computerDao;
-
-    private CompanyDao companyDao;
+    private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
-        computerDao = ComputerDaoImpl.instance;
-        companyDao = CompanyDaoImpl.instance;
+        computerService = ComputerServiceImpl.instance;
     }
 
     @Override
@@ -39,14 +34,14 @@ public class EditController extends HttpServlet {
             throws ServletException, IOException {
         long id = LongHelper.parseId(request.getParameter("id"));
 
-        Computer computer = computerDao.find(id);
-        if (computer == null) {
+        ComputerAndCompanies computerAndCompanies = computerService.findWithAllCompanies(id);
+        if (computerAndCompanies == null) {
             request.getSession().setAttribute("error", "Computer not found");
 
             response.sendRedirect("../computers");
         } else {
-            request.setAttribute("form", new ComputerForm(computer));
-            request.setAttribute("companies", companyDao.findAll());
+            request.setAttribute("form", new ComputerForm(computerAndCompanies.getComputer()));
+            request.setAttribute("companies", computerAndCompanies.getCompanies());
 
             request.getRequestDispatcher("/WEB-INF/pages/edit.jsp").include(request, response);
         }

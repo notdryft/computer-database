@@ -1,8 +1,7 @@
 package com.formation.projet.controllers;
 
-import com.formation.projet.business.beans.Computer;
-import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.business.services.ComputerService;
+import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.helpers.LongHelper;
 
 import javax.servlet.ServletException;
@@ -21,11 +20,11 @@ import java.io.IOException;
 @WebServlet("/computers/delete")
 public class DeleteController extends HttpServlet {
 
-    private ComputerDao computerDao;
+    private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
-        computerDao = ComputerDaoImpl.instance;
+        computerService = ComputerServiceImpl.instance;
     }
 
     @Override
@@ -33,11 +32,7 @@ public class DeleteController extends HttpServlet {
             throws ServletException, IOException {
         long id = LongHelper.parseId(request.getParameter("id"));
 
-        // Seek & Destroy pattern
-        Computer computer = computerDao.find(id);
-        if (computer != null) {
-            computerDao.delete(computer);
-
+        if (computerService.seekAndDestroy(id)) {
             request.getSession().setAttribute("success", "Computer has been deleted");
 
             response.sendRedirect("../computers");

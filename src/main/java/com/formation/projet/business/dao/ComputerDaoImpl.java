@@ -229,6 +229,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    // TODO return boolean?
     public void delete(Computer computer) {
         Connection connection = factory.getConnection();
 

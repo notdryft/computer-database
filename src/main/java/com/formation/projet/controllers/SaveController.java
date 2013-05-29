@@ -1,11 +1,11 @@
 package com.formation.projet.controllers;
 
 import com.formation.projet.business.beans.Computer;
-import com.formation.projet.business.dao.CompanyDao;
-import com.formation.projet.business.dao.CompanyDaoImpl;
-import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.ComputerDaoImpl;
 import com.formation.projet.business.forms.ComputerForm;
+import com.formation.projet.business.services.CompanyService;
+import com.formation.projet.business.services.CompanyServiceImpl;
+import com.formation.projet.business.services.ComputerService;
+import com.formation.projet.business.services.ComputerServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +23,14 @@ import java.io.IOException;
 @WebServlet("/computers/save")
 public class SaveController extends HttpServlet {
 
-    private ComputerDao computerDao;
+    private ComputerService computerService;
 
-    private CompanyDao companyDao;
+    private CompanyService companyService;
 
     @Override
     public void init() throws ServletException {
-        computerDao = ComputerDaoImpl.instance;
-        companyDao = CompanyDaoImpl.instance;
+        computerService = ComputerServiceImpl.instance;
+        companyService = CompanyServiceImpl.instance;
     }
 
     @Override
@@ -44,14 +44,14 @@ public class SaveController extends HttpServlet {
 
         if (form.isValid()) {
             Computer computer = form.toComputer();
-            computerDao.create(computer);
+            computerService.create(computer);
 
             request.getSession().setAttribute("success", "Computer " + form.getName().getValue() + " has been created");
 
             response.sendRedirect("../computers");
         } else {
             request.setAttribute("form", form);
-            request.setAttribute("companies", companyDao.findAll());
+            request.setAttribute("companies", companyService.findAll());
 
             request.getRequestDispatcher("/WEB-INF/pages/new.jsp").include(request, response);
         }
