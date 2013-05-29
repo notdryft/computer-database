@@ -27,7 +27,8 @@ public class CreateController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.setAttribute("form", new ComputerForm());
         request.setAttribute("companies", dao.findAll());
 

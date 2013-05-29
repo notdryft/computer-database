@@ -217,7 +217,20 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public void delete(Computer computer) {
-        // TODO delete
+        Connection connection = factory.getConnection();
+
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement("DELETE FROM computer WHERE `id` = ?");
+            statement.setLong(1, computer.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DaoUtils.silentClosing(connection, statement);
+        }
     }
 
     @Override

@@ -40,8 +40,7 @@
         </div>
     </form>
 
-    <!-- TODO delete -->
-    <form action="<c:url value="#"/>" method="POST" class="topRight">
+    <form action="<c:url value="/computers/delete?id=${form.id}"/>" method="POST" class="topRight">
         <input type="submit" value="Delete this computer" class="btn danger">
     </form>
 </section>
