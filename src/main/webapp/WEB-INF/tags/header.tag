@@ -14,5 +14,5 @@
 <th class="col${orderBy} header ${orderClass}">
     <c:set var="sortValue"
            value="${(functions:abs(currentOrderBy) == orderBy) ? -currentOrderBy : orderBy}"/>
-    <a href="<c:url value="/computers?s=${sortValue}&f=${filter}"/>">${title}</a>
+    <a href="<c:url value="/computers${functions:linkSort(sortValue, filter)}"/>">${title}</a>
 </th>

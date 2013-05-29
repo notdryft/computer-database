@@ -13,6 +13,10 @@ import java.util.List;
  */
 public class UrlHelper {
 
+    public static String linkSort(int sortColumn, String filter) {
+        return linkAttributes(Configuration.FIRST_PAGE, sortColumn, filter);
+    }
+
     public static String linkAttributes(int page, int sortColumn, String filter) {
         List<String> attributes = new ArrayList<String>();
 
