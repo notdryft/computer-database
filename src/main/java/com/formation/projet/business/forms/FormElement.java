@@ -45,10 +45,6 @@ public class FormElement {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getValue() {
         return value;
     }
@@ -66,7 +62,7 @@ public class FormElement {
     }
 
     public List<String> getMessages() {
-        return messages;
+        return new ArrayList<String>(messages);
     }
 
     public void validate(Object valueObject) {
