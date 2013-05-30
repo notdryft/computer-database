@@ -1,6 +1,6 @@
 package com.formation.projet.business.dao;
 
-import com.formation.projet.configuration.DatabaseProperties;
+import com.formation.projet.properties.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ public enum ConnectionFactory {
 
     private ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
-    private DatabaseProperties properties;
+    private Database properties;
 
     private ConnectionFactory() {
         try {
@@ -26,7 +26,7 @@ public enum ConnectionFactory {
             e.printStackTrace();
         }
 
-        properties = DatabaseProperties.instance;
+        properties = Database.instance;
     }
 
     public void openConnection() {

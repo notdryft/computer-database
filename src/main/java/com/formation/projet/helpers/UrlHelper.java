@@ -1,6 +1,6 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.configuration.ConfigurationProperties;
+import com.formation.projet.properties.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class UrlHelper {
 
-    private static ConfigurationProperties configuration = ConfigurationProperties.instance;
+    private static Configuration configuration = Configuration.instance;
 
     public static String linkSort(int sortColumn, String filter) {
         return linkAttributes(configuration.getFirstPage(), sortColumn, filter);

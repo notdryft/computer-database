@@ -1,6 +1,6 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.configuration.ConfigurationProperties;
+import com.formation.projet.properties.Configuration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import com.formation.projet.configuration.ConfigurationProperties;
  */
 public class PageHelper {
 
-    private static ConfigurationProperties configuration = ConfigurationProperties.instance;
+    private static Configuration configuration = Configuration.instance;
 
     public static int parsePage(String pageString) {
         int page = IntHelper.parseInt(pageString, configuration.getFirstPage());

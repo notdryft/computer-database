@@ -1,9 +1,7 @@
-package com.formation.projet.configuration;
+package com.formation.projet.properties;
 
-import com.formation.projet.helpers.IntHelper;
-import com.formation.projet.util.PropertiesUtils;
+import com.formation.projet.util.Properties;
 
-import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,7 +9,7 @@ import java.util.Properties;
  * Date: 29/05/13
  * Time: 11:24
  */
-public enum ConfigurationProperties {
+public enum Configuration {
     instance;
 
     private static final String PATH = "configuration.properties";
@@ -32,16 +30,16 @@ public enum ConfigurationProperties {
 
     private String defaultFilter;
 
-    private ConfigurationProperties() {
+    private Configuration() {
         Properties properties =
-                PropertiesUtils.loadProperties(
+                Properties.loadProperties(
                         PATH,
                         FIRST_PAGE, MAX_ITEMS_PER_PAGE, DEFAULT_SORT_COLUMN, DEFAULT_FILTER);
 
-        this.firstPage = IntHelper.parseProperty(properties, FIRST_PAGE);
-        this.maxItemsPerPage = IntHelper.parseProperty(properties, MAX_ITEMS_PER_PAGE);
-        this.defaultSortColumn = IntHelper.parseProperty(properties, DEFAULT_SORT_COLUMN);
-        this.defaultFilter = properties.getProperty(DEFAULT_FILTER);
+        this.firstPage = properties.getInt(FIRST_PAGE);
+        this.maxItemsPerPage = properties.getInt(MAX_ITEMS_PER_PAGE);
+        this.defaultSortColumn = properties.getInt(DEFAULT_SORT_COLUMN);
+        this.defaultFilter = properties.getString(DEFAULT_FILTER);
     }
 
     public int getFirstPage() {

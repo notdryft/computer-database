@@ -1,6 +1,6 @@
 package com.formation.projet.business.beans;
 
-import com.formation.projet.configuration.ConfigurationProperties;
+import com.formation.projet.properties.Configuration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import com.formation.projet.configuration.ConfigurationProperties;
  */
 public class PageState {
 
-    private final ConfigurationProperties configuration;
+    private final Configuration configuration;
 
     private int page;
 
@@ -21,7 +21,7 @@ public class PageState {
     private int total;
 
     public PageState() {
-        configuration = ConfigurationProperties.instance;
+        configuration = Configuration.instance;
     }
 
     public int getPage() {

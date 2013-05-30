@@ -1,8 +1,7 @@
-package com.formation.projet.configuration;
+package com.formation.projet.properties;
 
-import com.formation.projet.util.PropertiesUtils;
 
-import java.util.Properties;
+import com.formation.projet.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +9,7 @@ import java.util.Properties;
  * Date: 24/05/13
  * Time: 16:38
  */
-public enum DatabaseProperties {
+public enum Database {
     instance;
 
     private static final String PATH = "database.properties";
@@ -31,14 +30,16 @@ public enum DatabaseProperties {
 
     private String password;
 
-    private DatabaseProperties() {
+    private Database() {
         Properties properties =
-                PropertiesUtils.loadProperties(PATH, URL, SCHEMA, USER, PASSWORD);
+                Properties.loadProperties(
+                        PATH,
+                        URL, SCHEMA, USER, PASSWORD);
 
-        this.url = properties.getProperty(URL);
-        this.schema = properties.getProperty(SCHEMA);
-        this.user = properties.getProperty(USER);
-        this.password = properties.getProperty(PASSWORD);
+        this.url = properties.getString(URL);
+        this.schema = properties.getString(SCHEMA);
+        this.user = properties.getString(USER);
+        this.password = properties.getString(PASSWORD);
     }
 
     public String getUrl() {
