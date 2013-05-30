@@ -1,6 +1,6 @@
 package com.formation.projet.business.dao;
 
-import com.formation.projet.business.exceptions.PropertiesLoadingException;
+import com.formation.projet.configuration.DatabaseProperties;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,11 +26,7 @@ public enum ConnectionFactory {
             e.printStackTrace();
         }
 
-        try {
-            properties = DaoUtils.getProperties();
-        } catch (PropertiesLoadingException e) {
-            e.printStackTrace();
-        }
+        properties = DatabaseProperties.instance;
     }
 
     public void openConnection() {

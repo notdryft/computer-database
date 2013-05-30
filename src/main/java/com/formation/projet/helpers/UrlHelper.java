@@ -1,6 +1,6 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.configuration.Configuration;
+import com.formation.projet.configuration.ConfigurationProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,22 +13,24 @@ import java.util.List;
  */
 public class UrlHelper {
 
+    private static ConfigurationProperties configuration = ConfigurationProperties.instance;
+
     public static String linkSort(int sortColumn, String filter) {
-        return linkAttributes(Configuration.FIRST_PAGE, sortColumn, filter);
+        return linkAttributes(configuration.getFirstPage(), sortColumn, filter);
     }
 
     public static String linkAttributes(int page, int sortColumn, String filter) {
         List<String> attributes = new ArrayList<String>();
 
-        if (page > Configuration.FIRST_PAGE) {
+        if (page > configuration.getFirstPage()) {
             attributes.add("p=" + page);
         }
 
-        if (sortColumn != Configuration.DEFAULT_SORT_COLUMN) {
+        if (sortColumn != configuration.getDefaultSortColumn()) {
             attributes.add("s=" + sortColumn);
         }
 
-        if (!filter.equals(Configuration.DEFAULT_FILTER)) {
+        if (!filter.equals(configuration.getDefaultFilter())) {
             attributes.add("f=" + filter);
         }
 

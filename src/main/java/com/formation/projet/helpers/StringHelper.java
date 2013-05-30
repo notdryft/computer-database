@@ -1,7 +1,5 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.configuration.Configuration;
-
 import java.util.List;
 
 /**
@@ -26,9 +24,18 @@ public class StringHelper {
         return sb.toString();
     }
 
-    public static String parseFilter(String filterString) {
+    public static String toString(String... messages) {
+        StringBuilder sb = new StringBuilder();
+        for (String message : messages) {
+            sb.append(message);
+        }
+
+        return sb.toString();
+    }
+
+    public static String parseFilter(String filterString, String defaultFilter) {
         if (filterString == null) {
-            return Configuration.DEFAULT_FILTER;
+            return defaultFilter;
         }
 
         return filterString;

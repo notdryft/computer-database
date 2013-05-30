@@ -1,6 +1,8 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.configuration.Configuration;
+import com.formation.projet.exceptions.PropertiesLoadingException;
+
+import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,16 +27,27 @@ public class IntHelper {
         return value;
     }
 
-    public static int parsePage(String pageString) {
-        int page = parse(pageString, Configuration.FIRST_PAGE);
-        if (page < Configuration.FIRST_PAGE) {
-            page = Configuration.FIRST_PAGE;
+    public static int parseProperty(Properties properties, String name) {
+        int value;
+        try {
+            value = Integer.parseInt(properties.getProperty(name));
+        } catch (NumberFormatException e) {
+            throw new PropertiesLoadingException(e, "Property \"", name, "\" is not an int");
+        }
+
+        return value;
+    }
+
+    public static int parsePage(String pageString, int firstPage) {
+        int page = parse(pageString, firstPage);
+        if (page < firstPage) {
+            page = firstPage;
         }
 
         return page;
     }
 
-    public static int parseSortColumn(String sortColumnString) {
-        return parse(sortColumnString, Configuration.DEFAULT_SORT_COLUMN);
+    public static int parseSortColumn(String sortColumnString, int defaultSortColumn) {
+        return parse(sortColumnString, defaultSortColumn);
     }
 }
