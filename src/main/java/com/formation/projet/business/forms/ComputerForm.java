@@ -35,6 +35,7 @@ public class ComputerForm {
 
     // Optional
     // Format: yyyy-MM-dd
+    // Greater than introduced
     private FormElement discontinued;
 
     // Optional
@@ -42,10 +43,10 @@ public class ComputerForm {
     private FormElement company;
 
     public ComputerForm() {
-        this.name = initFormElement("name", "Required");
-        this.introduced = initFormElement("introduced", "Date ('yyyy-MM-dd')");
-        this.discontinued = initFormElement("discontinued", "Date ('yyyy-MM-dd')");
-        this.company = initFormElement("company");
+        this.name = new FormElement("name", "Required");
+        this.introduced = new FormElement("introduced", "Date ('yyyy-MM-dd')");
+        this.discontinued = new FormElement("discontinued", "Date ('yyyy-MM-dd')");
+        this.company = new FormElement("company");
     }
 
     public ComputerForm(Computer computer) {
@@ -69,21 +70,6 @@ public class ComputerForm {
         if (!isValid()) {
             throw new IllegalArgumentException("Impossible to construct a ComputerForm from this Computer: invalid parameters");
         }
-    }
-
-    private FormElement initFormElement(String name) {
-        return initFormElement(name, null);
-    }
-
-    private FormElement initFormElement(String name, String message) {
-        FormElement formElement = new FormElement();
-        formElement.setName(name);
-
-        if (message != null) {
-            formElement.addMessage(message);
-        }
-
-        return formElement;
     }
 
     public Long getId() {
@@ -155,22 +141,21 @@ public class ComputerForm {
         // name
         String name = this.name.getValue();
         if (name == null || name.isEmpty()) {
-            this.name.setValid(false);
+            this.name.invalidate();
         } else {
-            this.name.setValid(true);
-            this.name.setValueObject(name);
+            this.name.validate(name);
         }
 
         // introduced
         String introduced = this.introduced.getValue();
+        Date introducedDate = null;
         if (introduced != null && !introduced.isEmpty()) {
             try {
-                Date d = new Date(dateFormat.parse(introduced).getTime());
+                introducedDate = new Date(dateFormat.parse(introduced).getTime());
 
-                this.introduced.setValid(true);
-                this.introduced.setValueObject(d);
+                this.introduced.validate(introducedDate);
             } catch (ParseException e) {
-                this.introduced.setValid(false);
+                this.introduced.invalidate("invalid date format");
             }
         }
 
@@ -178,12 +163,15 @@ public class ComputerForm {
         String discontinued = this.discontinued.getValue();
         if (discontinued != null && !discontinued.isEmpty()) {
             try {
-                Date d = new Date(dateFormat.parse(discontinued).getTime());
+                Date discontinuedDate = new Date(dateFormat.parse(discontinued).getTime());
 
-                this.discontinued.setValid(true);
-                this.discontinued.setValueObject(d);
+                if (introducedDate == null || introducedDate.before(discontinuedDate)) {
+                    this.discontinued.validate(discontinuedDate);
+                } else {
+                    this.discontinued.invalidate("should be after introduction date");
+                }
             } catch (ParseException e) {
-                this.discontinued.setValid(false);
+                this.discontinued.invalidate("invalid date format");
             }
         }
 
@@ -193,10 +181,9 @@ public class ComputerForm {
             try {
                 Long l = Long.parseLong(company);
 
-                this.company.setValid(true);
-                this.company.setValueObject(l);
+                this.company.validate(l);
             } catch (NumberFormatException e) {
-                this.company.setValid(false);
+                this.company.invalidate();
             }
         }
     }

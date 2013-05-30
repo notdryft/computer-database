@@ -21,9 +21,24 @@ public class FormElement {
 
     private List<String> messages;
 
-    public FormElement() {
-        valid = true;
-        messages = new ArrayList<String>();
+    public FormElement(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Argument \"name\" should not be null");
+        }
+
+        this.name = name;
+        this.valid = true;
+        this.messages = new ArrayList<String>();
+    }
+
+    public FormElement(String name, String message) {
+        this(name);
+
+        if (message == null || message.isEmpty()) {
+            throw new IllegalArgumentException("Argument \"message\" should not be null or empty");
+        }
+
+        this.messages.add(message);
     }
 
     public String getName() {
@@ -46,23 +61,28 @@ public class FormElement {
         return valueObject;
     }
 
-    public void setValueObject(Object valueObject) {
-        this.valueObject = valueObject;
-    }
-
     public boolean isValid() {
         return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
     }
 
     public List<String> getMessages() {
         return messages;
     }
 
-    public void addMessage(String message) {
-        this.messages.add(message);
+    public void validate(Object valueObject) {
+        this.valid = true;
+        this.valueObject = valueObject;
+    }
+
+    public void invalidate() {
+        this.valid = false;
+    }
+
+    public void invalidate(String message) {
+        this.valid = false;
+
+        if (message != null && !message.isEmpty()) {
+            this.messages.add(message);
+        }
     }
 }
