@@ -1,4 +1,4 @@
-# Computer-database, jdk only version
+# Computer-database: JDK Only Version
 
 Formation project based on the play sample application
 
