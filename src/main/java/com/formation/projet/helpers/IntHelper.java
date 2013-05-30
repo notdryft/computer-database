@@ -12,16 +12,16 @@ import java.util.Properties;
  */
 public class IntHelper {
 
-    private static int parse(String string, int minValue) {
-        int value;
+    static int parseInt(String string, int minValue) {
         if (string == null) {
+            return minValue;
+        }
+
+        int value;
+        try {
+            value = Integer.parseInt(string);
+        } catch (NumberFormatException e) {
             value = minValue;
-        } else {
-            try {
-                value = Integer.parseInt(string);
-            } catch (NumberFormatException e) {
-                value = minValue;
-            }
         }
 
         return value;
@@ -36,18 +36,5 @@ public class IntHelper {
         }
 
         return value;
-    }
-
-    public static int parsePage(String pageString, int firstPage) {
-        int page = parse(pageString, firstPage);
-        if (page < firstPage) {
-            page = firstPage;
-        }
-
-        return page;
-    }
-
-    public static int parseSortColumn(String sortColumnString, int defaultSortColumn) {
-        return parse(sortColumnString, defaultSortColumn);
     }
 }

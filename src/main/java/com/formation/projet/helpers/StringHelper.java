@@ -32,12 +32,4 @@ public class StringHelper {
 
         return sb.toString();
     }
-
-    public static String parseFilter(String filterString, String defaultFilter) {
-        if (filterString == null) {
-            return defaultFilter;
-        }
-
-        return filterString;
-    }
 }

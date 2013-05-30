@@ -2,6 +2,7 @@ package com.formation.projet.business.dao;
 
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
+import com.formation.projet.business.beans.PageState;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -95,14 +96,14 @@ public enum ComputerDaoImpl implements ComputerDao {
         return statement;
     }
 
-    private PreparedStatement makeFindAllStatement(Connection connection, String filter, int sortColumn, int offset, int limit) throws SQLException {
-        String column = COMPUTER_COLUMNS.get(Math.abs(sortColumn));
+    private PreparedStatement makeFindAllStatement(Connection connection, PageState pageState) throws SQLException {
+        String column = COMPUTER_COLUMNS.get(Math.abs(pageState.getSortColumn()));
 
-        String query = FIND_QUERY + FILTER_NAME_CLAUSE + ORDER_BY_CLAUSE + column + (sortColumn < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
+        String query = FIND_QUERY + FILTER_NAME_CLAUSE + ORDER_BY_CLAUSE + column + (pageState.getSortColumn() < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, "%" + filter + "%");
-        statement.setInt(2, offset);
-        statement.setInt(3, limit);
+        statement.setString(1, "%" + pageState.getFilter() + "%");
+        statement.setInt(2, pageState.getOffset());
+        statement.setInt(3, pageState.getMaxItemsPerPage());
 
         return statement;
     }
@@ -142,7 +143,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public List<Computer> findAll(String filter, int sortColumn, int offset, int limit) {
+    public List<Computer> findAll(PageState pageState) {
         Connection connection = factory.getConnection();
 
         List<Computer> computers = new ArrayList<Computer>();
@@ -151,7 +152,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         ResultSet resultSet = null;
 
         try {
-            statement = makeFindAllStatement(connection, filter, sortColumn, offset, limit);
+            statement = makeFindAllStatement(connection, pageState);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

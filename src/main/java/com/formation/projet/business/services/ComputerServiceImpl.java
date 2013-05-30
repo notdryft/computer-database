@@ -3,6 +3,7 @@ package com.formation.projet.business.services;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.beans.ComputersAndCount;
+import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.*;
 
 /**
@@ -46,12 +47,12 @@ public enum ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public ComputersAndCount findAllAndCount(String filter, int sortColumn, int offset, int limit) {
+    public ComputersAndCount findAllAndCount(PageState pageState) {
         factory.openConnection();
 
         ComputersAndCount computersAndCount = new ComputersAndCount();
-        computersAndCount.setTotal(computerDao.count(filter));
-        computersAndCount.setComputers(computerDao.findAll(filter, sortColumn, offset, limit));
+        computersAndCount.setTotal(computerDao.count(pageState.getFilter()));
+        computersAndCount.setComputers(computerDao.findAll(pageState));
 
         factory.closeConnection();
 

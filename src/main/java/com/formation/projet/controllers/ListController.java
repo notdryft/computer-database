@@ -1,11 +1,10 @@
 package com.formation.projet.controllers;
 
 import com.formation.projet.business.beans.ComputersAndCount;
+import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.ComputerServiceImpl;
-import com.formation.projet.configuration.ConfigurationProperties;
-import com.formation.projet.helpers.IntHelper;
-import com.formation.projet.helpers.StringHelper;
+import com.formation.projet.helpers.PageHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +22,10 @@ import java.io.IOException;
 @WebServlet("/computers")
 public class ListController extends HttpServlet {
 
-    private ConfigurationProperties configuration;
-
     private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
-        configuration = ConfigurationProperties.instance;
         computerService = ComputerServiceImpl.instance;
     }
 
@@ -41,28 +37,32 @@ public class ListController extends HttpServlet {
         }
     }
 
+    private void pushPageState(HttpServletRequest request, PageState pageState) {
+        request.setAttribute("page", pageState.getPage());
+        request.setAttribute("sortColumn", pageState.getSortColumn());
+        request.setAttribute("filter", pageState.getFilter());
+
+        request.setAttribute("offset", pageState.getOffset());
+
+        request.setAttribute("total", pageState.getTotal());
+        request.setAttribute("maxPages", pageState.getMaxPages());
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int page = IntHelper.parsePage(request.getParameter("p"), configuration.getFirstPage());
-        int sortColumn = IntHelper.parseSortColumn(request.getParameter("s"), configuration.getDefaultSortColumn());
-        String filter = StringHelper.parseFilter(request.getParameter("f"), configuration.getDefaultFilter());
+        PageState pageState = new PageState();
+        pageState.setPage(PageHelper.parsePage(request.getParameter("p")));
+        pageState.setSortColumn(PageHelper.parseSortColumn(request.getParameter("s")));
+        pageState.setFilter(PageHelper.parseFilter(request.getParameter("f")));
 
-        request.setAttribute("page", page);
-        request.setAttribute("sortColumn", sortColumn);
-        request.setAttribute("filter", filter);
+        ComputersAndCount computersAndCount = computerService.findAllAndCount(pageState);
 
-        int offset = page * configuration.getMaxItemsPerPage();
-        ComputersAndCount computersAndCount =
-                computerService.findAllAndCount(filter, sortColumn, offset, configuration.getMaxItemsPerPage());
-
-        request.setAttribute("offset", offset);
-
-        int total = computersAndCount.getTotal();
-        request.setAttribute("total", total);
-        request.setAttribute("maxPages", total / configuration.getMaxItemsPerPage());
-
+        pageState.setTotal(computersAndCount.getTotal());
         request.setAttribute("computers", computersAndCount.getComputers());
+
+        // Now that we computed everything
+        pushPageState(request, pageState);
 
         // Quick and dirty
         purgeSession(request, "success");

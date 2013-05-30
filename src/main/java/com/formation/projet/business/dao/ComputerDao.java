@@ -1,6 +1,7 @@
 package com.formation.projet.business.dao;
 
 import com.formation.projet.business.beans.Computer;
+import com.formation.projet.business.beans.PageState;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface ComputerDao {
 
     Computer find(long id);
 
-    List<Computer> findAll(String filter, int sortColumn, int offset, int limit);
+    List<Computer> findAll(PageState pageState);
 
     Computer create(Computer computer);
 
