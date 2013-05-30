@@ -1,7 +1,5 @@
 package com.formation.projet.exceptions;
 
-import com.formation.projet.helpers.StringHelper;
-
 /**
  * Created with IntelliJ IDEA.
  * User: gcorre
@@ -10,11 +8,22 @@ import com.formation.projet.helpers.StringHelper;
  */
 public class PropertiesLoadingException extends RuntimeException {
 
-    public PropertiesLoadingException(String... messages) {
-        super(StringHelper.toString(messages));
+    public PropertiesLoadingException() {
     }
 
-    public PropertiesLoadingException(Throwable cause, String... messages) {
-        super(StringHelper.toString(messages), cause);
+    public PropertiesLoadingException(String message) {
+        super(message);
+    }
+
+    public PropertiesLoadingException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PropertiesLoadingException(Throwable cause) {
+        super(cause);
+    }
+
+    public PropertiesLoadingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

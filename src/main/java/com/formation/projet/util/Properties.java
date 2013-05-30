@@ -41,9 +41,9 @@ public class Properties {
     private void tryProperty(String property) {
         String value = properties.getProperty(property);
         if (value == null) {
-            throw new PropertiesLoadingException("Property \"", property, "\" not found in file \"", path, "\"");
+            throw new PropertiesLoadingException(String.format("Property \"%s\" not found in file \"%s\"", property, path));
         } else if (value.isEmpty()) {
-            throw new PropertiesLoadingException("Property \"", property, "\" empty in file \"", path, "\"");
+            throw new PropertiesLoadingException(String.format("Property \"%s\" empty in file \"%s\"", property, path));
         }
     }
 
@@ -62,14 +62,14 @@ public class Properties {
 
         InputStream is = loader.getResourceAsStream(path);
         if (is == null) {
-            throw new PropertiesLoadingException("File \"", path, "\" not found");
+            throw new PropertiesLoadingException(String.format("File \"%s\" not found", path));
         }
 
         Properties properties = new Properties(path);
         try {
             properties.load(is);
         } catch (IOException e) {
-            throw new PropertiesLoadingException(e, "Error while reading from \"", path, "\"");
+            throw new PropertiesLoadingException(String.format("Error while reading from \"%s\"", path), e);
         }
 
         for (String property : names) {
