@@ -4,6 +4,7 @@ import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -15,7 +16,12 @@ import java.text.SimpleDateFormat;
  */
 public class ComputerForm {
 
-    private static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    static {
+        // Strict format, checks leap years
+        dateFormat.setLenient(false);
+    }
 
     // Ignored
     private Long id;
@@ -49,11 +55,11 @@ public class ComputerForm {
         this.name.setValue(computer.getName());
 
         if (computer.getIntroduced() != null) {
-            this.introduced.setValue(fmt.format(computer.getIntroduced()));
+            this.introduced.setValue(dateFormat.format(computer.getIntroduced()));
         }
 
         if (computer.getDiscontinued() != null) {
-            this.discontinued.setValue(fmt.format(computer.getDiscontinued()));
+            this.discontinued.setValue(dateFormat.format(computer.getDiscontinued()));
         }
 
         if (computer.getCompany() != null) {
@@ -159,7 +165,7 @@ public class ComputerForm {
         String introduced = this.introduced.getValue();
         if (introduced != null && !introduced.isEmpty()) {
             try {
-                Date d = new Date(fmt.parse(introduced).getTime());
+                Date d = new Date(dateFormat.parse(introduced).getTime());
 
                 this.introduced.setValid(true);
                 this.introduced.setValueObject(d);
@@ -172,7 +178,7 @@ public class ComputerForm {
         String discontinued = this.discontinued.getValue();
         if (discontinued != null && !discontinued.isEmpty()) {
             try {
-                Date d = new Date(fmt.parse(discontinued).getTime());
+                Date d = new Date(dateFormat.parse(discontinued).getTime());
 
                 this.discontinued.setValid(true);
                 this.discontinued.setValueObject(d);
