@@ -18,5 +18,6 @@ Then inject the scripts.
 
 ## Dependencies
 
-- javax.servlet:jstl:1.2 @ http://mvnrepository.com/artifact/javax.servlet/jstl/1.2
-- mysql:mysql-connection-java:5.1.25 @ http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.25
+- javax.servlet:jstl:1.2 @ http://mvnrepository.com/artifact/javax.servlet/jstl/1.2 (compile)
+- mysql:mysql-connection-java:5.1.25 @ http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.25 (runtime)
+- jboss or tomcat7 libs (provided)
