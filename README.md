@@ -18,6 +18,8 @@ Then inject the scripts.
 
 ## Dependencies
 
+Without maven, this is how you should scope the needed dependencies:
+
 ### Runtime
 
 - mysql:mysql-connection-java:5.1.25 @ [Central Repository](http://search.maven.org/#artifactdetails%7Cmysql%7Cmysql-connector-java%7C5.1.25%7Cjar)
