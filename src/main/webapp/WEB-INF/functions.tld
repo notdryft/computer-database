@@ -18,25 +18,25 @@
 
     <function>
         <name>join</name>
-        <function-class>com.formation.projet.helpers.StringHelper</function-class>
+        <function-class>com.formation.projet.webapp.helpers.StringHelper</function-class>
         <function-signature>java.lang.String join(java.util.List,java.lang.String)</function-signature>
     </function>
 
     <function>
         <name>title</name>
-        <function-class>com.formation.projet.helpers.JspHelper</function-class>
+        <function-class>com.formation.projet.webapp.helpers.JspHelper</function-class>
         <function-signature>java.lang.String title(int)</function-signature>
     </function>
 
     <function>
         <name>linkSort</name>
-        <function-class>com.formation.projet.helpers.UrlHelper</function-class>
+        <function-class>com.formation.projet.webapp.helpers.UrlHelper</function-class>
         <function-signature>java.lang.String linkSort(int,java.lang.String)</function-signature>
     </function>
 
     <function>
         <name>linkAttributes</name>
-        <function-class>com.formation.projet.helpers.UrlHelper</function-class>
+        <function-class>com.formation.projet.webapp.helpers.UrlHelper</function-class>
         <function-signature>java.lang.String linkAttributes(int,int,java.lang.String)</function-signature>
     </function>
 </taglib>

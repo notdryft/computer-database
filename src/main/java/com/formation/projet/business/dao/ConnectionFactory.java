@@ -1,6 +1,6 @@
 package com.formation.projet.business.dao;
 
-import com.formation.projet.properties.Database;
+import com.formation.projet.application.properties.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

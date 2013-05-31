@@ -6,7 +6,7 @@
          version="3.0">
 
     <listener>
-        <listener-class>com.formation.projet.listeners.InitializationListener</listener-class>
+        <listener-class>com.formation.projet.webapp.listeners.InitializationListener</listener-class>
     </listener>
 
     <jsp-config>
