@@ -37,7 +37,7 @@ public class InitializationListener implements ServletContextListener {
         try {
             contextInitialized0(servletContextEvent);
         } catch (Exception e) {
-            throw new InjectionException("Failed to autowire beans", e);
+            throw new InjectionException("Failed to inject properties beans", e);
         }
     }
 
