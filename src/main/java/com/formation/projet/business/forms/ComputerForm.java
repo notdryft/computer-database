@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
  */
 public class ComputerForm {
 
-    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     static {
         // Strict format, checks leap years
@@ -27,22 +27,23 @@ public class ComputerForm {
     private Long id;
 
     // Non empty
-    private FormElement name;
+    private final FormElement name;
 
     // Optional
     // Format: yyyy-MM-dd
-    private FormElement introduced;
+    private final FormElement introduced;
 
     // Optional
     // Format: yyyy-MM-dd
     // Greater than introduced
-    private FormElement discontinued;
+    private final FormElement discontinued;
 
     // Optional
     // Long
-    private FormElement company;
+    private final FormElement company;
 
     public ComputerForm() {
+        this.id = null;
         this.name = new FormElement("name", "Required");
         this.introduced = new FormElement("introduced", "Date ('yyyy-MM-dd')");
         this.discontinued = new FormElement("discontinued", "Date ('yyyy-MM-dd')");

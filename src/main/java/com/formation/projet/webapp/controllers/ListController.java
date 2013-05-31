@@ -1,11 +1,11 @@
 package com.formation.projet.webapp.controllers;
 
+import com.formation.projet.application.properties.Routes;
 import com.formation.projet.business.beans.ComputersAndCount;
 import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.webapp.helpers.PageHelper;
-import com.formation.projet.application.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

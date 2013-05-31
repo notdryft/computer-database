@@ -15,11 +15,11 @@ import com.formation.projet.business.dao.*;
 public enum ComputerServiceImpl implements ComputerService {
     instance;
 
-    private ConnectionFactory factory;
+    private final ConnectionFactory factory;
 
-    private ComputerDao computerDao;
+    private final ComputerDao computerDao;
 
-    private CompanyDao companyDao;
+    private final CompanyDao companyDao;
 
     private ComputerServiceImpl() {
         factory = ConnectionFactory.instance;

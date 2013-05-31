@@ -23,13 +23,4 @@ public class StringHelper {
 
         return sb.toString();
     }
-
-    public static String toString(String... messages) {
-        StringBuilder sb = new StringBuilder();
-        for (String message : messages) {
-            sb.append(message);
-        }
-
-        return sb.toString();
-    }
 }

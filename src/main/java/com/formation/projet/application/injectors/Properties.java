@@ -19,7 +19,7 @@ class Properties {
 
     private static final String EMPTY_KEYWORD = "<empty>";
 
-    private String path;
+    private final String path;
 
     private final java.util.Properties properties;
 

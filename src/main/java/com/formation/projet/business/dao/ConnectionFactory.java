@@ -15,9 +15,9 @@ import java.sql.SQLException;
 public enum ConnectionFactory {
     instance;
 
-    private ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
+    private final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
-    private Database database;
+    private final Database database;
 
     private ConnectionFactory() {
         try {

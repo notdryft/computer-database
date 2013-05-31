@@ -59,9 +59,9 @@ public enum ComputerDaoImpl implements ComputerDao {
         COMPUTER_COLUMNS.put(5, "r.name");
     }
 
-    private static String LIMIT_CLAUSE = " LIMIT ?, ?";
+    private static final String LIMIT_CLAUSE = " LIMIT ?, ?";
 
-    private ConnectionFactory factory;
+    private final ConnectionFactory factory;
 
     private ComputerDaoImpl() {
         this.factory = ConnectionFactory.instance;

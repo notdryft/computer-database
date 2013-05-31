@@ -18,12 +18,12 @@ import java.util.List;
 public enum CompanyDaoImpl implements CompanyDao {
     instance;
 
-    private static String FIND_ALL_QUERY =
+    private static final String FIND_ALL_QUERY =
             "SELECT l.id, l.name " +
                     "FROM company l " +
                     "ORDER BY l.name ASC";
 
-    private ConnectionFactory factory;
+    private final ConnectionFactory factory;
 
     private CompanyDaoImpl() {
         factory = ConnectionFactory.instance;

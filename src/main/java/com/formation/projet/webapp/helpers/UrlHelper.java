@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class UrlHelper {
 
-    private static Configuration configuration = Configuration.getInstance();
+    private static final Configuration configuration = Configuration.getInstance();
 
     public static String linkSort(int sortColumn, String filter) {
         return linkAttributes(configuration.getFirstPage(), sortColumn, filter);

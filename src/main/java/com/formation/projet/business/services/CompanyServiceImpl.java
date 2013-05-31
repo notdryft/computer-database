@@ -16,9 +16,9 @@ import java.util.List;
 public enum CompanyServiceImpl implements CompanyService {
     instance;
 
-    private ConnectionFactory factory;
+    private final ConnectionFactory factory;
 
-    private CompanyDao companyDao;
+    private final CompanyDao companyDao;
 
     private CompanyServiceImpl() {
         factory = ConnectionFactory.instance;
