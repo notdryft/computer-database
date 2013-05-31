@@ -1,23 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="functions" uri="http://projet.formation.com/jsp/functions" %>
-<%@ taglib prefix="helpers" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Computers database</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/bootstrap.min.css"/>">
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/stylesheets/main.css"/>">
-</head>
+<jsp:include page="head.jsp"/>
 <body>
 
-<header class="topbar">
-    <h1 class="fill">
-        <a href="<c:url value="/computers"/>">
-            Jdk sample application &mdash; Computer database
-        </a>
-    </h1>
-</header>
+<jsp:include page="topbar.jsp"/>
 
 <section id="main">
 
@@ -38,7 +25,8 @@
     <div id="actions">
 
         <form target="<c:url value="/computers"/>">
-            <input type="search" id="searchbox" name="f" value="${state.filter}" placeholder="Filter by computer name...">
+            <input type="search" id="searchbox" name="f" value="${state.filter}"
+                   placeholder="Filter by computer name...">
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
         </form>
 

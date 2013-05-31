@@ -5,4 +5,11 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/imports/imports.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+
 </web-app>
