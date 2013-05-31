@@ -6,6 +6,8 @@ import com.formation.projet.helpers.IntHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +34,10 @@ class Properties {
 
     public String getString(String property) {
         return properties.getProperty(property);
+    }
+
+    public List<String> getList(String property) {
+        return Arrays.asList(properties.getProperty(property).split(","));
     }
 
     public void tryProperty(String property) throws PropertiesLoadingException {

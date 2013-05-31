@@ -3,7 +3,6 @@ package com.formation.projet.properties;
 
 import com.formation.projet.annotations.Property;
 import com.formation.projet.annotations.PropertyClass;
-import com.formation.projet.injectors.Injector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +13,7 @@ import com.formation.projet.injectors.Injector;
 @PropertyClass("database.properties")
 public class Database {
 
-    private static Database instance = null;
+    private static Database instance;
 
     @Property("db.url")
     private String url;
@@ -49,10 +48,6 @@ public class Database {
     }
 
     public static Database getInstance() {
-        if (instance == null) {
-            instance = new Injector<Database>().loadProperties(Database.class);
-        }
-
         return instance;
     }
 }

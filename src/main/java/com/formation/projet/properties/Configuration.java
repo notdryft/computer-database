@@ -3,7 +3,6 @@ package com.formation.projet.properties;
 
 import com.formation.projet.annotations.Property;
 import com.formation.projet.annotations.PropertyClass;
-import com.formation.projet.injectors.Injector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +13,7 @@ import com.formation.projet.injectors.Injector;
 @PropertyClass("configuration.properties")
 public class Configuration {
 
-    private static Configuration instance = null;
+    private static Configuration instance;
 
     @Property("configuration.first_page")
     private int firstPage;
@@ -49,10 +48,6 @@ public class Configuration {
     }
 
     public static Configuration getInstance() {
-        if (instance == null) {
-            instance = new Injector<Configuration>().loadProperties(Configuration.class);
-        }
-
         return instance;
     }
 }

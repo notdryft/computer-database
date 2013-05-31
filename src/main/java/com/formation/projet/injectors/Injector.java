@@ -43,18 +43,21 @@ public class Injector<T> {
 
         for (Field field : fields) {
             field.setAccessible(true);
-            String property = field.getAnnotation(Property.class).value();
 
-            properties.tryProperty(property);
-            properties.cleanTaggedProperty(property);
+            Property property = field.getAnnotation(Property.class);
+            String name = property.value();
 
-            Class<?> fieldClass = field.getType();
+            properties.tryProperty(name);
+            properties.cleanTaggedProperty(name);
 
             // TODO Dirty
+            Class<?> fieldClass = field.getType();
             if (fieldClass.isAssignableFrom(int.class)) {
-                field.set(t, properties.getInt(field.getAnnotation(Property.class).value()));
+                field.set(t, properties.getInt(name));
             } else if (fieldClass.isAssignableFrom(String.class)) {
-                field.set(t, properties.getString(field.getAnnotation(Property.class).value()));
+                field.set(t, properties.getString(name));
+            } else if (fieldClass.isAssignableFrom(List.class)) {
+                field.set(t, properties.getList(name));
             } else {
                 throw new PropertyInjectionException("Not managed field type");
             }

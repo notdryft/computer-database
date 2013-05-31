@@ -2,7 +2,6 @@ package com.formation.projet.properties;
 
 import com.formation.projet.annotations.Property;
 import com.formation.projet.annotations.PropertyClass;
-import com.formation.projet.injectors.Injector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +12,7 @@ import com.formation.projet.injectors.Injector;
 @PropertyClass("routes.properties")
 public class Routes {
 
-    private static Routes instance = null;
+    private static Routes instance;
 
     @Property("routes.index")
     private String index;
@@ -48,10 +47,6 @@ public class Routes {
     }
 
     public static Routes getInstance() {
-        if (instance == null) {
-            instance = new Injector<Routes>().loadProperties(Routes.class);
-        }
-
         return instance;
     }
 }
