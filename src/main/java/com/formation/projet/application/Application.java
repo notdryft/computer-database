@@ -2,8 +2,10 @@ package com.formation.projet.application;
 
 import com.formation.projet.application.annotations.Property;
 import com.formation.projet.application.annotations.PropertyClass;
+import com.formation.projet.application.exceptions.InjectionException;
 import com.formation.projet.application.injectors.Injector;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -27,19 +29,42 @@ public class Application {
         // Do nothing.
     }
 
-    public List<String> getPackagesToScan() {
+    private List<String> getPackagesToScan() {
         return packagesToScan;
     }
 
-    public List<String> getBeans() {
+    private List<String> getBeans() {
         return beans;
     }
 
-    public static Application getInstance() {
+    private static Application getInstance() {
         if (instance == null) {
             instance = Injector.loadProperties(Application.class);
         }
 
         return instance;
+    }
+
+    private static void start0() throws Exception {
+        Application application = getInstance();
+        for (String pkg : application.getPackagesToScan()) {
+            for (String bean : application.getBeans()) {
+                String beanName = pkg + "." + bean;
+
+                Class<?> clazz = Class.forName(beanName);
+
+                Field field = clazz.getDeclaredField("instance");
+                field.setAccessible(true);
+                field.set(null, Injector.loadProperties(clazz));
+            }
+        }
+    }
+
+    public static void start() {
+        try {
+            start0();
+        } catch (Exception e) {
+            throw new InjectionException("Failed to inject properties beans", e);
+        }
     }
 }
