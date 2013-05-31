@@ -43,8 +43,6 @@ public enum ConnectionFactory {
                 threadLocal.set(connection);
             } catch (SQLException e) {
                 throw new ConnectionException("Could not connect to the database", e);
-            } finally {
-                closeConnection();
             }
         }
     }
