@@ -44,8 +44,6 @@ public class EditController extends HttpServlet {
 
             response.sendRedirect(routes.getBack());
         } else {
-            System.out.println("computerAndCompanies = " + computerAndCompanies);
-
             request.setAttribute("form", new ComputerForm(computerAndCompanies.getComputer()));
             request.setAttribute("companies", computerAndCompanies.getCompanies());
 
