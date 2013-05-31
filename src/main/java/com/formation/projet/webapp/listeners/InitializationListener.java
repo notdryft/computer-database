@@ -1,6 +1,6 @@
 package com.formation.projet.webapp.listeners;
 
-import com.formation.projet.application.Application;
+import com.formation.projet.application.injectors.Injection;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,7 +15,7 @@ public class InitializationListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        Application.start();
+        Injection.start();
     }
 
     @Override
