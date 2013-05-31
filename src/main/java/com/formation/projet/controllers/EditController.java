@@ -5,6 +5,7 @@ import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.helpers.LongHelper;
+import com.formation.projet.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,10 +23,13 @@ import java.io.IOException;
 @WebServlet("/computers/edit")
 public class EditController extends HttpServlet {
 
+    private Routes routes;
+
     private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
+        routes = Routes.instance;
         computerService = ComputerServiceImpl.instance;
     }
 
@@ -38,12 +42,14 @@ public class EditController extends HttpServlet {
         if (computerAndCompanies == null) {
             request.getSession().setAttribute("error", "Computer not found");
 
-            response.sendRedirect("../computers");
+            response.sendRedirect(routes.getBack());
         } else {
+            System.out.println("computerAndCompanies = " + computerAndCompanies);
+
             request.setAttribute("form", new ComputerForm(computerAndCompanies.getComputer()));
             request.setAttribute("companies", computerAndCompanies.getCompanies());
 
-            request.getRequestDispatcher("/WEB-INF/pages/edit.jsp").include(request, response);
+            request.getRequestDispatcher(routes.getEdit()).include(request, response);
         }
     }
 }

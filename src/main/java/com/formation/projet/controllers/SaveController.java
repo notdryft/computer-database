@@ -53,7 +53,7 @@ public class SaveController extends HttpServlet {
             request.setAttribute("form", form);
             request.setAttribute("companies", companyService.findAll());
 
-            request.getRequestDispatcher("/WEB-INF/pages/new.jsp").include(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/create.jsp").include(request, response);
         }
     }
 }

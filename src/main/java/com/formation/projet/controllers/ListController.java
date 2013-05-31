@@ -5,6 +5,7 @@ import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.helpers.PageHelper;
+import com.formation.projet.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,10 +23,13 @@ import java.io.IOException;
 @WebServlet("/computers")
 public class ListController extends HttpServlet {
 
+    private Routes routes;
+
     private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
+        routes = Routes.instance;
         computerService = ComputerServiceImpl.instance;
     }
 
@@ -57,6 +61,6 @@ public class ListController extends HttpServlet {
         purgeSession(request, "success");
         purgeSession(request, "error");
 
-        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").include(request, response);
+        request.getRequestDispatcher(routes.getIndex()).include(request, response);
     }
 }

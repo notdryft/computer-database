@@ -30,7 +30,7 @@
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
         </form>
 
-        <a class="btn success" id="add" href="<c:url value="/computers/new"/>">Add a new computer</a>
+        <a class="btn success" id="add" href="<c:url value="/computers/create"/>">Add a new computer</a>
     </div>
 
     <c:choose>

@@ -3,6 +3,7 @@ package com.formation.projet.controllers;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.ComputerServiceImpl;
 import com.formation.projet.helpers.LongHelper;
+import com.formation.projet.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +21,13 @@ import java.io.IOException;
 @WebServlet("/computers/delete")
 public class DeleteController extends HttpServlet {
 
+    private Routes routes;
+
     private ComputerService computerService;
 
     @Override
     public void init() throws ServletException {
+        routes = Routes.instance;
         computerService = ComputerServiceImpl.instance;
     }
 
@@ -34,12 +38,10 @@ public class DeleteController extends HttpServlet {
 
         if (computerService.seekAndDestroy(id)) {
             request.getSession().setAttribute("success", "Computer has been deleted");
-
-            response.sendRedirect("../computers");
         } else {
             request.getSession().setAttribute("error", "Computer not found");
-
-            response.sendRedirect("../computers");
         }
+
+        response.sendRedirect(routes.getBack());
     }
 }

@@ -2,6 +2,7 @@ package com.formation.projet.controllers;
 
 import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.business.services.CompanyServiceImpl;
+import com.formation.projet.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +17,16 @@ import java.io.IOException;
  * Date: 27/05/13
  * Time: 17:53
  */
-@WebServlet("/computers/new")
+@WebServlet("/computers/create")
 public class CreateController extends HttpServlet {
+
+    private Routes routes;
 
     private CompanyServiceImpl companyService;
 
     @Override
     public void init() throws ServletException {
+        routes = Routes.instance;
         companyService = CompanyServiceImpl.instance;
     }
 
@@ -32,6 +36,6 @@ public class CreateController extends HttpServlet {
         request.setAttribute("form", new ComputerForm());
         request.setAttribute("companies", companyService.findAll());
 
-        request.getRequestDispatcher("/WEB-INF/pages/new.jsp").include(request, response);
+        request.getRequestDispatcher(routes.getCreate()).include(request, response);
     }
 }
