@@ -37,17 +37,6 @@ public class ListController extends HttpServlet {
         }
     }
 
-    private void pushPageState(HttpServletRequest request, PageState pageState) {
-        request.setAttribute("page", pageState.getPage());
-        request.setAttribute("sortColumn", pageState.getSortColumn());
-        request.setAttribute("filter", pageState.getFilter());
-
-        request.setAttribute("offset", pageState.getOffset());
-
-        request.setAttribute("total", pageState.getTotal());
-        request.setAttribute("maxPages", pageState.getMaxPages());
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,7 +51,7 @@ public class ListController extends HttpServlet {
         request.setAttribute("computers", computersAndCount.getComputers());
 
         // Now that we computed everything
-        pushPageState(request, pageState);
+        request.setAttribute("state", pageState);
 
         // Quick and dirty
         purgeSession(request, "success");

@@ -21,7 +21,7 @@
 
 <section id="main">
 
-    <h1>${functions:title(total)}</h1>
+    <h1>${functions:title(state.total)}</h1>
 
     <c:if test="${not empty success}">
         <div class="alert-message warning">
@@ -38,7 +38,7 @@
     <div id="actions">
 
         <form target="<c:url value="/computers"/>">
-            <input type="search" id="searchbox" name="f" value="${filter}" placeholder="Filter by computer name...">
+            <input type="search" id="searchbox" name="f" value="${state.filter}" placeholder="Filter by computer name...">
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
         </form>
 
@@ -51,11 +51,10 @@
             <table class="computers zebra-striped">
                 <thead>
                 <tr>
-                    <helpers:header title="Computer name" currentOrderBy="${sortColumn}" orderBy="2"
-                                    filter="${filter}"/>
-                    <helpers:header title="Introduced" currentOrderBy="${sortColumn}" orderBy="3" filter="${filter}"/>
-                    <helpers:header title="Discontinued" currentOrderBy="${sortColumn}" orderBy="4" filter="${filter}"/>
-                    <helpers:header title="Company" currentOrderBy="${sortColumn}" orderBy="5" filter="${filter}"/>
+                    <helpers:header title="Computer name" state="${state}" orderBy="2"/>
+                    <helpers:header title="Introduced" state="${state}" orderBy="3"/>
+                    <helpers:header title="Discontinued" state="${state}" orderBy="4"/>
+                    <helpers:header title="Company" state="${state}" orderBy="5"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,37 +69,7 @@
                 </tbody>
             </table>
 
-            <div id="pagination" class="pagination">
-                <ul>
-                    <c:choose>
-                    <c:when test="${page <= 0}">
-                    <li class="prev disabled">
-                        <a>&larr; Previous</a>
-                    </li>
-                    </c:when>
-                    <c:otherwise>
-                    <li class="prev">
-                        <a href="<c:url value="/computers${functions:linkAttributes(page - 1, sortColumn, filter)}"/>">&larr;
-                            Previous</a>
-                    </li>
-                    </c:otherwise>
-                    </c:choose>
-                    <li class="current">
-                        <a>Displaying ${offset + 1} to ${offset + computers.size()} of ${total}</a>
-                    </li>
-                    <c:choose>
-                    <c:when test="${page >= maxPages}">
-                    <li class="next disabled">
-                        <a>Next &rarr;</a>
-                    </li>
-                    </c:when>
-                    <c:otherwise>
-                    <li class="next">
-                        <a href="<c:url value="/computers${functions:linkAttributes(page + 1, sortColumn, filter)}"/>">Next &rarr;</a>
-                    </li>
-                    </c:otherwise>
-                    </c:choose>
-            </div>
+            <helpers:pagination state="${state}" nbItems="${computers.size()}"/>
         </c:when>
         <c:otherwise>
             <div class="well">
