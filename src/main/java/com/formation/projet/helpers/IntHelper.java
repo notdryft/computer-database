@@ -32,7 +32,7 @@ public class IntHelper {
         try {
             value = Integer.parseInt(properties.getProperty(name));
         } catch (NumberFormatException e) {
-            throw new PropertiesLoadingException(e, "Property \"", name, "\" is not an int");
+            throw new PropertiesLoadingException(String.format("Property \"%s\" is not an int", name), e);
         }
 
         return value;
