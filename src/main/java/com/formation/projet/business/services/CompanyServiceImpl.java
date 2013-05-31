@@ -1,5 +1,7 @@
 package com.formation.projet.business.services;
 
+import com.formation.projet.application.exceptions.DaoException;
+import com.formation.projet.application.exceptions.ServiceException;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.business.dao.CompanyDaoImpl;
@@ -29,9 +31,14 @@ public enum CompanyServiceImpl implements CompanyService {
     public List<Company> findAll() {
         factory.openConnection();
 
-        List<Company> companies = companyDao.findAll();
-
-        factory.closeConnection();
+        List<Company> companies;
+        try {
+            companies = companyDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling findAll()", e);
+        } finally {
+            factory.closeConnection();
+        }
 
         return companies;
     }

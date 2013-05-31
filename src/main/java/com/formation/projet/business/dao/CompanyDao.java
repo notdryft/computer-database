@@ -1,5 +1,6 @@
 package com.formation.projet.business.dao;
 
+import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.business.beans.Company;
 
 import java.util.List;
@@ -12,5 +13,5 @@ import java.util.List;
  */
 public interface CompanyDao {
 
-    List<Company> findAll();
+    List<Company> findAll() throws DaoException;
 }

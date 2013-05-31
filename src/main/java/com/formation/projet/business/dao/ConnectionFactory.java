@@ -1,5 +1,6 @@
 package com.formation.projet.business.dao;
 
+import com.formation.projet.application.exceptions.ConnectionException;
 import com.formation.projet.application.properties.Database;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public enum ConnectionFactory {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new ConnectionException("Driver not found", e);
         }
 
         database = Database.getInstance();
@@ -41,7 +42,9 @@ public enum ConnectionFactory {
 
                 threadLocal.set(connection);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new ConnectionException("Could not connect to the database", e);
+            } finally {
+                closeConnection();
             }
         }
     }

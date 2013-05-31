@@ -1,5 +1,6 @@
 package com.formation.projet.business.dao;
 
+import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
@@ -118,7 +119,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public Computer find(long id) {
+    public Computer find(long id) throws DaoException {
         Connection connection = factory.getConnection();
 
         Computer computer = null;
@@ -134,7 +135,7 @@ public enum ComputerDaoImpl implements ComputerDao {
                 computer = mapComputer(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling find(int)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
         }
@@ -143,7 +144,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public List<Computer> findAll(PageState pageState) {
+    public List<Computer> findAll(PageState pageState) throws DaoException {
         Connection connection = factory.getConnection();
 
         List<Computer> computers = new ArrayList<Computer>();
@@ -161,7 +162,7 @@ public enum ComputerDaoImpl implements ComputerDao {
                 computers.add(computer);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling findAll(PageState)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
         }
@@ -170,7 +171,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public Computer create(Computer computer) {
+    public Computer create(Computer computer) throws DaoException {
         Connection connection = factory.getConnection();
 
         PreparedStatement statement = null;
@@ -189,7 +190,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling create(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
         }
@@ -199,7 +200,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public Computer update(Computer computer) {
+    public Computer update(Computer computer) throws DaoException {
         Connection connection = factory.getConnection();
 
         PreparedStatement statement = null;
@@ -220,7 +221,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling update(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
         }
@@ -231,7 +232,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     // TODO return boolean?
-    public void delete(Computer computer) {
+    public void delete(Computer computer) throws DaoException {
         Connection connection = factory.getConnection();
 
         PreparedStatement statement = null;
@@ -242,14 +243,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
         }
     }
 
     @Override
-    public int count(String filter) {
+    public int count(String filter) throws DaoException {
         Connection connection = factory.getConnection();
 
         PreparedStatement statement = null;
@@ -264,7 +265,7 @@ public enum ComputerDaoImpl implements ComputerDao {
                 count = resultSet.getInt("value");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
         }

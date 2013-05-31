@@ -1,5 +1,6 @@
 package com.formation.projet.business.dao;
 
+import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.business.beans.Company;
 
 import java.sql.Connection;
@@ -38,7 +39,7 @@ public enum CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public List<Company> findAll() {
+    public List<Company> findAll() throws DaoException {
         Connection connection = factory.getConnection();
 
         List<Company> companies = new ArrayList<Company>();
@@ -56,7 +57,7 @@ public enum CompanyDaoImpl implements CompanyDao {
                 companies.add(company);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Error while calling findAll()", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
         }

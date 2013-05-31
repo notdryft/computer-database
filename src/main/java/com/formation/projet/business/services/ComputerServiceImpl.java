@@ -1,5 +1,7 @@
 package com.formation.projet.business.services;
 
+import com.formation.projet.application.exceptions.DaoException;
+import com.formation.projet.application.exceptions.ServiceException;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.beans.ComputersAndCount;
@@ -33,15 +35,19 @@ public enum ComputerServiceImpl implements ComputerService {
 
         ComputerAndCompanies computerAndCompanies = new ComputerAndCompanies();
 
-        Computer computer = computerDao.find(id);
-        if (computer == null) {
-            return null;
+        try {
+            Computer computer = computerDao.find(id);
+            if (computer == null) {
+                return null;
+            }
+
+            computerAndCompanies.setComputer(computer);
+            computerAndCompanies.setCompanies(companyDao.findAll());
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling findWithAllCompanies(long)", e);
+        } finally {
+            factory.closeConnection();
         }
-
-        computerAndCompanies.setComputer(computer);
-        computerAndCompanies.setCompanies(companyDao.findAll());
-
-        factory.closeConnection();
 
         return computerAndCompanies;
     }
@@ -50,11 +56,16 @@ public enum ComputerServiceImpl implements ComputerService {
     public ComputersAndCount findAllAndCount(PageState pageState) {
         factory.openConnection();
 
-        ComputersAndCount computersAndCount = new ComputersAndCount();
-        computersAndCount.setTotal(computerDao.count(pageState.getFilter()));
-        computersAndCount.setComputers(computerDao.findAll(pageState));
-
-        factory.closeConnection();
+        ComputersAndCount computersAndCount;
+        try {
+            computersAndCount = new ComputersAndCount();
+            computersAndCount.setTotal(computerDao.count(pageState.getFilter()));
+            computersAndCount.setComputers(computerDao.findAll(pageState));
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling findAllAndCount(PageState)", e);
+        } finally {
+            factory.closeConnection();
+        }
 
         return computersAndCount;
     }
@@ -63,9 +74,13 @@ public enum ComputerServiceImpl implements ComputerService {
     public Computer create(Computer computer) {
         factory.openConnection();
 
-        computer = computerDao.create(computer);
-
-        factory.closeConnection();
+        try {
+            computer = computerDao.create(computer);
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling create(Computer)", e);
+        } finally {
+            factory.closeConnection();
+        }
 
         return computer;
     }
@@ -74,9 +89,13 @@ public enum ComputerServiceImpl implements ComputerService {
     public Computer update(Computer computer) {
         factory.openConnection();
 
-        computer = computerDao.update(computer);
-
-        factory.closeConnection();
+        try {
+            computer = computerDao.update(computer);
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling update(Computer)", e);
+        } finally {
+            factory.closeConnection();
+        }
 
         return computer;
     }
@@ -85,14 +104,18 @@ public enum ComputerServiceImpl implements ComputerService {
     public boolean seekAndDestroy(long id) {
         factory.openConnection();
 
-        Computer computer = computerDao.find(id);
-        if (computer == null) {
-            return false;
+        try {
+            Computer computer = computerDao.find(id);
+            if (computer == null) {
+                return false;
+            }
+
+            computerDao.delete(computer);
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling seekAndDestroy(long)", e);
+        } finally {
+            factory.closeConnection();
         }
-
-        computerDao.delete(computer);
-
-        factory.closeConnection();
 
         return true;
     }
