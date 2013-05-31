@@ -1,4 +1,4 @@
-package com.formation.projet.properties;
+package com.formation.projet.injectors;
 
 import com.formation.projet.exceptions.ParseException;
 import com.formation.projet.exceptions.PropertiesLoadingException;

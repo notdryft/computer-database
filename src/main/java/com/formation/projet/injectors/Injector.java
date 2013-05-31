@@ -1,8 +1,7 @@
-package com.formation.projet.properties;
+package com.formation.projet.injectors;
 
 import com.formation.projet.annotations.Property;
 import com.formation.projet.annotations.PropertyClass;
-import com.formation.projet.annotations.PropertyType;
 import com.formation.projet.exceptions.PropertyInjectionException;
 
 import java.lang.reflect.Constructor;
@@ -17,9 +16,9 @@ import java.util.List;
  * Date: 30/05/13
  * Time: 17:43
  */
-public class Loader<T> {
+public class Injector<T> {
 
-    public Loader() {
+    public Injector() {
         // Do nothing
     }
 
@@ -49,10 +48,15 @@ public class Loader<T> {
             properties.tryProperty(property);
             properties.cleanTaggedProperty(property);
 
-            if (field.getAnnotation(PropertyType.class) == null) {
+            Class<?> fieldClass = field.getType();
+
+            // TODO Dirty
+            if (fieldClass.isAssignableFrom(int.class)) {
+                field.set(t, properties.getInt(field.getAnnotation(Property.class).value()));
+            } else if (fieldClass.isAssignableFrom(String.class)) {
                 field.set(t, properties.getString(field.getAnnotation(Property.class).value()));
             } else {
-                field.set(t, properties.getInt(field.getAnnotation(Property.class).value()));
+                throw new PropertyInjectionException("Not managed field type");
             }
         }
 

@@ -3,8 +3,7 @@ package com.formation.projet.properties;
 
 import com.formation.projet.annotations.Property;
 import com.formation.projet.annotations.PropertyClass;
-import com.formation.projet.annotations.PropertyType;
-import com.formation.projet.annotations.Types;
+import com.formation.projet.injectors.Injector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,15 +16,12 @@ public class Configuration {
 
     private static Configuration instance = null;
 
-    @PropertyType(Types.INT)
     @Property("configuration.first_page")
     private int firstPage;
 
-    @PropertyType(Types.INT)
     @Property("configuration.max_items_per_page")
     private int maxItemsPerPage;
 
-    @PropertyType(Types.INT)
     @Property("configuration.default_sort_column")
     private int defaultSortColumn;
 
@@ -54,7 +50,7 @@ public class Configuration {
 
     public static Configuration getInstance() {
         if (instance == null) {
-            instance = new Loader<Configuration>().loadProperties(Configuration.class);
+            instance = new Injector<Configuration>().loadProperties(Configuration.class);
         }
 
         return instance;
