@@ -22,8 +22,4 @@ public class PropertiesLoadingException extends RuntimeException {
     public PropertiesLoadingException(Throwable cause) {
         super(cause);
     }
-
-    public PropertiesLoadingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }
