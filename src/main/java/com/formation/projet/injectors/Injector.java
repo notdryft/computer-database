@@ -16,13 +16,9 @@ import java.util.List;
  * Date: 30/05/13
  * Time: 17:43
  */
-public class Injector<T> {
+public class Injector {
 
-    public Injector() {
-        // Do nothing
-    }
-
-    private T loadProperties0(Class<T> clazz) throws Exception {
+    private static <T> T loadProperties0(Class<T> clazz) throws Exception {
         Field[] allFields = clazz.getDeclaredFields();
 
         List<Field> fields = new ArrayList<Field>();
@@ -66,7 +62,7 @@ public class Injector<T> {
         return t;
     }
 
-    public T loadProperties(Class<T> clazz) {
+    public static <T> T loadProperties(Class<T> clazz) {
         try {
             return loadProperties0(clazz);
         } catch (Exception e) {

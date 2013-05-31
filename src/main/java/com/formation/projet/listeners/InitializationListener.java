@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
  */
 public class InitializationListener implements ServletContextListener {
 
-    @SuppressWarnings("unchecked")
     private void contextInitialized0(ServletContextEvent servletContextEvent) throws Exception {
         Application application = Application.getInstance();
 
@@ -28,7 +27,7 @@ public class InitializationListener implements ServletContextListener {
 
                 Field field = clazz.getDeclaredField("instance");
                 field.setAccessible(true);
-                field.set(null, new Injector().loadProperties(clazz));
+                field.set(null, Injector.loadProperties(clazz));
             }
         }
     }

@@ -37,7 +37,7 @@ public class Application {
 
     public static Application getInstance() {
         if (instance == null) {
-            instance = new Injector<Application>().loadProperties(Application.class);
+            instance = Injector.loadProperties(Application.class);
         }
 
         return instance;
