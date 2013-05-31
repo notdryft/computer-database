@@ -29,7 +29,7 @@ public class ListController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        routes = Routes.instance;
+        routes = Routes.getInstance();
         computerService = ComputerServiceImpl.instance;
     }
 

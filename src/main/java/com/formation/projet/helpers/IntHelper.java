@@ -1,6 +1,6 @@
 package com.formation.projet.helpers;
 
-import com.formation.projet.exceptions.PropertiesLoadingException;
+import com.formation.projet.exceptions.ParseException;
 
 import java.util.Properties;
 
@@ -27,12 +27,12 @@ public class IntHelper {
         return value;
     }
 
-    public static int parseProperty(Properties properties, String name) {
+    public static int parseProperty(Properties properties, String name) throws ParseException {
         int value;
         try {
             value = Integer.parseInt(properties.getProperty(name));
         } catch (NumberFormatException e) {
-            throw new PropertiesLoadingException(String.format("Property \"%s\" is not an int", name), e);
+            throw new ParseException(String.format("Property \"%s\" is not an int", name), e);
         }
 
         return value;

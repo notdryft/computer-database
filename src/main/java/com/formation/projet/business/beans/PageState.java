@@ -21,7 +21,7 @@ public class PageState {
     private int total;
 
     public PageState() {
-        configuration = Configuration.instance;
+        configuration = Configuration.getInstance();
     }
 
     public int getPage() {

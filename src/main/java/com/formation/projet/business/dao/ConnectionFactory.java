@@ -17,7 +17,7 @@ public enum ConnectionFactory {
 
     private ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
-    private Database properties;
+    private Database database;
 
     private ConnectionFactory() {
         try {
@@ -26,7 +26,7 @@ public enum ConnectionFactory {
             e.printStackTrace();
         }
 
-        properties = Database.instance;
+        database = Database.getInstance();
     }
 
     public void openConnection() {
@@ -34,9 +34,9 @@ public enum ConnectionFactory {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(
-                        properties.getUrl() + properties.getSchema(),
-                        properties.getUser(),
-                        properties.getPassword()
+                        database.getUrl() + database.getSchema(),
+                        database.getUser(),
+                        database.getPassword()
                 );
 
                 threadLocal.set(connection);

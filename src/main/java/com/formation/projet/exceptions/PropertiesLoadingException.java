@@ -6,7 +6,7 @@ package com.formation.projet.exceptions;
  * Date: 24/05/13
  * Time: 16:34
  */
-public class PropertiesLoadingException extends RuntimeException {
+public class PropertiesLoadingException extends Exception {
 
     public PropertiesLoadingException() {
     }

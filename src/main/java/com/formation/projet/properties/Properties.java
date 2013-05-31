@@ -1,5 +1,6 @@
-package com.formation.projet.util;
+package com.formation.projet.properties;
 
+import com.formation.projet.exceptions.ParseException;
 import com.formation.projet.exceptions.PropertiesLoadingException;
 import com.formation.projet.helpers.IntHelper;
 
@@ -9,14 +10,14 @@ import java.io.InputStream;
 /**
  * Created with IntelliJ IDEA.
  * User: gcorre
- * Date: 30/05/13
- * Time: 17:43
+ * Date: 31/05/13
+ * Time: 12:12
  */
-public class Properties {
+class Properties {
 
     private static final String EMPTY_KEYWORD = "<empty>";
 
-    private final String path;
+    private String path;
 
     private final java.util.Properties properties;
 
@@ -25,7 +26,7 @@ public class Properties {
         this.properties = new java.util.Properties();
     }
 
-    public int getInt(String property) {
+    public int getInt(String property) throws ParseException {
         return IntHelper.parseProperty(properties, property);
     }
 
@@ -33,12 +34,7 @@ public class Properties {
         return properties.getProperty(property);
     }
 
-    private void load(InputStream inputStream) throws IOException {
-        properties.load(inputStream);
-
-    }
-
-    private void tryProperty(String property) {
+    public void tryProperty(String property) throws PropertiesLoadingException {
         String value = properties.getProperty(property);
         if (value == null) {
             throw new PropertiesLoadingException(String.format("Property \"%s\" not found in file \"%s\"", property, path));
@@ -47,37 +43,34 @@ public class Properties {
         }
     }
 
-    private void cleanTaggedProperties() {
-        for (String property : properties.stringPropertyNames()) {
-            String value = properties.getProperty(property);
-            if (value.equals(EMPTY_KEYWORD)) {
-                properties.remove(property);
-                properties.put(property, "");
-            }
+    public void cleanTaggedProperty(String property) {
+        String value = properties.getProperty(property);
+        if (value.equals(EMPTY_KEYWORD)) {
+            properties.remove(property);
+            properties.put(property, "");
         }
     }
 
-    public static Properties loadProperties(String path, String... names) {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private void load(InputStream inputStream) throws IOException {
+        properties.load(inputStream);
 
-        InputStream is = loader.getResourceAsStream(path);
+    }
+
+    public static Properties loadProperties(String path) throws PropertiesLoadingException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        InputStream is = classLoader.getResourceAsStream(path);
         if (is == null) {
             throw new PropertiesLoadingException(String.format("File \"%s\" not found", path));
         }
 
-        Properties properties = new Properties(path);
+        Properties p = new Properties(path);
         try {
-            properties.load(is);
+            p.load(is);
         } catch (IOException e) {
             throw new PropertiesLoadingException(String.format("Error while reading from \"%s\"", path), e);
         }
 
-        for (String property : names) {
-            properties.tryProperty(property);
-        }
-
-        properties.cleanTaggedProperties();
-
-        return properties;
+        return p;
     }
 }

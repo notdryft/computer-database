@@ -1,7 +1,8 @@
 package com.formation.projet.properties;
 
 
-import com.formation.projet.util.Properties;
+import com.formation.projet.annotations.Property;
+import com.formation.projet.annotations.PropertyClass;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,37 +10,25 @@ import com.formation.projet.util.Properties;
  * Date: 24/05/13
  * Time: 16:38
  */
-public enum Database {
-    instance;
+@PropertyClass("database.properties")
+public class Database {
 
-    private static final String PATH = "database.properties";
+    private static Database instance = null;
 
-    private static final String URL = "db.url";
-
-    private static final String SCHEMA = "db.schema";
-
-    private static final String USER = "db.user";
-
-    private static final String PASSWORD = "db.password";
-
+    @Property("db.url")
     private String url;
 
+    @Property("db.schema")
     private String schema;
 
+    @Property("db.user")
     private String user;
 
+    @Property("db.password")
     private String password;
 
-    private Database() {
-        Properties properties =
-                Properties.loadProperties(
-                        PATH,
-                        URL, SCHEMA, USER, PASSWORD);
-
-        this.url = properties.getString(URL);
-        this.schema = properties.getString(SCHEMA);
-        this.user = properties.getString(USER);
-        this.password = properties.getString(PASSWORD);
+    public Database() {
+        // Do nothing
     }
 
     public String getUrl() {
@@ -56,5 +45,13 @@ public enum Database {
 
     public String getPassword() {
         return password;
+    }
+
+    public static Database getInstance() {
+        if (instance == null) {
+            instance = new Loader<Database>().loadProperties(Database.class);
+        }
+
+        return instance;
     }
 }

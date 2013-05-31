@@ -1,6 +1,7 @@
 package com.formation.projet.properties;
 
-import com.formation.projet.util.Properties;
+import com.formation.projet.annotations.Property;
+import com.formation.projet.annotations.PropertyClass;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,37 +9,25 @@ import com.formation.projet.util.Properties;
  * Date: 31/05/13
  * Time: 10:15
  */
-public enum Routes {
-    instance;
+@PropertyClass("routes.properties")
+public class Routes {
 
-    private static final String PATH = "routes.properties";
+    private static Routes instance = null;
 
-    private static final String INDEX = "routes.index";
-
-    private static final String EDIT = "routes.edit";
-
-    private static final String CREATE = "routes.create";
-
-    private static final String BACK = "routes.back";
-
+    @Property("routes.index")
     private String index;
 
+    @Property("routes.edit")
     private String edit;
 
+    @Property("routes.create")
     private String create;
 
+    @Property("routes.back")
     private String back;
 
     private Routes() {
-        Properties properties =
-                Properties.loadProperties(
-                        PATH,
-                        INDEX, EDIT, CREATE, BACK);
-
-        this.index = properties.getString(INDEX);
-        this.edit = properties.getString(EDIT);
-        this.create = properties.getString(CREATE);
-        this.back = properties.getString(BACK);
+        // Do nothing.
     }
 
     public String getIndex() {
@@ -55,5 +44,13 @@ public enum Routes {
 
     public String getBack() {
         return back;
+    }
+
+    public static Routes getInstance() {
+        if (instance == null) {
+            instance = new Loader<Routes>().loadProperties(Routes.class);
+        }
+
+        return instance;
     }
 }

@@ -1,7 +1,10 @@
 package com.formation.projet.properties;
 
-import com.formation.projet.util.Properties;
 
+import com.formation.projet.annotations.Property;
+import com.formation.projet.annotations.PropertyClass;
+import com.formation.projet.annotations.PropertyType;
+import com.formation.projet.annotations.Types;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,37 +12,28 @@ import com.formation.projet.util.Properties;
  * Date: 29/05/13
  * Time: 11:24
  */
-public enum Configuration {
-    instance;
+@PropertyClass("configuration.properties")
+public class Configuration {
 
-    private static final String PATH = "configuration.properties";
+    private static Configuration instance = null;
 
-    private static final String FIRST_PAGE = "configuration.first_page";
-
-    private static final String MAX_ITEMS_PER_PAGE = "configuration.max_items_per_page";
-
-    private static final String DEFAULT_SORT_COLUMN = "configuration.default_sort_column";
-
-    private static final String DEFAULT_FILTER = "configuration.default_filter";
-
+    @PropertyType(Types.INT)
+    @Property("configuration.first_page")
     private int firstPage;
 
+    @PropertyType(Types.INT)
+    @Property("configuration.max_items_per_page")
     private int maxItemsPerPage;
 
+    @PropertyType(Types.INT)
+    @Property("configuration.default_sort_column")
     private int defaultSortColumn;
 
+    @Property("configuration.default_filter")
     private String defaultFilter;
 
-    private Configuration() {
-        Properties properties =
-                Properties.loadProperties(
-                        PATH,
-                        FIRST_PAGE, MAX_ITEMS_PER_PAGE, DEFAULT_SORT_COLUMN, DEFAULT_FILTER);
-
-        this.firstPage = properties.getInt(FIRST_PAGE);
-        this.maxItemsPerPage = properties.getInt(MAX_ITEMS_PER_PAGE);
-        this.defaultSortColumn = properties.getInt(DEFAULT_SORT_COLUMN);
-        this.defaultFilter = properties.getString(DEFAULT_FILTER);
+    public Configuration() {
+        // Do nothing
     }
 
     public int getFirstPage() {
@@ -56,5 +50,13 @@ public enum Configuration {
 
     public String getDefaultFilter() {
         return defaultFilter;
+    }
+
+    public static Configuration getInstance() {
+        if (instance == null) {
+            instance = new Loader<Configuration>().loadProperties(Configuration.class);
+        }
+
+        return instance;
     }
 }

@@ -26,7 +26,7 @@ public class CreateController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        routes = Routes.instance;
+        routes = Routes.getInstance();
         companyService = CompanyServiceImpl.instance;
     }
 

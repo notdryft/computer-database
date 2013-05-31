@@ -33,7 +33,7 @@ public class UpdateController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        routes = Routes.instance;
+        routes = Routes.getInstance();
         computerService = ComputerServiceImpl.instance;
         companyService = CompanyServiceImpl.instance;
     }

@@ -10,7 +10,7 @@ import com.formation.projet.properties.Configuration;
  */
 public class PageHelper {
 
-    private static Configuration configuration = Configuration.instance;
+    private static Configuration configuration = Configuration.getInstance();
 
     public static int parsePage(String pageString) {
         int page = IntHelper.parseInt(pageString, configuration.getFirstPage());
