@@ -15,16 +15,16 @@ public class Database {
 
     private static Database instance;
 
-    @Property("db.url")
+    @Property("database.url")
     private String url;
 
-    @Property("db.schema")
+    @Property("database.schema")
     private String schema;
 
-    @Property("db.user")
+    @Property("database.user")
     private String user;
 
-    @Property("db.password")
+    @Property("database.password")
     private String password;
 
     public Database() {
