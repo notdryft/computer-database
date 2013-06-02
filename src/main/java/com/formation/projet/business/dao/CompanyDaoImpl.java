@@ -40,14 +40,13 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     @Override
     public List<Company> findAll() throws DaoException {
-        Connection connection = factory.getConnection();
-
         List<Company> companies = new ArrayList<Company>();
 
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
+            Connection connection = factory.getConnection();
             statement = connection.createStatement();
 
             resultSet = statement.executeQuery(FIND_ALL_QUERY);
@@ -60,6 +59,8 @@ public enum CompanyDaoImpl implements CompanyDao {
             throw new DaoException("Error while calling findAll()", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
+
+            factory.closeConnection();
         }
 
         return companies;

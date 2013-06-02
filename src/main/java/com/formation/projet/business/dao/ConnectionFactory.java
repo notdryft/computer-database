@@ -30,25 +30,19 @@ public enum ConnectionFactory {
         database = Database.getInstance();
     }
 
-    public void openConnection() {
+    public Connection getConnection() throws SQLException {
         Connection connection = threadLocal.get();
         if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(
-                        database.getUrl() + database.getSchema(),
-                        database.getUser(),
-                        database.getPassword()
-                );
+            connection = DriverManager.getConnection(
+                    database.getUrl() + database.getSchema(),
+                    database.getUser(),
+                    database.getPassword()
+            );
 
-                threadLocal.set(connection);
-            } catch (SQLException e) {
-                throw new ConnectionException("Could not connect to the database", e);
-            }
+            threadLocal.set(connection);
         }
-    }
 
-    public Connection getConnection() {
-        return threadLocal.get();
+        return connection;
     }
 
     public void closeConnection() {

@@ -120,14 +120,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer find(long id) throws DaoException {
-        Connection connection = factory.getConnection();
-
         Computer computer = null;
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
+            Connection connection = factory.getConnection();
             statement = makeFindStatement(connection, id);
 
             resultSet = statement.executeQuery();
@@ -138,6 +137,8 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling find(int)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
+
+            factory.closeConnection();
         }
 
         return computer;
@@ -145,14 +146,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Computer> findAll(PageState pageState) throws DaoException {
-        Connection connection = factory.getConnection();
-
         List<Computer> computers = new ArrayList<Computer>();
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
+            Connection connection = factory.getConnection();
             statement = makeFindAllStatement(connection, pageState);
 
             resultSet = statement.executeQuery();
@@ -165,6 +165,8 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling findAll(PageState)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
+
+            factory.closeConnection();
         }
 
         return computers;
@@ -172,11 +174,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer create(Computer computer) throws DaoException {
-        Connection connection = factory.getConnection();
-
         PreparedStatement statement = null;
 
         try {
+            Connection connection = factory.getConnection();
+
             if (computer.getCompany() == null) {
                 statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY);
             } else {
@@ -193,6 +195,8 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling create(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
+
+            factory.closeConnection();
         }
 
         // TODO return newly created object
@@ -201,11 +205,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer computer) throws DaoException {
-        Connection connection = factory.getConnection();
-
         PreparedStatement statement = null;
 
         try {
+            Connection connection = factory.getConnection();
+
             statement = connection.prepareStatement(UPDATE_QUERY + FILTER_ID_CLAUSE);
             statement.setString(1, computer.getName());
             statement.setDate(2, computer.getIntroduced());
@@ -224,6 +228,8 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling update(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
+
+            factory.closeConnection();
         }
 
         // TODO return newly updated object
@@ -233,11 +239,11 @@ public enum ComputerDaoImpl implements ComputerDao {
     @Override
     // TODO return boolean?
     public void delete(Computer computer) throws DaoException {
-        Connection connection = factory.getConnection();
-
         PreparedStatement statement = null;
 
         try {
+            Connection connection = factory.getConnection();
+
             statement = connection.prepareStatement(DELETE_QUERY);
             statement.setLong(1, computer.getId());
 
@@ -246,18 +252,20 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement);
+
+            factory.closeConnection();
         }
     }
 
     @Override
     public int count(String filter) throws DaoException {
-        Connection connection = factory.getConnection();
-
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         int count = -1;
         try {
+            Connection connection = factory.getConnection();
+
             statement = makeCountStatement(connection, filter);
 
             resultSet = statement.executeQuery();
@@ -268,6 +276,8 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
             DaoUtils.silentClosing(statement, resultSet);
+
+            factory.closeConnection();
         }
 
         return count;
