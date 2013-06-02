@@ -3,6 +3,8 @@ package com.formation.projet.application.injectors;
 import com.formation.projet.application.annotations.Property;
 import com.formation.projet.application.annotations.PropertyClass;
 import com.formation.projet.application.exceptions.InjectionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  */
 @PropertyClass("application.properties")
 public class Injection {
+
+    private static final Logger logger = LoggerFactory.getLogger(Injection.class);
 
     private static Injection instance = null;
 
@@ -60,9 +64,13 @@ public class Injection {
     }
 
     public static void start() {
+        logger.debug("Starting application properties injection");
+
         try {
             start0();
         } catch (Exception e) {
+            logger.error("Failed to inject properties beans", e);
+
             throw new InjectionException("Failed to inject properties beans", e);
         }
     }
