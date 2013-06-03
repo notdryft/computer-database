@@ -14,10 +14,6 @@ public class ComputerAndCompanies {
 
     private List<Company> companies;
 
-    public ComputerAndCompanies() {
-        // Do nothing.
-    }
-
     public Computer getComputer() {
         return computer;
     }

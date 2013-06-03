@@ -14,10 +14,6 @@ public class ComputersAndCount {
 
     private List<Computer> computers;
 
-    public ComputersAndCount() {
-        // Do nothing.
-    }
-
     public int getTotal() {
         return total;
     }

@@ -20,10 +20,6 @@ public class Computer {
 
     private Company company;
 
-    public Computer() {
-        // Do nothing.
-    }
-
     public Long getId() {
         return id;
     }

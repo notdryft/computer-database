@@ -28,10 +28,6 @@ public class Injection {
     @Property("application.beans")
     private List<String> beans;
 
-    private Injection() {
-        // Do nothing.
-    }
-
     private List<String> getPackagesToScan() {
         return packagesToScan;
     }

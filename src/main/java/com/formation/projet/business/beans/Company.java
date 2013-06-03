@@ -12,10 +12,6 @@ public class Company {
 
     private String name;
 
-    public Company() {
-        // Do nothing.
-    }
-
     public Long getId() {
         return id;
     }
