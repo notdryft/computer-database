@@ -33,4 +33,4 @@ Without maven, this is how you should scope the needed dependencies:
 
 ### Provided
 
-- JBoss Application Server 7 or Apache Tomcat 7 librairies
+- Apache Tomcat 7 librairies (usage of property catalina.base for logging)

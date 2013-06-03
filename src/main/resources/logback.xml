@@ -1,14 +1,15 @@
 <configuration>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${catalina.base}/logs/computer-database.log</file>
         <encoder>
-            <pattern>%d{dd MMM yy, yyyy HH:mm:ss.SSS} [%thread] %logger%n%-5level: %msg%n%rEx</pattern>
+            <Pattern>%d{"MMM dd, yyyy h:mm:ss a", Europe/Paris} [%thread] %logger%n%-5level: %msg%n%rEx</Pattern>
         </encoder>
     </appender>
 
     <logger name="com.formation.projet" level="DEBUG"/>
 
     <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>
