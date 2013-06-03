@@ -3,6 +3,8 @@ package com.formation.projet.application.injectors;
 import com.formation.projet.application.annotations.Property;
 import com.formation.projet.application.annotations.PropertyClass;
 import com.formation.projet.application.exceptions.PropertyInjectionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -17,6 +19,8 @@ import java.util.List;
  * Time: 17:43
  */
 public class Injector {
+
+    private static final Logger logger = LoggerFactory.getLogger(Injector.class);
 
     private static <T> T loadProperties0(Class<T> clazz) throws Exception {
         Field[] allFields = clazz.getDeclaredFields();
@@ -63,9 +67,13 @@ public class Injector {
     }
 
     public static <T> T loadProperties(Class<T> clazz) {
+        logger.info("Injecting properties for bean class \"{}\"", clazz.getName());
+
         try {
             return loadProperties0(clazz);
         } catch (Exception e) {
+            logger.error("Cannot load property class \"{}\"", clazz.getName());
+
             throw new PropertyInjectionException(String.format("Cannot load property class \"%s\"", clazz.getSimpleName()), e);
         }
     }
