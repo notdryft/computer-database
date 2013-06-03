@@ -9,13 +9,13 @@ import java.util.List;
  * Date: 28/05/13
  * Time: 15:09
  */
-public class FormElement {
+public class FormElement<T> {
 
     private String name;
 
     private String value;
 
-    private Object valueObject;
+    private T valueObject;
 
     private boolean valid;
 
@@ -53,7 +53,7 @@ public class FormElement {
         this.value = value;
     }
 
-    public Object getValueObject() {
+    public T getValueObject() {
         return valueObject;
     }
 
@@ -65,7 +65,7 @@ public class FormElement {
         return new ArrayList<String>(messages);
     }
 
-    public void validate(Object valueObject) {
+    public void validate(T valueObject) {
         this.valid = true;
         this.valueObject = valueObject;
     }

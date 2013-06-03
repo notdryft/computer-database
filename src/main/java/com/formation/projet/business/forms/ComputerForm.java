@@ -27,27 +27,27 @@ public class ComputerForm {
     private Long id;
 
     // Non empty
-    private final FormElement name;
+    private final FormElement<String> name;
 
     // Optional
     // Format: yyyy-MM-dd
-    private final FormElement introduced;
+    private final FormElement<Date> introduced;
 
     // Optional
     // Format: yyyy-MM-dd
     // Greater than introduced
-    private final FormElement discontinued;
+    private final FormElement<Date> discontinued;
 
     // Optional
     // Long
-    private final FormElement company;
+    private final FormElement<Long> company;
 
     public ComputerForm() {
         this.id = null;
-        this.name = new FormElement("name", "Required");
-        this.introduced = new FormElement("introduced", "Date ('yyyy-MM-dd')");
-        this.discontinued = new FormElement("discontinued", "Date ('yyyy-MM-dd')");
-        this.company = new FormElement("company");
+        this.name = new FormElement<String>("name", "Required");
+        this.introduced = new FormElement<Date>("introduced", "Date ('yyyy-MM-dd')");
+        this.discontinued = new FormElement<Date>("discontinued", "Date ('yyyy-MM-dd')");
+        this.company = new FormElement<Long>("company");
     }
 
     public ComputerForm(Computer computer) {
@@ -124,13 +124,13 @@ public class ComputerForm {
             computer.setId(id);
         }
 
-        computer.setName((String) name.getValueObject());
-        computer.setIntroduced((Date) introduced.getValueObject());
-        computer.setDiscontinued((Date) discontinued.getValueObject());
+        computer.setName(name.getValueObject());
+        computer.setIntroduced(introduced.getValueObject());
+        computer.setDiscontinued(discontinued.getValueObject());
 
         if (company.getValueObject() != null) {
             Company company = new Company();
-            company.setId((Long) this.company.getValueObject());
+            company.setId(this.company.getValueObject());
 
             computer.setCompany(company);
         }
