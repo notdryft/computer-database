@@ -25,9 +25,18 @@ public class StringHelper {
     }
 
     public static String capitalize(String string) {
+        if (string == null) {
+            throw new NullPointerException("Argument \"string\" is null");
+        } else if (string.isEmpty()) {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append(String.valueOf(string.charAt(0)).toUpperCase());
-        sb.append(string.substring(1));
+
+        if (string.length() > 1) {
+            sb.append(string.substring(1));
+        }
 
         return sb.toString();
     }
