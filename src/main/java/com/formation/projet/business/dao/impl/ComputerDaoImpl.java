@@ -50,7 +50,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling find(int)", e);
         } finally {
             factory.silentClosing(statement, resultSet);
-            factory.closeConnection();
         }
 
         return computer;
@@ -78,7 +77,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling findAll(PageState)", e);
         } finally {
             factory.silentClosing(statement, resultSet);
-            factory.closeConnection();
         }
 
         return computers;
@@ -102,7 +100,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling create(Computer)", e);
         } finally {
             factory.silentClosing(statement);
-            factory.closeConnection();
         }
 
         return computer;
@@ -122,7 +119,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling update(Computer)", e);
         } finally {
             factory.silentClosing(statement);
-            factory.closeConnection();
         }
 
         return find(computer.getId());
@@ -142,7 +138,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
             factory.silentClosing(statement);
-            factory.closeConnection();
         }
     }
 
@@ -165,7 +160,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             throw new DaoException("Error while calling count(String)", e);
         } finally {
             factory.silentClosing(statement, resultSet);
-            factory.closeConnection();
         }
 
         return count;

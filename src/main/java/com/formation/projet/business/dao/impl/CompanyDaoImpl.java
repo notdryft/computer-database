@@ -61,7 +61,6 @@ public enum CompanyDaoImpl implements CompanyDao {
             throw new DaoException("Error while calling findAll()", e);
         } finally {
             factory.silentClosing(statement, resultSet);
-            factory.closeConnection();
         }
 
         return companies;
