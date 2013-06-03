@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class PropertyInjectionException extends RuntimeException {
 
     public PropertyInjectionException() {
-        super();
+        // Do nothing.
     }
 
     public PropertyInjectionException(String message) {

@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class ParseException extends Exception {
 
     public ParseException() {
-        super();
+        // Do nothing.
     }
 
     public ParseException(String message) {

@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class InjectionException extends RuntimeException {
 
     public InjectionException() {
-        super();
+        // Do nothing.
     }
 
     public InjectionException(String message) {

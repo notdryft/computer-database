@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class PropertiesLoadingException extends Exception {
 
     public PropertiesLoadingException() {
-        super();
+        // Do nothing.
     }
 
     public PropertiesLoadingException(String message) {

@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class ServiceException extends RuntimeException {
 
     public ServiceException() {
-        super();
+        // Do nothing.
     }
 
     public ServiceException(String message) {

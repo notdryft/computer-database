@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class ConnectionException extends RuntimeException {
 
     public ConnectionException() {
-        super();
+        // Do nothing.
     }
 
     public ConnectionException(String message) {

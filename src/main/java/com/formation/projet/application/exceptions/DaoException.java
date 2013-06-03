@@ -9,7 +9,7 @@ package com.formation.projet.application.exceptions;
 public class DaoException extends Exception {
 
     public DaoException() {
-        super();
+        // Do nothing.
     }
 
     public DaoException(String message) {
