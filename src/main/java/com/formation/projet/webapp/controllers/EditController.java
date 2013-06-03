@@ -4,7 +4,7 @@ import com.formation.projet.application.properties.Routes;
 import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.business.services.ComputerService;
-import com.formation.projet.business.services.ComputerServiceImpl;
+import com.formation.projet.business.services.impl.ComputerServiceImpl;
 import com.formation.projet.webapp.helpers.LongHelper;
 
 import javax.servlet.ServletException;

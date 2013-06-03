@@ -2,7 +2,8 @@ package com.formation.projet.webapp.controllers;
 
 import com.formation.projet.application.properties.Routes;
 import com.formation.projet.business.forms.ComputerForm;
-import com.formation.projet.business.services.CompanyServiceImpl;
+import com.formation.projet.business.services.CompanyService;
+import com.formation.projet.business.services.impl.CompanyServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class CreateController extends HttpServlet {
 
     private Routes routes;
 
-    private CompanyServiceImpl companyService;
+    private CompanyService companyService;
 
     @Override
     public void init() throws ServletException {

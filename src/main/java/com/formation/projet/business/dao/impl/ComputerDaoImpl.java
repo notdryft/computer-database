@@ -1,8 +1,10 @@
-package com.formation.projet.business.dao;
+package com.formation.projet.business.dao.impl;
 
 import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
+import com.formation.projet.business.dao.ComputerDao;
+import com.formation.projet.application.connection.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.formation.projet.business.dao.ComputerQueryFactory.*;
+import static com.formation.projet.business.dao.impl.ComputerQueryFactory.*;
 
 /**
  * Created with IntelliJ IDEA.

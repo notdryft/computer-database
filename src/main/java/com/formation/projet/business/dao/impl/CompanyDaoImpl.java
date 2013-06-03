@@ -1,7 +1,9 @@
-package com.formation.projet.business.dao;
+package com.formation.projet.business.dao.impl;
 
 import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.business.beans.Company;
+import com.formation.projet.business.dao.CompanyDao;
+import com.formation.projet.application.connection.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

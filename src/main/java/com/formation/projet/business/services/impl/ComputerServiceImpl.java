@@ -1,4 +1,4 @@
-package com.formation.projet.business.services;
+package com.formation.projet.business.services.impl;
 
 import com.formation.projet.application.exceptions.DaoException;
 import com.formation.projet.application.exceptions.ServiceException;
@@ -7,9 +7,10 @@ import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.beans.ComputersAndCount;
 import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.CompanyDao;
-import com.formation.projet.business.dao.CompanyDaoImpl;
+import com.formation.projet.business.dao.impl.CompanyDaoImpl;
 import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.ComputerDaoImpl;
+import com.formation.projet.business.dao.impl.ComputerDaoImpl;
+import com.formation.projet.business.services.ComputerService;
 
 /**
  * Created with IntelliJ IDEA.

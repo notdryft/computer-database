@@ -1,4 +1,4 @@
-package com.formation.projet.business.dao;
+package com.formation.projet.business.dao.impl;
 
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;

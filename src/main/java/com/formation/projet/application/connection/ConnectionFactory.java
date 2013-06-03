@@ -1,4 +1,4 @@
-package com.formation.projet.business.dao;
+package com.formation.projet.application.connection;
 
 import com.formation.projet.application.exceptions.ConnectionException;
 import com.formation.projet.application.properties.Database;
