@@ -3,9 +3,7 @@ package com.formation.projet.business.dao;
 import com.formation.projet.application.exceptions.ConnectionException;
 import com.formation.projet.application.properties.Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -49,6 +47,38 @@ public enum ConnectionFactory {
         Connection connection = threadLocal.get();
         threadLocal.remove();
 
-        DaoUtils.silentClosing(connection);
+        silentClosing(connection);
+    }
+
+    private void silentClosing(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void silentClosing(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void silentClosing(Statement statement, ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        silentClosing(statement);
     }
 }

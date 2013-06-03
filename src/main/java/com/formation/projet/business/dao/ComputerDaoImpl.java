@@ -47,8 +47,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling find(int)", e);
         } finally {
-            DaoUtils.silentClosing(statement, resultSet);
-
+            factory.silentClosing(statement, resultSet);
             factory.closeConnection();
         }
 
@@ -76,8 +75,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling findAll(PageState)", e);
         } finally {
-            DaoUtils.silentClosing(statement, resultSet);
-
+            factory.silentClosing(statement, resultSet);
             factory.closeConnection();
         }
 
@@ -101,8 +99,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling create(Computer)", e);
         } finally {
-            DaoUtils.silentClosing(statement);
-
+            factory.silentClosing(statement);
             factory.closeConnection();
         }
 
@@ -122,8 +119,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling update(Computer)", e);
         } finally {
-            DaoUtils.silentClosing(statement);
-
+            factory.silentClosing(statement);
             factory.closeConnection();
         }
 
@@ -143,8 +139,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
-            DaoUtils.silentClosing(statement);
-
+            factory.silentClosing(statement);
             factory.closeConnection();
         }
     }
@@ -167,8 +162,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } catch (SQLException e) {
             throw new DaoException("Error while calling delete(Computer)", e);
         } finally {
-            DaoUtils.silentClosing(statement, resultSet);
-
+            factory.silentClosing(statement, resultSet);
             factory.closeConnection();
         }
 
