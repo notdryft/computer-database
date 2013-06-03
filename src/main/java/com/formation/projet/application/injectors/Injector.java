@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,17 +51,11 @@ public class Injector {
             properties.tryProperty(name);
             properties.cleanTaggedProperty(name);
 
-            // TODO Dirty
             Class<?> fieldClass = field.getType();
-            if (fieldClass.isAssignableFrom(int.class)) {
-                field.set(t, properties.getInt(name));
-            } else if (fieldClass.isAssignableFrom(String.class)) {
-                field.set(t, properties.getString(name));
-            } else if (fieldClass.isAssignableFrom(List.class)) {
-                field.set(t, properties.getList(name));
-            } else {
-                throw new PropertyInjectionException("Not managed field type");
-            }
+
+            Method method = properties.getMethod(fieldClass);
+            Object object = method.invoke(properties, name);
+            field.set(t, object);
         }
 
         return t;

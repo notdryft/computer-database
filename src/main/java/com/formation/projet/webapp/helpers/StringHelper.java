@@ -23,4 +23,12 @@ public class StringHelper {
 
         return sb.toString();
     }
+
+    public static String capitalize(String string) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.valueOf(string.charAt(0)).toUpperCase());
+        sb.append(string.substring(1));
+
+        return sb.toString();
+    }
 }

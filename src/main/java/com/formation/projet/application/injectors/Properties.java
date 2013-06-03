@@ -3,9 +3,11 @@ package com.formation.projet.application.injectors;
 import com.formation.projet.application.exceptions.ParseException;
 import com.formation.projet.application.exceptions.PropertiesLoadingException;
 import com.formation.projet.webapp.helpers.IntHelper;
+import com.formation.projet.webapp.helpers.StringHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,12 @@ class Properties {
     private Properties(String path) {
         this.path = path;
         this.properties = new java.util.Properties();
+    }
+
+    public Method getMethod(Class<?> fieldClass) throws NoSuchMethodException {
+        String methodName = "get" + StringHelper.capitalize(fieldClass.getSimpleName());
+
+        return getClass().getMethod(methodName, String.class);
     }
 
     public int getInt(String property) throws ParseException {
