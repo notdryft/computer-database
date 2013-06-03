@@ -240,7 +240,6 @@ public enum ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    // TODO return boolean?
     public void delete(Computer computer) throws DaoException {
         PreparedStatement statement = null;
 
