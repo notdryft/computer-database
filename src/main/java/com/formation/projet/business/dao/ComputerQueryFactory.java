@@ -59,7 +59,6 @@ class ComputerQueryFactory {
         COMPUTER_COLUMNS.put(5, "r.name");
     }
 
-
     public static Computer mapComputer(ResultSet resultSet) throws SQLException {
         Computer computer = new Computer();
         computer.setId(resultSet.getLong("l.id"));
