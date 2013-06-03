@@ -23,7 +23,7 @@ public class FormElement<T> {
 
     public FormElement(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("Argument \"name\" should not be null");
+            throw new IllegalArgumentException("Argument \"name\" must not be null");
         }
 
         this.name = name;
@@ -35,7 +35,7 @@ public class FormElement<T> {
         this(name);
 
         if (message == null || message.isEmpty()) {
-            throw new IllegalArgumentException("Argument \"message\" should not be null or empty");
+            throw new IllegalArgumentException("Argument \"message\" must not be null or empty");
         }
 
         this.messages.add(message);
