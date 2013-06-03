@@ -1,4 +1,4 @@
-package com.formation.projet.business.forms;
+package com.formation.projet.application.forms;
 
 import java.util.ArrayList;
 import java.util.List;

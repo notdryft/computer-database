@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="helpers" tagdir="/WEB-INF/tags" %>
 
-<%@ attribute name="element" type="com.formation.projet.business.forms.FormElement" required="true" %>
+<%@ attribute name="element" type="com.formation.projet.application.forms.FormElement" required="true" %>
 <%@ attribute name="label" type="java.lang.String" required="true" %>
 
 <c:set var="input">
