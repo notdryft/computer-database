@@ -180,9 +180,9 @@ public enum ComputerDaoImpl implements ComputerDao {
             Connection connection = factory.getConnection();
 
             if (computer.getCompany() == null) {
-                statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY);
+                statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY, Statement.RETURN_GENERATED_KEYS);
             } else {
-                statement = connection.prepareStatement(INSERT_FULL);
+                statement = connection.prepareStatement(INSERT_FULL, Statement.RETURN_GENERATED_KEYS);
                 statement.setLong(4, computer.getCompany().getId());
             }
 
@@ -191,6 +191,11 @@ public enum ComputerDaoImpl implements ComputerDao {
             statement.setDate(3, computer.getDiscontinued());
 
             statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                computer.setId(generatedKeys.getLong(1));
+            }
         } catch (SQLException e) {
             throw new DaoException("Error while calling create(Computer)", e);
         } finally {
@@ -199,8 +204,7 @@ public enum ComputerDaoImpl implements ComputerDao {
             factory.closeConnection();
         }
 
-        // TODO return newly created object
-        return null;
+        return computer;
     }
 
     @Override
@@ -232,8 +236,7 @@ public enum ComputerDaoImpl implements ComputerDao {
             factory.closeConnection();
         }
 
-        // TODO return newly updated object
-        return null;
+        return find(computer.getId());
     }
 
     @Override

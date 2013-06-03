@@ -50,9 +50,11 @@ public class UpdateController extends HttpServlet {
 
         if (form.isValid()) {
             Computer computer = form.toComputer();
-            computerService.update(computer);
+            computer = computerService.update(computer);
 
-            request.getSession().setAttribute("success", "Computer has been updated");
+            request.getSession().setAttribute(
+                    "success",
+                    String.format("Computer %s has been updated", computer.getId()));
 
             response.sendRedirect(routes.getBack());
         } else {

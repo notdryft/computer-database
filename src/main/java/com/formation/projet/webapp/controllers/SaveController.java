@@ -44,9 +44,11 @@ public class SaveController extends HttpServlet {
 
         if (form.isValid()) {
             Computer computer = form.toComputer();
-            computerService.create(computer);
+            computer = computerService.create(computer);
 
-            request.getSession().setAttribute("success", "Computer " + form.getName().getValue() + " has been created");
+            request.getSession().setAttribute(
+                    "success",
+                    String.format("Computer %s with has been created", computer.getName()));
 
             response.sendRedirect("../computers");
         } else {
