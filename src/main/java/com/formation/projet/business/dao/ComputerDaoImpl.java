@@ -160,7 +160,7 @@ public enum ComputerDaoImpl implements ComputerDao {
                 count = resultSet.getInt("value");
             }
         } catch (SQLException e) {
-            throw new DaoException("Error while calling delete(Computer)", e);
+            throw new DaoException("Error while calling count(String)", e);
         } finally {
             factory.silentClosing(statement, resultSet);
             factory.closeConnection();
