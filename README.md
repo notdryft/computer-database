@@ -22,7 +22,7 @@ Without maven, this is how you should scope the needed dependencies:
 
 ### Runtime
 
-- mysql:mysql-connection-java:5.1.25 @ [Central Repository](http://search.maven.org/#artifactdetails%7Cmysql%7Cmysql-connector-java%7C5.1.25%7Cjar)
+- mysql:mysql-connection-java:5.1.25 @ [Central Repository](http://search.maven.org/#artifactdetails%7Cmysql%7Cmysql-connector-java%7C5.1.25%7Cjar) (Should be provided)
 - ch.qos.logback:logback-core:1.0.13 @ [Central Repository](http://search.maven.org/#artifactdetails%7Cch.qos.logback%7Clogback-core%7C1.0.13%7Cjar)
 - ch.qos.logback:logback-classic:1.0.13 @ [Central Repository](http://search.maven.org/#artifactdetails%7Cch.qos.logback%7Clogback-classic%7C1.0.13%7Cjar)
 
