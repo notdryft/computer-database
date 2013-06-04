@@ -62,14 +62,14 @@ public class Injector {
     }
 
     public static <T> T loadProperties(Class<T> clazz) {
-        logger.debug("Injecting properties for bean class {}", clazz.getName());
+        logger.debug("Injecting properties for bean {}", clazz);
 
         try {
             return loadProperties0(clazz);
         } catch (Exception e) {
-            logger.error("Cannot load property class {}", clazz.getName());
+            logger.error("Cannot load property {}", clazz);
 
-            throw new PropertyInjectionException(String.format("Cannot load property class %s", clazz.getSimpleName()), e);
+            throw new PropertyInjectionException(String.format("Cannot load property %s", clazz), e);
         }
     }
 }

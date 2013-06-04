@@ -20,5 +20,9 @@
             <groupId>com.formation.projet</groupId>
             <artifactId>computer-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-model</artifactId>
+        </dependency>
     </dependencies>
 </project>

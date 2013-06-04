@@ -12,6 +12,7 @@
 
     <modules>
         <module>computer-core</module>
+        <module>computer-model</module>
         <module>computer-dao-api</module>
         <module>computer-dao-impl</module>
         <module>computer-service-api</module>
@@ -41,6 +42,11 @@
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.formation.projet</groupId>
+                <artifactId>computer-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

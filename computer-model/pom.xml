@@ -10,19 +10,14 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>computer-dao-api</artifactId>
+    <artifactId>computer-model</artifactId>
 
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- Modules -->
         <dependency>
             <groupId>com.formation.projet</groupId>
             <artifactId>computer-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.formation.projet</groupId>
-            <artifactId>computer-model</artifactId>
         </dependency>
     </dependencies>
 </project>
