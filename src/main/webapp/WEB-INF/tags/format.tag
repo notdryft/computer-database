@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ attribute name="date" type="java.sql.Date" required="true" %>
+<%@ attribute name="date" type="java.util.Date" required="true" %>
 
 <c:choose>
     <c:when test="${date == null}">

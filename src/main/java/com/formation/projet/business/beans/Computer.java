@@ -1,6 +1,6 @@
 package com.formation.projet.business.beans;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.

@@ -3,6 +3,7 @@ package com.formation.projet.business.dao.impl;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
+import com.formation.projet.webapp.helpers.DateHelper;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -63,8 +64,8 @@ class ComputerQueryFactory {
         Computer computer = new Computer();
         computer.setId(resultSet.getLong("l.id"));
         computer.setName(resultSet.getString("l.name"));
-        computer.setIntroduced(resultSet.getDate("l.introduced"));
-        computer.setDiscontinued(resultSet.getDate("l.discontinued"));
+        computer.setIntroduced(DateHelper.toDate(resultSet.getDate("l.introduced")));
+        computer.setDiscontinued(DateHelper.toDate(resultSet.getDate("l.discontinued")));
 
         Object companyId = resultSet.getObject("r.id");
         if (companyId == null) {
@@ -110,8 +111,8 @@ class ComputerQueryFactory {
         }
 
         statement.setString(1, computer.getName());
-        statement.setDate(2, computer.getIntroduced());
-        statement.setDate(3, computer.getDiscontinued());
+        statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
+        statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
 
         return statement;
     }
@@ -119,8 +120,8 @@ class ComputerQueryFactory {
     public static PreparedStatement makeUpdateStatement(Connection connection, Computer computer) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY + FILTER_ID_CLAUSE);
         statement.setString(1, computer.getName());
-        statement.setDate(2, computer.getIntroduced());
-        statement.setDate(3, computer.getDiscontinued());
+        statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
+        statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
 
         if (computer.getCompany() == null) {
             statement.setNull(4, Types.BIGINT);
