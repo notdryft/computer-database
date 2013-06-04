@@ -1,8 +1,8 @@
-package com.formation.projet.application.injectors;
+package com.formation.projet.core.injectors;
 
-import com.formation.projet.application.annotations.Property;
-import com.formation.projet.application.annotations.PropertyClass;
-import com.formation.projet.application.exceptions.InjectionException;
+import com.formation.projet.core.annotations.Property;
+import com.formation.projet.core.annotations.PropertyClass;
+import com.formation.projet.core.exceptions.InjectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +60,7 @@ public class Injection {
     }
 
     public static void start() {
-        logger.debug("Starting application properties injection");
+        logger.debug("Starting core properties injection");
 
         try {
             start0();

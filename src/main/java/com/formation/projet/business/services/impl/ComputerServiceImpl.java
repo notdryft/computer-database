@@ -1,8 +1,8 @@
 package com.formation.projet.business.services.impl;
 
-import com.formation.projet.application.connection.ConnectionFactory;
-import com.formation.projet.application.exceptions.DaoException;
-import com.formation.projet.application.exceptions.ServiceException;
+import com.formation.projet.core.connection.ConnectionFactory;
+import com.formation.projet.core.exceptions.DaoException;
+import com.formation.projet.core.exceptions.ServiceException;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.ComputerAndCompanies;
 import com.formation.projet.business.beans.ComputersAndCount;

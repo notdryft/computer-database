@@ -1,8 +1,8 @@
-package com.formation.projet.application.injectors;
+package com.formation.projet.core.injectors;
 
-import com.formation.projet.application.annotations.Property;
-import com.formation.projet.application.annotations.PropertyClass;
-import com.formation.projet.application.exceptions.PropertyInjectionException;
+import com.formation.projet.core.annotations.Property;
+import com.formation.projet.core.annotations.PropertyClass;
+import com.formation.projet.core.exceptions.PropertyInjectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

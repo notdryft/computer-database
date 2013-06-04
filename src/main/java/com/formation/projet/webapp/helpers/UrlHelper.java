@@ -1,6 +1,6 @@
 package com.formation.projet.webapp.helpers;
 
-import com.formation.projet.application.properties.Configuration;
+import com.formation.projet.core.properties.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;

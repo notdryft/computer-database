@@ -1,6 +1,6 @@
 package com.formation.projet.webapp.helpers;
 
-import com.formation.projet.application.exceptions.ParseException;
+import com.formation.projet.core.exceptions.ParseException;
 
 import java.util.Properties;
 

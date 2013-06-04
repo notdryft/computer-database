@@ -1,8 +1,8 @@
-package com.formation.projet.application.properties;
+package com.formation.projet.core.properties;
 
 
-import com.formation.projet.application.annotations.Property;
-import com.formation.projet.application.annotations.PropertyClass;
+import com.formation.projet.core.annotations.Property;
+import com.formation.projet.core.annotations.PropertyClass;
 
 /**
  * Created with IntelliJ IDEA.

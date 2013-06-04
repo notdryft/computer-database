@@ -1,6 +1,6 @@
 package com.formation.projet.webapp.listeners;
 
-import com.formation.projet.application.injectors.Injection;
+import com.formation.projet.core.injectors.Injection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +19,13 @@ public class InitializationListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        logger.info("Computer-database application starting");
+        logger.info("Computer-database core starting");
 
         Injection.start();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        logger.info("Computer-database application shutdown");
+        logger.info("Computer-database core shutdown");
     }
 }

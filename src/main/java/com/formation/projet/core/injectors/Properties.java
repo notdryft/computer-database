@@ -1,7 +1,7 @@
-package com.formation.projet.application.injectors;
+package com.formation.projet.core.injectors;
 
-import com.formation.projet.application.exceptions.ParseException;
-import com.formation.projet.application.exceptions.PropertiesLoadingException;
+import com.formation.projet.core.exceptions.ParseException;
+import com.formation.projet.core.exceptions.PropertiesLoadingException;
 import com.formation.projet.webapp.helpers.IntHelper;
 import com.formation.projet.webapp.helpers.StringHelper;
 

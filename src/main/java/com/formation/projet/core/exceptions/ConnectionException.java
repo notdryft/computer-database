@@ -1,4 +1,4 @@
-package com.formation.projet.application.exceptions;
+package com.formation.projet.core.exceptions;
 
 /**
  * Created with IntelliJ IDEA.

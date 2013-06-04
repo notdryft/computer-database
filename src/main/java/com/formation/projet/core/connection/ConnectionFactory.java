@@ -1,7 +1,7 @@
-package com.formation.projet.application.connection;
+package com.formation.projet.core.connection;
 
-import com.formation.projet.application.exceptions.ConnectionException;
-import com.formation.projet.application.properties.Database;
+import com.formation.projet.core.exceptions.ConnectionException;
+import com.formation.projet.core.properties.Database;
 
 import java.sql.*;
 

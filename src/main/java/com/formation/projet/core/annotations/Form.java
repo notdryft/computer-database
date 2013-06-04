@@ -1,4 +1,4 @@
-package com.formation.projet.application.annotations;
+package com.formation.projet.core.annotations;
 
 /**
  * Created with IntelliJ IDEA.
