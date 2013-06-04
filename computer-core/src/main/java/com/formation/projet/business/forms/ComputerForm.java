@@ -1,6 +1,6 @@
 package com.formation.projet.business.forms;
 
-import com.formation.projet.application.forms.FormElement;
+import com.formation.projet.core.forms.FormElement;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 

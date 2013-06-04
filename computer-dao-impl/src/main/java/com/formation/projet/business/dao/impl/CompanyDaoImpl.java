@@ -1,7 +1,7 @@
 package com.formation.projet.business.dao.impl;
 
-import com.formation.projet.application.connection.ConnectionFactory;
-import com.formation.projet.application.exceptions.DaoException;
+import com.formation.projet.core.connection.ConnectionFactory;
+import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 

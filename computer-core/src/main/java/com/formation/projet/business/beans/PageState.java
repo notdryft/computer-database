@@ -1,6 +1,6 @@
 package com.formation.projet.business.beans;
 
-import com.formation.projet.application.properties.Configuration;
+import com.formation.projet.core.properties.Configuration;
 
 /**
  * Created with IntelliJ IDEA.
