@@ -15,5 +15,4 @@
             <include-prelude>/WEB-INF/imports/imports.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
-
 </web-app>
