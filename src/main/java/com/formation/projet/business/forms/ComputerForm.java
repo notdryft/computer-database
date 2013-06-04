@@ -1,5 +1,6 @@
 package com.formation.projet.business.forms;
 
+import com.formation.projet.application.annotations.Form;
 import com.formation.projet.application.forms.FormElement;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
  * Date: 28/05/13
  * Time: 14:36
  */
+@Form(Computer.class)
 public class ComputerForm {
 
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
