@@ -22,6 +22,14 @@
         </dependency>
         <dependency>
             <groupId>com.formation.projet</groupId>
+            <artifactId>computer-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-service-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
             <artifactId>computer-service-impl</artifactId>
         </dependency>
         <!-- Servlets -->

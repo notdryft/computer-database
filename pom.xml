@@ -48,26 +48,84 @@
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-model</artifactId>
                 <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-dao-api</artifactId>
                 <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-model</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-dao-impl</artifactId>
                 <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-model</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-dao-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-service-api</artifactId>
                 <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-model</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-service-impl</artifactId>
                 <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-model</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-dao-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-dao-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.formation.projet</groupId>
+                        <artifactId>computer-service-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
@@ -108,9 +166,25 @@
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

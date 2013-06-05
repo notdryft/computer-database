@@ -1,8 +1,8 @@
 package com.formation.projet.business.dao;
 
-import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
+import com.formation.projet.core.exceptions.DaoException;
 
 import java.util.List;
 

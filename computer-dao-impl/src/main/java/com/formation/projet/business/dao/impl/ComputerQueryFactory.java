@@ -1,9 +1,9 @@
 package com.formation.projet.business.dao.impl;
 
-import com.formation.projet.core.helpers.DateHelper;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
+import com.formation.projet.core.helpers.DateHelper;
 
 import java.sql.*;
 import java.util.HashMap;

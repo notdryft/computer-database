@@ -1,10 +1,10 @@
 package com.formation.projet.business.dao.impl;
 
-import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.core.connection.ConnectionFactory;
+import com.formation.projet.core.exceptions.DaoException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

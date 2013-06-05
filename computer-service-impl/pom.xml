@@ -18,6 +18,18 @@
         <!-- Modules -->
         <dependency>
             <groupId>com.formation.projet</groupId>
+            <artifactId>computer-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-dao-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
             <artifactId>computer-dao-impl</artifactId>
         </dependency>
         <dependency>
