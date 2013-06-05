@@ -15,9 +15,15 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- Modules -->
         <dependency>
             <groupId>com.formation.projet</groupId>
             <artifactId>computer-core</artifactId>
+        </dependency>
+        <!-- Application -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -4,6 +4,7 @@ import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -27,11 +28,8 @@ public class CompanyDaoImpl implements CompanyDao {
                     "FROM company l " +
                     "ORDER BY l.name ASC";
 
-    private final ConnectionFactory factory;
-
-    public CompanyDaoImpl() {
-        factory = ConnectionFactory.instance;
-    }
+    @Autowired
+    private ConnectionFactory factory;
 
     private Company mapCompany(ResultSet resultSet) throws SQLException {
         Company company = new Company();

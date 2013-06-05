@@ -22,17 +22,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComputerServiceImpl implements ComputerService {
 
-    private final ConnectionFactory factory;
+    @Autowired
+    private ConnectionFactory factory;
 
     @Autowired
     private ComputerDao computerDao;
 
     @Autowired
     private CompanyDao companyDao;
-
-    public ComputerServiceImpl() {
-        factory = ConnectionFactory.instance;
-    }
 
     @Override
     public ComputerAndCompanies findWithAllCompanies(long id) {

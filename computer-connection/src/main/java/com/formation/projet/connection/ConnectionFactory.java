@@ -2,6 +2,7 @@ package com.formation.projet.connection;
 
 import com.formation.projet.core.exceptions.ConnectionException;
 import com.formation.projet.core.properties.Database;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
@@ -11,14 +12,14 @@ import java.sql.*;
  * Date: 24/05/13
  * Time: 15:25
  */
-public enum ConnectionFactory {
-    instance;
+@Component
+public class ConnectionFactory {
 
     private final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
     private final Database database;
 
-    private ConnectionFactory() {
+    public ConnectionFactory() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {

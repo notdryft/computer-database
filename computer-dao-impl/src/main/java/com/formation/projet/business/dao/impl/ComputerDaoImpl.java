@@ -5,6 +5,7 @@ import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -25,11 +26,8 @@ import static com.formation.projet.business.dao.impl.ComputerQueryFactory.*;
 @Repository
 public class ComputerDaoImpl implements ComputerDao {
 
-    private final ConnectionFactory factory;
-
-    public ComputerDaoImpl() {
-        this.factory = ConnectionFactory.instance;
-    }
+    @Autowired
+    private ConnectionFactory factory;
 
     @Override
     public Computer find(long id) throws DaoException {

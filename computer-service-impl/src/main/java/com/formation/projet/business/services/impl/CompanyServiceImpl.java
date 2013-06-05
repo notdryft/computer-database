@@ -20,14 +20,11 @@ import java.util.List;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private final ConnectionFactory factory;
+    @Autowired
+    private ConnectionFactory factory;
 
     @Autowired
     private CompanyDao companyDao;
-
-    public CompanyServiceImpl() {
-        factory = ConnectionFactory.instance;
-    }
 
     @Override
     public List<Company> findAll() {
