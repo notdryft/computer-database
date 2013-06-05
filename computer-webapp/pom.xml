@@ -22,7 +22,22 @@
         </dependency>
         <dependency>
             <groupId>com.formation.projet</groupId>
+            <artifactId>computer-connection</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
             <artifactId>computer-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-dao-api</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.projet</groupId>
+            <artifactId>computer-dao-impl</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.formation.projet</groupId>

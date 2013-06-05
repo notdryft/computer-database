@@ -9,7 +9,7 @@ import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.dao.impl.CompanyDaoImpl;
 import com.formation.projet.business.dao.impl.ComputerDaoImpl;
 import com.formation.projet.business.services.ComputerService;
-import com.formation.projet.core.connection.ConnectionFactory;
+import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
 

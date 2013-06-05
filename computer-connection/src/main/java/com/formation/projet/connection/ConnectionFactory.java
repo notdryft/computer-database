@@ -1,4 +1,4 @@
-package com.formation.projet.core.connection;
+package com.formation.projet.connection;
 
 import com.formation.projet.core.exceptions.ConnectionException;
 import com.formation.projet.core.properties.Database;

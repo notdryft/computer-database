@@ -12,6 +12,7 @@
 
     <modules>
         <module>computer-core</module>
+        <module>computer-connection</module>
         <module>computer-model</module>
         <module>computer-dao-api</module>
         <module>computer-dao-impl</module>
@@ -46,86 +47,33 @@
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
+                <artifactId>computer-connection</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.formation.projet</groupId>
                 <artifactId>computer-model</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-core</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-dao-api</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-model</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-dao-impl</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-model</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-dao-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-service-api</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-model</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
                 <artifactId>computer-service-impl</artifactId>
                 <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-model</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-dao-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-dao-impl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.formation.projet</groupId>
-                        <artifactId>computer-service-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.formation.projet</groupId>
