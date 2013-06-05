@@ -4,8 +4,8 @@ import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.business.services.CompanyService;
 import com.formation.projet.business.services.ComputerService;
-import com.formation.projet.business.services.impl.CompanyServiceImpl;
-import com.formation.projet.business.services.impl.ComputerServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,10 +27,16 @@ public class SaveController extends HttpServlet {
 
     private CompanyService companyService;
 
+    private ApplicationContext context;
+
     @Override
     public void init() throws ServletException {
-        computerService = ComputerServiceImpl.instance;
-        companyService = CompanyServiceImpl.instance;
+        if (context == null) {
+            context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        }
+
+        computerService = context.getBean(ComputerService.class);
+        companyService = context.getBean(CompanyService.class);
     }
 
     @Override

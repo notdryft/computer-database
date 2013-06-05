@@ -2,11 +2,12 @@ package com.formation.projet.business.services.impl;
 
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
-import com.formation.projet.business.dao.impl.CompanyDaoImpl;
 import com.formation.projet.business.services.CompanyService;
 import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,16 +17,16 @@ import java.util.List;
  * Date: 29/05/13
  * Time: 15:46
  */
-public enum CompanyServiceImpl implements CompanyService {
-    instance;
+@Service
+public class CompanyServiceImpl implements CompanyService {
 
     private final ConnectionFactory factory;
 
-    private final CompanyDao companyDao;
+    @Autowired
+    private CompanyDao companyDao;
 
-    private CompanyServiceImpl() {
+    public CompanyServiceImpl() {
         factory = ConnectionFactory.instance;
-        companyDao = CompanyDaoImpl.instance;
     }
 
     @Override

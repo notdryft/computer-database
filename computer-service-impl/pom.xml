@@ -40,5 +40,14 @@
             <groupId>com.formation.projet</groupId>
             <artifactId>computer-service-api</artifactId>
         </dependency>
+        <!-- Application -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -6,12 +6,12 @@ import com.formation.projet.business.beans.ComputersAndCount;
 import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.business.dao.ComputerDao;
-import com.formation.projet.business.dao.impl.CompanyDaoImpl;
-import com.formation.projet.business.dao.impl.ComputerDaoImpl;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,19 +19,19 @@ import com.formation.projet.core.exceptions.ServiceException;
  * Date: 29/05/13
  * Time: 14:54
  */
-public enum ComputerServiceImpl implements ComputerService {
-    instance;
+@Service
+public class ComputerServiceImpl implements ComputerService {
 
     private final ConnectionFactory factory;
 
-    private final ComputerDao computerDao;
+    @Autowired
+    private ComputerDao computerDao;
 
-    private final CompanyDao companyDao;
+    @Autowired
+    private CompanyDao companyDao;
 
-    private ComputerServiceImpl() {
+    public ComputerServiceImpl() {
         factory = ConnectionFactory.instance;
-        computerDao = ComputerDaoImpl.instance;
-        companyDao = CompanyDaoImpl.instance;
     }
 
     @Override

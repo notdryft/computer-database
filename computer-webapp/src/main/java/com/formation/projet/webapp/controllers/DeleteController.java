@@ -1,9 +1,10 @@
 package com.formation.projet.webapp.controllers;
 
 import com.formation.projet.business.services.ComputerService;
-import com.formation.projet.business.services.impl.ComputerServiceImpl;
 import com.formation.projet.core.helpers.LongHelper;
 import com.formation.projet.core.properties.Routes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +26,16 @@ public class DeleteController extends HttpServlet {
 
     private ComputerService computerService;
 
+    private ApplicationContext context;
+
     @Override
     public void init() throws ServletException {
+        if (context == null) {
+            context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        }
+
         routes = Routes.getInstance();
-        computerService = ComputerServiceImpl.instance;
+        computerService = context.getBean(ComputerService.class);
     }
 
     @Override

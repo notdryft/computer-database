@@ -4,6 +4,7 @@ import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,8 +19,8 @@ import java.util.List;
  * Date: 28/05/13
  * Time: 12:21
  */
-public enum CompanyDaoImpl implements CompanyDao {
-    instance;
+@Repository
+public class CompanyDaoImpl implements CompanyDao {
 
     private static final String FIND_ALL_QUERY =
             "SELECT l.id, l.name " +
@@ -28,7 +29,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     private final ConnectionFactory factory;
 
-    private CompanyDaoImpl() {
+    public CompanyDaoImpl() {
         factory = ConnectionFactory.instance;
     }
 

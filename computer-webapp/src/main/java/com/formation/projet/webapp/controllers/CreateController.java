@@ -2,8 +2,9 @@ package com.formation.projet.webapp.controllers;
 
 import com.formation.projet.business.forms.ComputerForm;
 import com.formation.projet.business.services.CompanyService;
-import com.formation.projet.business.services.impl.CompanyServiceImpl;
 import com.formation.projet.core.properties.Routes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +26,16 @@ public class CreateController extends HttpServlet {
 
     private CompanyService companyService;
 
+    private ApplicationContext context;
+
     @Override
     public void init() throws ServletException {
+        if (context == null) {
+            context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        }
+
         routes = Routes.getInstance();
-        companyService = CompanyServiceImpl.instance;
+        companyService = context.getBean(CompanyService.class);
     }
 
     @Override
