@@ -95,16 +95,16 @@ public class ComputersController {
             model.addAttribute("companies", companyService.findAll());
 
             return "/create";
+        } else {
+            Computer computer = form.toComputer();
+            computer = computerService.create(computer);
+
+            session.setAttribute(
+                    "success",
+                    String.format("Computer %s with has been created", computer.getName()));
+
+            return "redirect:/computers";
         }
-
-        Computer computer = form.toComputer();
-        computer = computerService.create(computer);
-
-        session.setAttribute(
-                "success",
-                String.format("Computer %s with has been created", computer.getName()));
-
-        return "redirect:/computers";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -114,12 +114,12 @@ public class ComputersController {
             session.setAttribute("error", "Computer not found");
 
             return "redirect:/computers";
+        } else {
+            model.addAttribute("form", new ComputerForm(computerAndCompanies.getComputer()));
+            model.addAttribute("companies", computerAndCompanies.getCompanies());
+
+            return "/edit";
         }
-
-        model.addAttribute("form", new ComputerForm(computerAndCompanies.getComputer()));
-        model.addAttribute("companies", computerAndCompanies.getCompanies());
-
-        return "/edit";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
@@ -142,15 +142,14 @@ public class ComputersController {
             model.addAttribute("companies", companyService.findAll());
 
             return "/edit";
+        } else {
+            Computer computer = form.toComputer();
+            computer = computerService.update(computer);
+
+            session.setAttribute("success", String.format("Computer %s has been updated", computer.getId()));
+
+            return "redirect:/computers";
         }
-
-
-        Computer computer = form.toComputer();
-        computer = computerService.update(computer);
-
-        session.setAttribute("success", String.format("Computer %s has been updated", computer.getId()));
-
-        return "redirect:/computers";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
