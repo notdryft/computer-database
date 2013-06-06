@@ -96,12 +96,11 @@ public class ComputersController {
 
             return "/create";
         } else {
-            Computer computer = form.toComputer();
-            computer = computerService.create(computer);
+            Computer computer = computerService.create(form.toComputer());
 
             session.setAttribute(
                     "success",
-                    String.format("Computer %s with has been created", computer.getName()));
+                    "Computer named " + computer.getName() + " has been created");
 
             return "redirect:/computers";
         }
@@ -146,7 +145,7 @@ public class ComputersController {
             Computer computer = form.toComputer();
             computer = computerService.update(computer);
 
-            session.setAttribute("success", String.format("Computer %s has been updated", computer.getId()));
+            session.setAttribute("success", "Computer with id " + computer.getId() + " has been updated");
 
             return "redirect:/computers";
         }
