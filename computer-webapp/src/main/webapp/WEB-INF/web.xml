@@ -5,21 +5,28 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:computer-config.xml,
-            classpath:computer-service-config.xml
-        </param-value>
-    </context-param>
+    <!-- Computers core -->
 
     <listener>
         <listener-class>com.formation.projet.core.listeners.InitializationListener</listener-class>
     </listener>
 
+    <!-- Spring -->
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:computer-config.xml,
+            classpath:computer-service-config.xml,
+            /WEB-INF/computers-dispatcher-servlet.xml
+        </param-value>
+    </context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
+    <!-- Auto imports -->
 
     <jsp-config>
         <jsp-property-group>
@@ -27,4 +34,17 @@
             <include-prelude>/WEB-INF/imports/imports.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
+
+    <!-- Dispatcher -->
+
+    <servlet>
+        <servlet-name>computers-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>computers-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

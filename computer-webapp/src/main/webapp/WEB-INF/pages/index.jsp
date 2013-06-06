@@ -48,7 +48,7 @@
                 <tbody>
                 <c:forEach var="computer" items="${computers}">
                     <tr>
-                        <td><a href="<c:url value="/computers/edit?id=${computer.id}"/>">${computer.name}</a></td>
+                        <td><a href="<c:url value="/computers/edit/${computer.id}"/>">${computer.name}</a></td>
                         <td><helpers:format date="${computer.introduced}"/></td>
                         <td><helpers:format date="${computer.discontinued}"/></td>
                         <td><helpers:formatCompany company="${computer.company}"/></td>

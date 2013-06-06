@@ -10,7 +10,7 @@
 
     <h1>Edit computer</h1>
 
-    <form action="<c:url value="/computers/update?id=${form.id}"/>" method="POST">
+    <form action="<c:url value="/computers/update/${form.id}"/>" method="POST">
 
         <fieldset>
             <helpers:inputText element="${form.name}" label="Computer name"/>
@@ -28,7 +28,7 @@
         </div>
     </form>
 
-    <form action="<c:url value="/computers/delete?id=${form.id}"/>" method="POST" class="topRight">
+    <form action="<c:url value="/computers/delete/${form.id}"/>" method="POST" class="topRight">
         <input type="submit" value="Delete this computer" class="btn danger">
     </form>
 </section>

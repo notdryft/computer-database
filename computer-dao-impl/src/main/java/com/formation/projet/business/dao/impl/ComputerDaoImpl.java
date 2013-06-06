@@ -31,15 +31,21 @@ public class ComputerDaoImpl implements ComputerDao {
     @Override
     @Transactional(readOnly = true)
     public Computer find(long id) throws DaoException {
-        Computer computer;
+        List<Computer> computers;
 
         try {
-            computer = jdbcTemplate.queryForObject(makeFindQuery(), new Object[]{id}, new ComputerMapper());
+            computers = jdbcTemplate.query(makeFindQuery(), new Object[]{id}, new ComputerMapper());
         } catch (DataAccessException e) {
-            throw new DaoException("Error while calling find(int)", e);
+            throw new DaoException("Error while calling find(long)", e);
         }
 
-        return computer;
+        // Dirty trick to avoid handling the following:
+        // org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+        if (computers.isEmpty()) {
+            return null;
+        }
+
+        return computers.get(0);
     }
 
     @Override
