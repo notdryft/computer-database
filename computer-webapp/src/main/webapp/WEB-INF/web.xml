@@ -14,7 +14,7 @@
     </context-param>
 
     <listener>
-        <listener-class>com.formation.projet.webapp.listeners.InitializationListener</listener-class>
+        <listener-class>com.formation.projet.core.listeners.InitializationListener</listener-class>
     </listener>
 
     <listener>

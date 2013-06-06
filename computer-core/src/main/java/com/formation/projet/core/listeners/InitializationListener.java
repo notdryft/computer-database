@@ -1,4 +1,4 @@
-package com.formation.projet.webapp.listeners;
+package com.formation.projet.core.listeners;
 
 import com.formation.projet.core.injectors.Injection;
 import org.slf4j.Logger;
