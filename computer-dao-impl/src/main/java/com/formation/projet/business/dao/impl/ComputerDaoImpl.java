@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class ComputerDaoImpl implements ComputerDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
+    @Transactional(readOnly = true)
     public Computer find(long id) throws DaoException {
         Computer computer;
 
@@ -41,6 +43,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Computer> findAll(PageState pageState) throws DaoException {
         List<Computer> computers;
 
@@ -54,6 +57,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    @Transactional
     public Computer create(Computer computer) throws DaoException {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -69,6 +73,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    @Transactional
     public Computer update(Computer computer) throws DaoException {
         try {
             jdbcTemplate.update(makeUpdateStatement(computer));
@@ -80,6 +85,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    @Transactional
     public void delete(Computer computer) throws DaoException {
         try {
             jdbcTemplate.update(makeDeleteStatement(computer));
@@ -89,6 +95,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public int count(String filter) throws DaoException {
         int count;
         try {

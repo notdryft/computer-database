@@ -11,6 +11,7 @@ import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +29,7 @@ public class ComputerServiceImpl implements ComputerService {
     private CompanyDao companyDao;
 
     @Override
+    @Transactional(readOnly = true)
     public ComputerAndCompanies findWithAllCompanies(long id) {
         ComputerAndCompanies computerAndCompanies = new ComputerAndCompanies();
 
@@ -47,6 +49,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ComputersAndCount findAllAndCount(PageState pageState) {
         ComputersAndCount computersAndCount;
         try {
@@ -61,6 +64,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
+    @Transactional
     public Computer create(Computer computer) {
         try {
             computer = computerDao.create(computer);
@@ -72,6 +76,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
+    @Transactional
     public Computer update(Computer computer) {
         try {
             computer = computerDao.update(computer);
@@ -83,6 +88,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
+    @Transactional
     public boolean seekAndDestroy(long id) {
         try {
             Computer computer = computerDao.find(id);

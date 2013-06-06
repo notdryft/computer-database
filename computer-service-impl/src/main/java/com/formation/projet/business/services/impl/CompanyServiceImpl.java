@@ -7,6 +7,7 @@ import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyDao;
 
     @Override
+    @Transactional
     public List<Company> findAll() {
         List<Company> companies;
         try {
