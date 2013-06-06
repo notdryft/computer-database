@@ -1,9 +1,9 @@
 package com.formation.projet.business.dao.impl;
 
-import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.beans.Computer;
 import com.formation.projet.business.beans.PageState;
 import com.formation.projet.core.helpers.DateHelper;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -60,93 +60,102 @@ class ComputerQueryFactory {
         COMPUTER_COLUMNS.put(5, "r.name");
     }
 
-    public static Computer mapComputer(ResultSet resultSet) throws SQLException {
-        Computer computer = new Computer();
-        computer.setId(resultSet.getLong("l.id"));
-        computer.setName(resultSet.getString("l.name"));
-        computer.setIntroduced(DateHelper.toDate(resultSet.getDate("l.introduced")));
-        computer.setDiscontinued(DateHelper.toDate(resultSet.getDate("l.discontinued")));
+    public static String makeFindQuery() {
 
-        Object companyId = resultSet.getObject("r.id");
-        if (companyId == null) {
-            computer.setCompany(null);
-        } else {
-            Company company = new Company();
-            company.setId((Long) companyId);
-            company.setName(resultSet.getString("r.name"));
-
-            computer.setCompany(company);
-        }
-
-        return computer;
+        return FIND_QUERY + FILTER_ID_CLAUSE;
     }
 
-    public static PreparedStatement makeFindStatement(Connection connection, long id) throws SQLException {
-        String query = FIND_QUERY + FILTER_ID_CLAUSE;
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setLong(1, id);
-
-        return statement;
-    }
-
-    public static PreparedStatement makeFindAllStatement(Connection connection, PageState pageState) throws SQLException {
+    public static PreparedStatementCreator makeFindAllStatement(final PageState pageState) {
         String column = COMPUTER_COLUMNS.get(Math.abs(pageState.getSortColumn()));
 
-        String query = FIND_QUERY + FILTER_NAME_CLAUSE + ORDER_BY_CLAUSE + column + (pageState.getSortColumn() < 0 ? " DESC" : " ASC") + LIMIT_CLAUSE;
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, "%" + pageState.getFilter() + "%");
-        statement.setInt(2, pageState.getOffset());
-        statement.setInt(3, pageState.getMaxItemsPerPage());
+        StringBuilder sb = new StringBuilder();
+        sb.append(FIND_QUERY);
+        sb.append(FILTER_NAME_CLAUSE);
+        sb.append(ORDER_BY_CLAUSE);
+        sb.append(column);
+        sb.append(pageState.getSortColumn() < 0 ? " DESC" : " ASC");
+        sb.append(LIMIT_CLAUSE);
 
-        return statement;
+        final String query = sb.toString();
+
+        return new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setString(1, "%" + pageState.getFilter() + "%");
+                statement.setInt(2, pageState.getOffset());
+                statement.setInt(3, pageState.getMaxItemsPerPage());
+
+                return statement;
+            }
+        };
     }
 
-    public static PreparedStatement makeCreateStatement(Connection connection, Computer computer) throws SQLException {
-        PreparedStatement statement;
-        if (computer.getCompany() == null) {
-            statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY, Statement.RETURN_GENERATED_KEYS);
-        } else {
-            statement = connection.prepareStatement(INSERT_FULL, Statement.RETURN_GENERATED_KEYS);
-            statement.setLong(4, computer.getCompany().getId());
-        }
+    public static PreparedStatementCreator makeCreateStatement(final Computer computer) {
 
-        statement.setString(1, computer.getName());
-        statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
-        statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
+        return new PreparedStatementCreator() {
 
-        return statement;
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement statement;
+                if (computer.getCompany() == null) {
+                    statement = connection.prepareStatement(INSERT_WITHOUT_COMPANY, Statement.RETURN_GENERATED_KEYS);
+                } else {
+                    statement = connection.prepareStatement(INSERT_FULL, Statement.RETURN_GENERATED_KEYS);
+                    statement.setLong(4, computer.getCompany().getId());
+                }
+
+                statement.setString(1, computer.getName());
+                statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
+                statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
+
+                return statement;
+            }
+        };
     }
 
-    public static PreparedStatement makeUpdateStatement(Connection connection, Computer computer) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY + FILTER_ID_CLAUSE);
-        statement.setString(1, computer.getName());
-        statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
-        statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
+    public static PreparedStatementCreator makeUpdateStatement(final Computer computer) {
 
-        if (computer.getCompany() == null) {
-            statement.setNull(4, Types.BIGINT);
-        } else {
-            statement.setLong(4, computer.getCompany().getId());
-        }
+        return new PreparedStatementCreator() {
 
-        statement.setLong(5, computer.getId());
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY + FILTER_ID_CLAUSE);
+                statement.setString(1, computer.getName());
+                statement.setDate(2, DateHelper.toSQLDate(computer.getIntroduced()));
+                statement.setDate(3, DateHelper.toSQLDate(computer.getDiscontinued()));
 
-        return statement;
+                if (computer.getCompany() == null) {
+                    statement.setNull(4, Types.BIGINT);
+                } else {
+                    statement.setLong(4, computer.getCompany().getId());
+                }
+
+                statement.setLong(5, computer.getId());
+
+                return statement;
+            }
+        };
     }
 
-    public static PreparedStatement makeDeleteStatement(Connection connection, Computer computer) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DELETE_QUERY);
-        statement.setLong(1, computer.getId());
+    public static PreparedStatementCreator makeDeleteStatement(final Computer computer) {
 
-        return statement;
+        return new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement statement = connection.prepareStatement(DELETE_QUERY);
+                statement.setLong(1, computer.getId());
+
+                return statement;
+            }
+        };
     }
 
-    public static PreparedStatement makeCountStatement(Connection connection, String filter) throws SQLException {
-        String query = COUNT_QUERY + FILTER_NAME_CLAUSE;
+    public static String makeCountQuery() {
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, "%" + filter + "%");
-
-        return statement;
+        return COUNT_QUERY + FILTER_NAME_CLAUSE;
     }
 }

@@ -22,10 +22,6 @@
         </dependency>
         <dependency>
             <groupId>com.formation.projet</groupId>
-            <artifactId>computer-connection</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.formation.projet</groupId>
             <artifactId>computer-model</artifactId>
         </dependency>
         <dependency>

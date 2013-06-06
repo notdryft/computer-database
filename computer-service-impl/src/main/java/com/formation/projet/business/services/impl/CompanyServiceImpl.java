@@ -3,7 +3,6 @@ package com.formation.projet.business.services.impl;
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.business.services.CompanyService;
-import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +20,15 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private ConnectionFactory factory;
-
-    @Autowired
     private CompanyDao companyDao;
 
     @Override
     public List<Company> findAll() {
-        factory.openConnection();
-
         List<Company> companies;
         try {
             companies = companyDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException("Error while calling findAll()", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return companies;

@@ -2,16 +2,12 @@ package com.formation.projet.business.dao.impl;
 
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.dao.CompanyDao;
-import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,43 +19,22 @@ import java.util.List;
 @Repository
 public class CompanyDaoImpl implements CompanyDao {
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     private static final String FIND_ALL_QUERY =
             "SELECT l.id, l.name " +
                     "FROM company l " +
                     "ORDER BY l.name ASC";
 
-    @Autowired
-    private ConnectionFactory factory;
-
-    private Company mapCompany(ResultSet resultSet) throws SQLException {
-        Company company = new Company();
-        company.setId(resultSet.getLong("l.id"));
-        company.setName(resultSet.getString("l.name"));
-
-        return company;
-    }
-
     @Override
     public List<Company> findAll() throws DaoException {
-        List<Company> companies = new ArrayList<Company>();
-
-        Statement statement = null;
-        ResultSet resultSet = null;
+        List<Company> companies;
 
         try {
-            Connection connection = factory.getConnection();
-            statement = connection.createStatement();
-
-            resultSet = statement.executeQuery(FIND_ALL_QUERY);
-            while (resultSet.next()) {
-                Company company = mapCompany(resultSet);
-
-                companies.add(company);
-            }
-        } catch (SQLException e) {
+            companies = jdbcTemplate.query(FIND_ALL_QUERY, new CompanyMapper());
+        } catch (DataAccessException e) {
             throw new DaoException("Error while calling findAll()", e);
-        } finally {
-            factory.silentClosing(statement, resultSet);
         }
 
         return companies;

@@ -22,10 +22,6 @@
         </dependency>
         <dependency>
             <groupId>com.formation.projet</groupId>
-            <artifactId>computer-connection</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.formation.projet</groupId>
             <artifactId>computer-model</artifactId>
         </dependency>
         <dependency>
@@ -36,6 +32,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
     </dependencies>
 </project>

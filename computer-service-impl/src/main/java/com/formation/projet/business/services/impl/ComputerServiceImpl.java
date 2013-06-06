@@ -7,7 +7,6 @@ import com.formation.projet.business.beans.PageState;
 import com.formation.projet.business.dao.CompanyDao;
 import com.formation.projet.business.dao.ComputerDao;
 import com.formation.projet.business.services.ComputerService;
-import com.formation.projet.connection.ConnectionFactory;
 import com.formation.projet.core.exceptions.DaoException;
 import com.formation.projet.core.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ import org.springframework.stereotype.Service;
 public class ComputerServiceImpl implements ComputerService {
 
     @Autowired
-    private ConnectionFactory factory;
-
-    @Autowired
     private ComputerDao computerDao;
 
     @Autowired
@@ -33,8 +29,6 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ComputerAndCompanies findWithAllCompanies(long id) {
-        factory.openConnection();
-
         ComputerAndCompanies computerAndCompanies = new ComputerAndCompanies();
 
         try {
@@ -47,8 +41,6 @@ public class ComputerServiceImpl implements ComputerService {
             computerAndCompanies.setCompanies(companyDao.findAll());
         } catch (DaoException e) {
             throw new ServiceException("Error while calling findWithAllCompanies(long)", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return computerAndCompanies;
@@ -56,8 +48,6 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ComputersAndCount findAllAndCount(PageState pageState) {
-        factory.openConnection();
-
         ComputersAndCount computersAndCount;
         try {
             computersAndCount = new ComputersAndCount();
@@ -65,8 +55,6 @@ public class ComputerServiceImpl implements ComputerService {
             computersAndCount.setComputers(computerDao.findAll(pageState));
         } catch (DaoException e) {
             throw new ServiceException("Error while calling findAllAndCount(PageState)", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return computersAndCount;
@@ -74,14 +62,10 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public Computer create(Computer computer) {
-        factory.openConnection();
-
         try {
             computer = computerDao.create(computer);
         } catch (DaoException e) {
             throw new ServiceException("Error while calling create(Computer)", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return computer;
@@ -89,14 +73,10 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public Computer update(Computer computer) {
-        factory.openConnection();
-
         try {
             computer = computerDao.update(computer);
         } catch (DaoException e) {
             throw new ServiceException("Error while calling update(Computer)", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return computer;
@@ -104,8 +84,6 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public boolean seekAndDestroy(long id) {
-        factory.openConnection();
-
         try {
             Computer computer = computerDao.find(id);
             if (computer == null) {
@@ -115,8 +93,6 @@ public class ComputerServiceImpl implements ComputerService {
             computerDao.delete(computer);
         } catch (DaoException e) {
             throw new ServiceException("Error while calling seekAndDestroy(long)", e);
-        } finally {
-            factory.closeConnection();
         }
 
         return true;
