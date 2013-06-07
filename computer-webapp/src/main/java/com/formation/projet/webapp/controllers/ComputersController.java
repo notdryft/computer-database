@@ -13,9 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,20 +36,14 @@ public class ComputersController {
     @Autowired
     private CompanyService companyService;
 
-    private void purgeSession(HttpServletRequest request, String name) {
-        String attribute = (String) request.getSession().getAttribute(name);
-        if (attribute != null) {
-            request.getSession().removeAttribute(name);
-            request.setAttribute(name, attribute);
-        }
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public String list(
             @RequestParam(required = false) String p,
             @RequestParam(required = false) String s,
             @RequestParam(required = false) String f,
-            HttpServletRequest request, ModelMap model) {
+            HttpServletRequest request, ModelMap model,
+            @ModelAttribute("success") String success,
+            @ModelAttribute("error") String error) {
         PageState pageState = new PageState();
         pageState.setPage(PageHelper.parsePage(p));
         pageState.setSortColumn(PageHelper.parseSortColumn(s));
@@ -63,9 +57,9 @@ public class ComputersController {
         // Now that we computed everything
         model.addAttribute("state", pageState);
 
-        // Quick and dirty
-        purgeSession(request, "success");
-        purgeSession(request, "error");
+        // Flash notices
+        model.addAttribute("success", success);
+        model.addAttribute("error", error);
 
         return "/index";
     }
@@ -87,7 +81,7 @@ public class ComputersController {
     public String save(
             @ModelAttribute Computer computer,
             BindingResult result, SessionStatus status,
-            HttpSession session, ModelMap model) {
+            ModelMap model, RedirectAttributes redirectAttributes) {
         computerValidator.validate(computer, result);
 
         if (result.hasErrors()) {
@@ -101,7 +95,7 @@ public class ComputersController {
 
             status.setComplete();
 
-            session.setAttribute(
+            redirectAttributes.addFlashAttribute(
                     "success",
                     "Computer named " + computer.getName() + " has been created");
 
@@ -110,10 +104,12 @@ public class ComputersController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable Long id, HttpSession session, ModelMap model) {
+    public String edit(
+            @PathVariable Long id,
+            ModelMap model, RedirectAttributes redirectAttributes) {
         ComputerAndCompanies computerAndCompanies = computerService.findWithAllCompanies(id);
         if (computerAndCompanies == null) {
-            session.setAttribute("error", "Computer not found");
+            redirectAttributes.addFlashAttribute("error", "Computer not found");
 
             return "redirect:/computers";
         } else {
@@ -131,7 +127,7 @@ public class ComputersController {
             @RequestParam(required = false) String introduced,
             @RequestParam(required = false) String discontinued,
             @RequestParam(required = false) String company,
-            HttpSession session, ModelMap model) {
+            ModelMap model, RedirectAttributes redirectAttributes) {
         ComputerForm form = new ComputerForm();
         form.setId(id);
         form.setName(name);
@@ -148,18 +144,18 @@ public class ComputersController {
             Computer computer = form.toComputer();
             computer = computerService.update(computer);
 
-            session.setAttribute("success", "Computer with id " + computer.getId() + " has been updated");
+            redirectAttributes.addFlashAttribute("success", "Computer with id " + computer.getId() + " has been updated");
 
             return "redirect:/computers";
         }
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable Long id, HttpSession session) {
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         if (computerService.seekAndDestroy(id)) {
-            session.setAttribute("success", "Computer has been deleted");
+            redirectAttributes.addFlashAttribute("success", "Computer has been deleted");
         } else {
-            session.setAttribute("error", "Computer not found");
+            redirectAttributes.addFlashAttribute("error", "Computer not found");
         }
 
         return "redirect:/computers";
