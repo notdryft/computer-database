@@ -1,5 +1,8 @@
 package com.formation.projet.business.beans;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
 /**
@@ -8,14 +11,17 @@ import java.util.Date;
  * Date: 24/05/13
  * Time: 14:06
  */
+@Component
 public class Computer {
 
     private Long id;
 
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date introduced;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date discontinued;
 
     private Company company;

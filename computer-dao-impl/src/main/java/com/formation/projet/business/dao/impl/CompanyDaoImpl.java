@@ -23,10 +23,34 @@ public class CompanyDaoImpl implements CompanyDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static final String FIND_ALL_QUERY =
-            "SELECT l.id, l.name " +
-                    "FROM company l " +
-                    "ORDER BY l.name ASC";
+    private static final String FIND_QUERY =
+            "SELECT l.id, l.name" +
+                    " FROM company l";
+
+    private static final String FILTER_ID_CLAUSE =
+            " WHERE l.id = ?";
+
+    private static final String ORDER_BY_CLAUSE =
+            " ORDER BY l.name ASC";
+
+    @Override
+    @Transactional(readOnly = true)
+    public Company find(long id) throws DaoException {
+        List<Company> companies;
+
+        try {
+            companies = jdbcTemplate.query(FIND_QUERY + FILTER_ID_CLAUSE, new Object[]{id}, new CompanyMapper());
+        } catch (DataAccessException e) {
+            throw new DaoException("Error while calling find(long)");
+        }
+
+        // Cf. ComputerService.find(long)
+        if (companies.isEmpty()) {
+            return null;
+        }
+
+        return companies.get(0);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -34,7 +58,7 @@ public class CompanyDaoImpl implements CompanyDao {
         List<Company> companies;
 
         try {
-            companies = jdbcTemplate.query(FIND_ALL_QUERY, new CompanyMapper());
+            companies = jdbcTemplate.query(FIND_QUERY + ORDER_BY_CLAUSE, new CompanyMapper());
         } catch (DataAccessException e) {
             throw new DaoException("Error while calling findAll()", e);
         }

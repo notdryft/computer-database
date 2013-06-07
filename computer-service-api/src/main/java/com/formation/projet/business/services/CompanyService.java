@@ -12,5 +12,7 @@ import java.util.List;
  */
 public interface CompanyService {
 
+    Company find(long id);
+
     List<Company> findAll();
 }

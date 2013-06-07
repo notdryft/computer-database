@@ -24,6 +24,18 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyDao;
 
     @Override
+    public Company find(long id) {
+        Company company;
+        try {
+            company = companyDao.find(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Error while calling find(long)");
+        }
+
+        return company;
+    }
+
+    @Override
     @Transactional
     public List<Company> findAll() {
         List<Company> companies;

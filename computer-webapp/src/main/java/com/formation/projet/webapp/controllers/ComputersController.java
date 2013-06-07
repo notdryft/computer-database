@@ -1,20 +1,18 @@
 package com.formation.projet.webapp.controllers;
 
-import com.formation.projet.business.beans.Computer;
-import com.formation.projet.business.beans.ComputerAndCompanies;
-import com.formation.projet.business.beans.ComputersAndCount;
-import com.formation.projet.business.beans.PageState;
+import com.formation.projet.business.beans.*;
 import com.formation.projet.business.forms.ComputerForm;
+import com.formation.projet.business.forms.ComputerValidator;
 import com.formation.projet.business.services.CompanyService;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.core.helpers.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +29,9 @@ public class ComputersController {
 
     @Autowired
     private ComputerService computerService;
+
+    @Autowired
+    private ComputerValidator computerValidator;
 
     @Autowired
     private CompanyService companyService;
@@ -69,9 +70,14 @@ public class ComputersController {
         return "/index";
     }
 
+    @InitBinder
+    public void commeTuVeux(WebDataBinder binder) {
+        binder.registerCustomEditor(Company.class, new CompanyConverter(companyService));
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(ModelMap model) {
-        model.addAttribute("form", new ComputerForm());
+        model.addAttribute("computer", new Computer());
         model.addAttribute("companies", companyService.findAll());
 
         return "/create";
@@ -79,24 +85,21 @@ public class ComputersController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String introduced,
-            @RequestParam(required = false) String discontinued,
-            @RequestParam(required = false) String company,
+            @ModelAttribute Computer computer,
+            BindingResult result, SessionStatus status,
             HttpSession session, ModelMap model) {
-        ComputerForm form = new ComputerForm();
-        form.setName(name);
-        form.setIntroduced(introduced);
-        form.setDiscontinued(discontinued);
-        form.setCompany(company);
+        computerValidator.validate(computer, result);
 
-        if (!form.isValid()) {
-            model.addAttribute("form", form);
+        if (result.hasErrors()) {
+            model.addAttribute("computer", computer);
             model.addAttribute("companies", companyService.findAll());
+            model.addAttribute("result", result);
 
             return "/create";
         } else {
-            Computer computer = computerService.create(form.toComputer());
+            computer = computerService.create(computer);
+
+            status.setComplete();
 
             session.setAttribute(
                     "success",

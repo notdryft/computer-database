@@ -13,5 +13,7 @@ import java.util.List;
  */
 public interface CompanyDao {
 
+    Company find(long id) throws DaoException;
+
     List<Company> findAll() throws DaoException;
 }
