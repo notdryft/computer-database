@@ -3,6 +3,8 @@ package com.formation.projet.business.beans;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,8 +14,12 @@ import java.util.Date;
  * Time: 14:06
  */
 @Component
-public class Computer {
+@Entity
+@Table(name = "computer")
+public class Computer implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -24,6 +30,8 @@ public class Computer {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date discontinued;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
     public Long getId() {
