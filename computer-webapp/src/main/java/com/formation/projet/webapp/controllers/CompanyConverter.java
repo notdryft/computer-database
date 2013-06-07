@@ -2,6 +2,8 @@ package com.formation.projet.webapp.controllers;
 
 import com.formation.projet.business.beans.Company;
 import com.formation.projet.business.services.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.beans.PropertyEditorSupport;
 
@@ -11,13 +13,11 @@ import java.beans.PropertyEditorSupport;
  * Date: 07/06/13
  * Time: 11:17
  */
+@Component
 public class CompanyConverter extends PropertyEditorSupport {
 
+    @Autowired
     private CompanyService companyService;
-
-    public CompanyConverter(CompanyService companyService) {
-        this.companyService = companyService;
-    }
 
     @Override
     public String getAsText() {

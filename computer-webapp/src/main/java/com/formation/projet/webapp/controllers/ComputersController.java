@@ -36,6 +36,9 @@ public class ComputersController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private CompanyConverter companyConverter;
+
     @RequestMapping(method = RequestMethod.GET)
     public String list(
             @RequestParam(required = false) String p,
@@ -66,7 +69,7 @@ public class ComputersController {
 
     @InitBinder
     public void commeTuVeux(WebDataBinder binder) {
-        binder.registerCustomEditor(Company.class, new CompanyConverter(companyService));
+        binder.registerCustomEditor(Company.class, companyConverter);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
