@@ -19,13 +19,13 @@ public enum ConnectionFactory {
     private final Database database;
 
     private ConnectionFactory() {
+        database = Database.getInstance();
+
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(database.getDriverClassName());
         } catch (ClassNotFoundException e) {
             throw new ConnectionException("Driver not found", e);
         }
-
-        database = Database.getInstance();
     }
 
     public Connection openConnection() {
@@ -33,8 +33,8 @@ public enum ConnectionFactory {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(
-                        database.getUrl() + database.getSchema(),
-                        database.getUser(),
+                        database.getUrl(),
+                        database.getUsername(),
                         database.getPassword()
                 );
 

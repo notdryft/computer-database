@@ -15,14 +15,14 @@ public class Database {
 
     private static Database instance;
 
+    @Property("database.driverClassName")
+    private String driverClassName;
+
     @Property("database.url")
     private String url;
 
-    @Property("database.schema")
-    private String schema;
-
-    @Property("database.user")
-    private String user;
+    @Property("database.username")
+    private String username;
 
     @Property("database.password")
     private String password;
@@ -31,16 +31,16 @@ public class Database {
         // Do nothing
     }
 
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
     public String getUrl() {
         return url;
     }
 
-    public String getSchema() {
-        return schema;
-    }
-
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
