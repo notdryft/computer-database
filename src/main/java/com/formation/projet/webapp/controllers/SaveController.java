@@ -6,6 +6,7 @@ import com.formation.projet.business.services.CompanyService;
 import com.formation.projet.business.services.ComputerService;
 import com.formation.projet.business.services.impl.CompanyServiceImpl;
 import com.formation.projet.business.services.impl.ComputerServiceImpl;
+import com.formation.projet.core.properties.Routes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,12 +24,15 @@ import java.io.IOException;
 @WebServlet("/computers/save")
 public class SaveController extends HttpServlet {
 
+    private Routes routes;
+
     private ComputerService computerService;
 
     private CompanyService companyService;
 
     @Override
     public void init() throws ServletException {
+        routes = Routes.getInstance();
         computerService = ComputerServiceImpl.instance;
         companyService = CompanyServiceImpl.instance;
     }
@@ -50,12 +54,12 @@ public class SaveController extends HttpServlet {
                     "success",
                     String.format("Computer %s with has been created", computer.getName()));
 
-            response.sendRedirect("../computers");
+            response.sendRedirect(routes.getBack());
         } else {
             request.setAttribute("form", form);
             request.setAttribute("companies", companyService.findAll());
 
-            request.getRequestDispatcher("/WEB-INF/pages/create.jsp").include(request, response);
+            request.getRequestDispatcher(routes.getCreate()).include(request, response);
         }
     }
 }
