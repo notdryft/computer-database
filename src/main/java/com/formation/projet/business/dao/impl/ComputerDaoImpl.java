@@ -47,7 +47,7 @@ public enum ComputerDaoImpl implements ComputerDao {
                 computer = mapComputer(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException("Error while calling find(int)", e);
+            throw new DaoException("Error while calling find(long)", e);
         } finally {
             factory.silentClosing(statement, resultSet);
         }
